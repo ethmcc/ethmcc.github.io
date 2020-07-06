@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> On Miracle Sudoku >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta name="description" content="An exploration of a pleasing variant sudoku with Knuth's algorithm X.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?8c03408d">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section " href="../research">/research</a>
+      <a class="Nav-section " href="../cv">/cv</a>
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> On Miracle Sudoku</h1>
+    <div class="Article-meta">
+      <time datetime="2020-05-11" class="Article-date">May 11, 2020</time>
+    </div>
+
+    <section class="Article-content">
+        <p>The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2. </p>
+<p>I was introduced to this Sudoku variant (and Lee's board) by Simon Anthony of Cracking the Cryptic: <a href="https://www.youtube.com/watch?v=yKf9aUIxdb4">https://www.youtube.com/watch?v=yKf9aUIxdb4</a>.</p>
+<p>Sudoku and Chess Sudoku constraints are purely combinatorial, meaning a board with fewer than 8 given digits cannot be uniquely solvable. The consecutive constraint, however, allows for a dramatic reduction in the number of given digits. </p>
+<p>I decided to explore solutions to Miracle Sudoku by viewing them as an <em>exact cover</em> problem, solved in Python using Donald Knuth's <em>"dancing links"</em> implementation of Algorithm X. I hope to write up my implementation in a future programming post. </p>
+<h2>Rules of the game:</h2>
+<p>A Miracle Sudoku is a variant Sudoku with the following additional constraints:</p>
+<ul>
+<li>Two "Chess Sudoku" constraints: <ul>
+<li>Cells which are separated by a Chess King's move cannot contain the same digit.</li>
+<li>Cells which are separated by a Chess Knight's move cannot contain the same digit.</li>
+</ul>
+</li>
+<li>A consecutive constraint:<ul>
+<li>No two orthogonally adjacent cells may contain consecutive digits.</li>
+</ul>
+</li>
+</ul>
+<p>Any fully-filled Sudoku board can be rotated or reflected to obtain another fully-filled Sudoku board, logically equivalent to the original. It is not hard to see that each fully-filled Miracle Sudoku board corresponds to a full set of 8 distinct equivalent versions of itself via such dihedral symmetries. </p>
+<p>In a variant Sudoku with a purely combinatorial ruleset, any of the 9!=326,880 permutations of the label set preserves the ruleset, but there is only one permutation of the labels on a Miracle Sudoku which will preserves the adjacency constraint: inverting the labels of the digits 1 through 9 (relabelling each 9 as a 1, 8 as a 2, etc). </p>
+<h2>Theorems:</h2>
+<ul>
+<li>There are exactly 72 fully-filled Miracle Sudoku boards.<ul>
+<li>There are a total of 72/8 = 9 essentially unique fully-filled Miracle Sudoku boards up to rotations and mirroring, one for each choice of the center digit as 1 through 9.</li>
+<li>Including both mirroring and inverting the labels 1 through 9, there are only 5 essentially unique fully-filled Miracle Sudoku boards, one for each choice of the center digit as 1 through 5. </li>
+</ul>
+</li>
+<li>Any fully-filled Miracle Sudoku board can be obtained as the unique solution to a Miracle Sudoku puzzle with only two givens. <ul>
+<li>There is no uniquely-solvable Miracle Sudoku puzzle with only one given.</li>
+<li>In fact, the givens in any uniquely solvable Miracle Sudoku puzzle must bear at least two distinct numerals (in distinct rows and columns).</li>
+</ul>
+</li>
+<li>There are 174,816 ways to set two givens such that the resulting Miracle Sudoku puzzle is uniquely solvable. <ul>
+<li>This gives 174,816/8 = 21,852 essentially unique Miracle Sudoku puzzles bearing two givens (although many of these will quickly converge on each other when solving).</li>
+<li>A random choice of two distinct givens will result in a valid, uniquely solvable Miracle Sudoku puzzle just under 75% of the time. </li>
+</ul>
+</li>
+<li>A table of the 5 essentially unique Miracle Sudoku solutions is presented below, along with a table of all the full 72.</li>
+</ul>
+<h2>Table of Miracle Sudoku boards</h2>
+<p>I've included a table below of the five essentially-unique Miracle Sudoku boards up to dihedral symmetries and relabeling. You can spot some remarkable symetries in the layout of digits.</p>
+<details>
+<summary>Click to expand ... </summary>
+
+<div class="highlight"><pre><span></span><code>---
+627384951
+384951627
+951627384
+273849516
+849516273
+516273849
+738495162
+495162738
+162738495
+---
+738495162
+495162738
+162738495
+384951627
+951627384
+627384951
+849516273
+516273849
+273849516
+---
+714258693
+258693147
+693147582
+147582936
+582936471
+936471825
+471825369
+825369714
+369714258
+---
+951627384
+627384951
+384951627
+516273849
+273849516
+849516273
+162738495
+738495162
+495162738
+---
+948372615
+372615948
+615948372
+483726159
+726159483
+159483726
+837261594
+261594837
+594837261
+</code></pre></div>
+
+
+</details>
+
+<p>Here are a couple constructed Miracle Sudoku puzzles: </p>
+<details>
+<summary>Click to expand ... </summary>
+
+<div class="highlight"><pre><span></span><code>---
+4........
+.........
+.........
+.........
+.........
+.........
+.........
+..1......
+.........
+---
+.........
+.........
+..5......
+.........
+.........
+.........
+1........
+.........
+.........
+</code></pre></div>
+
+
+</details>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="../tag/sudoku.html">sudoku</a>
+      <a href="../tag/exact-cover.html">exact cover</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="../theme/webassets-external/aa0d705803a571fab1b5ccd2234ec19b_progress.js"></script>
+  </body>
+</html>
