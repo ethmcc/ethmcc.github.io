@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="http://ethmcc.github.io/" rel="alternate"></link><link href="http://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"></link><id>http://ethmcc.github.io/</id><updated>2020-05-11T00:00:00-04:00</updated><entry><title>On Miracle Sudoku</title><link href="http://ethmcc.github.io/on-miracle-sudoku" rel="alternate"></link><published>2020-05-11T00:00:00-04:00</published><updated>2020-05-11T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-11:/on-miracle-sudoku</id><summary type="html">&lt;p&gt;The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2. &lt;/p&gt;
-&lt;p&gt;I was introduced to this Sudoku variant (and Lee's board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Sudoku and Chess Sudoku …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2. &lt;/p&gt;
-&lt;p&gt;I was introduced to this Sudoku variant (and Lee's board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Sudoku and Chess …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2. &lt;/p&gt;
+&lt;p&gt;I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Sudoku and Chess Sudoku constraints are purely combinatorial, meaning a board with fewer than 8 given digits cannot be uniquely solvable. The consecutive constraint, however, allows for a dramatic reduction in the number of given digits. &lt;/p&gt;
-&lt;p&gt;I decided to explore solutions to Miracle Sudoku by viewing them as an &lt;em&gt;exact cover&lt;/em&gt; problem, solved in Python using Donald Knuth's &lt;em&gt;"dancing links"&lt;/em&gt; implementation of Algorithm X. I hope to write up my implementation in a future programming post. &lt;/p&gt;
+&lt;p&gt;I decided to explore solutions to Miracle Sudoku by viewing them as an &lt;em&gt;exact cover&lt;/em&gt; problem, solved in Python using Donald Knuth’s &lt;em&gt;“dancing links”&lt;/em&gt; implementation of Algorithm X. I hope to write up my implementation in a future programming post. &lt;/p&gt;
 &lt;h2&gt;Rules of the game:&lt;/h2&gt;
 &lt;p&gt;A Miracle Sudoku is a variant Sudoku with the following additional constraints:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Two "Chess Sudoku" constraints: &lt;ul&gt;
-&lt;li&gt;Cells which are separated by a Chess King's move cannot contain the same digit.&lt;/li&gt;
-&lt;li&gt;Cells which are separated by a Chess Knight's move cannot contain the same digit.&lt;/li&gt;
+&lt;li&gt;Two “Chess Sudoku” constraints: &lt;ul&gt;
+&lt;li&gt;Cells which are separated by a Chess King’s move cannot contain the same digit.&lt;/li&gt;
+&lt;li&gt;Cells which are separated by a Chess Knight’s move cannot contain the same digit.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;A consecutive constraint:&lt;ul&gt;
@@ -40,7 +40,7 @@
 &lt;li&gt;A table of the 5 essentially unique Miracle Sudoku solutions is presented below, along with a table of all the full 72.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Table of Miracle Sudoku boards&lt;/h2&gt;
-&lt;p&gt;I've included a table below of the five essentially-unique Miracle Sudoku boards up to dihedral symmetries and relabeling. You can spot some remarkable symetries in the layout of digits.&lt;/p&gt;
+&lt;p&gt;I’ve included a table below of the five essentially-unique Miracle Sudoku boards up to dihedral symmetries and relabeling. You can spot some remarkable symetries in the layout of digits.&lt;/p&gt;
 &lt;details&gt;
 &lt;summary&gt;Click to expand ... &lt;/summary&gt;
 
