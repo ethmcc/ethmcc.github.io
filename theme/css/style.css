@@ -60,15 +60,6 @@
 
 /* Custom media queries */
 
-/* Dark mode support (experimental) */
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: rgb(13, 13, 14);
-    color: rgb(223, 223, 223);
-  }
-}
-
 /* Use em for media queries: https://zellwk.com/blog/media-query-units/ */
 @custom-media --break-md (width >= 35.5em);
 @custom-media --break-lg (width >= 48em);
