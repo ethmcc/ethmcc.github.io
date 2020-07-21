@@ -60,8 +60,8 @@
 .highlight .vi { color: #008080 } /* Name.Variable.Instance */
 .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
 
-/* Variables */
 :root {
+  /* Variables */
 
   /* Type scale ratio on smaller screens */ /* Minor third */
 
@@ -87,8 +87,8 @@ html {
   -webkit-font-feature-settings: "onum", "kern", common-ligatures contextual;
           font-feature-settings: "onum", "kern", common-ligatures contextual;
   font-variant-numeric: oldstyle-nums;
-  line-height: 1.2;
-  font-family: Palatino, Garamond, Times, Georgia, serif;
+  line-height: 1.6;
+  font-family: "Palatino", Georgia, Garamond, Times, serif;
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -104,6 +104,7 @@ html {
 }
 
 @media (min-width: 35.5em) {
+
   html {
     font-size: 112.5%;
   }
@@ -172,7 +173,7 @@ a:hover {
 pre,
 code,
 tt {
-  font-family: Consolas, "Liberation Mono", Menlo, "Courier New", Courier,
+  font-family: "Consolas", "Liberation Mono", "Menlo", "Courier New", Courier,
     monospace;
   font-size: 0.9em;
   overflow: auto;
@@ -190,49 +191,6 @@ pre {
   padding: 0.5em;
   overflow: auto;
   background-color: #f9f9f9;
-}
-
-/* body */
-body {
-  line-height: 1.6;
-  font-family: Georgia, serif;
-}
-
-/* horizontal rules */
-hr {
-  border: none;
-  border-top: thin solid #ccc;
-}
-
-/* tables */
-table {
-  border-top: double black;
-  border-bottom: thin solid black;
-  border-spacing: 0;
-  margin: 0 auto;
-}
-
-th {
-  border-bottom: thin solid black;
-}
-
-td {
-  padding: 0 0.5em;
-}
-
-/* definition lists */
-dd {
-  margin-left: 1.5em;
-}
-
-/* footnotes */
-a.noteref {
-  font-size: 0.7333em;
-  vertical-align: super;
-}
-
-#notes > li > p {
-  display: inline;
 }
 
 /* links */
@@ -258,7 +216,7 @@ div.image {
 }
 
 div.image img {
-  border: thin solid #ccc;
+  border: thin solid #f9f9f9;
   padding: 2px;
 }
 
@@ -287,7 +245,7 @@ div.image p strong {
   background-color: white;
   padding: 5px;
   left: -1000px;
-  border: 1px dashed gray;
+  border: 1px dashed #ccc;
   visibility: hidden;
   color: black;
   text-decoration: none;
@@ -319,95 +277,6 @@ div.image p strong {
   }
 }
 
-/* error pages */
-.error .icon {
-  float: left;
-  font-size: 4em;
-  line-height: 1em;
-  margin-right: 0.2em;
-}
-
-/* math */
-merror {
-  display: inline;
-  font-size: 1em;
-}
-
-math[display=block] {
-  overflow: auto;
-  margin: 0.75em 0;
-}
-
-math {
-  white-space: nowrap;
-}
-
-.numberedEq span {
-  float: right;
-}
-
-/* meta content */
-.meta {
-  font-family: sans;
-  font-size: 0.875em;
-}
-
-.meta,
-.meta a:link,
-.meta a:visited {
-  color: #888;
-}
-
-h1 + div.dateline {
-  margin-top: -1.25em;
-  text-transform: uppercase;
-}
-
-#mathml-notice {
-  float: right;
-  width: 11em;
-  border: thin solid #ccc;
-  margin-left: 1.0em;
-  font-size: 0.8em;
-  padding: 0.5em;
-}
-
-#mathml-notice img {
-  float: left;
-  margin: 0;
-  padding: 0;
-  margin-right: 0.5em;
-}
-
-/* code */
-code .selector,
-code .difflines,
-code .function,
-code .bold,
-code .keyword {
-  font-weight: bold;
-}
-
-code .comment,
-code .preproc,
-code .italics,
-code .value {
-  font-style: italic;
-}
-
-code .string,
-code .regexp,
-code .character,
-code .number {
-  color: #444;
-}
-
-code .math,
-code .comment,
-code .preproc {
-  color: #666;
-}
-
 /* We use some features that pygments doesn't support,
  * such as custom properties. This is a workaround.
  * */
@@ -434,7 +303,7 @@ dd {
 /* Blockquotes */
 
 blockquote {
-  font-family: Palatino, Garamond, Times, Georgia, serif;
+  font-family: "Palatino", Georgia, Garamond, Times, serif;
   background: #f9f9f9;
   border-left: 10px solid #ccc;
   margin: 1.5em 0;
@@ -545,6 +414,7 @@ figcaption {
 }
 
 @media (min-width: 48em) {
+
   .u-2-col-list li span {
     padding: 0 0 0 13.5em;
   }
@@ -581,6 +451,7 @@ figcaption {
 }
 
 @media (min-width: 48em) {
+
   .Site-footer {
     margin-top: 2.82715em;
   }
@@ -607,6 +478,7 @@ figcaption {
           justify-content: center;
 }
 @media (min-width: 35.5em) {
+
   .Nav {
     padding-top: 2em;
   }
@@ -625,12 +497,14 @@ figcaption {
 }
 
 @media (min-width: 28em) {
+
   .Nav-home a {
     font-size: 1.3em;
   }
 }
 
-.Nav-home a {/* reduce effect of FOUC */
+.Nav-home a {
+  /* reduce effect of FOUC */
 }
 
 .wf-loading .Nav-home a {
@@ -650,6 +524,7 @@ figcaption {
 }
 
 @media (min-width: 35.5em) {
+
   .Nav-sections {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
@@ -661,7 +536,8 @@ figcaption {
   font-family:  Georgia, serif;
   font-weight: lighter;
   text-decoration: none;
-  padding: 0 15px;/* reduce effect of FOUC */
+  padding: 0 15px;
+  /* reduce effect of FOUC */
 }
 
 .wf-loading .Nav-sections .Nav-section {
@@ -732,6 +608,7 @@ figcaption {
 }
 
 @media (min-height: 56.25em) {
+
   .Site-content {
     -webkit-box-flex: 0.5;
         -ms-flex: 0.5 0 auto;
@@ -744,13 +621,14 @@ figcaption {
 }
 
 @media (min-width: 48em) {
+
   .Page {
     padding-top: 2.82715em;
   }
 }
 
 .Page--landing {
-  font-family: Palatino, Garamond, Times, Georgia, serif
+  font-family: "Palatino", Georgia, Garamond, Times, serif
 
   /* reduce effect of FOUC */
 }
@@ -785,13 +663,14 @@ figcaption {
 }
 
 @media (min-width: 48em) {
+
   .Article-content > p:first-child {
     font-size: 1.3em;
   }
 }
 
 .Article-date {
-  font-family: Palatino, Garamond, Times, Georgia, serif;
+  font-family: "Palatino", Georgia, Garamond, Times, serif;
   color: #777;
   font-size: 0.875em;
 }
@@ -841,12 +720,12 @@ figcaption {
 
 .Entry .Entry-title a {
   text-decoration: none;
-  font-family: Palatino, Garamond, Times, Georgia, serif;
+  font-family: "Palatino", Georgia, Garamond, Times, serif;
   font-weight: normal;
 }
 
 .Entry-detail {
-  font: Palatino, Garamond, Times, Georgia, serif;
+  font: "Palatino", Georgia, Garamond, Times, serif;
   margin-left: 140px;
 }
 
@@ -857,17 +736,18 @@ figcaption {
   width: 120px;
   color: #777;
   text-align: right;
-  font-family: Palatino, Garamond, Times, Georgia, serif;
+  font-family: "Palatino", Georgia, Garamond, Times, serif;
   font-size: 0.875em;
 }
 
 .Entry-description {
   font-size: 1em;
-  font-family: Palatino, Garamond, Times, Georgia, serif;
+  font-family: "Palatino", Georgia, Garamond, Times, serif;
   font-weight: normal;
 }
 
 @media (min-width: 48em) {
+
   .Entry-description {
     font-size: 0.9em;
   }

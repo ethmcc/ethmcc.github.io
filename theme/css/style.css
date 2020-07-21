@@ -1,14 +1,15 @@
-/* Variables */
 :root {
+  /* Variables */
   --fontColor: #111;
+  --backgroundColor: white;
   --fontSansSerif: "Lato", "Helvetica Neue", sans-serif;
-  --fontSerif: Palatino, Garamond, Times, Georgia, serif;
+  --fontSerif: "Palatino", Georgia, Garamond, Times, serif;
   --fontWeightLight: lighter;
   --fontWeightMed: normal;
   --fontWeightHeavy: bold;
-  --fontMonospace: Consolas, "Liberation Mono", Menlo, "Courier New", Courier,
+  --fontMonospace: "Consolas", "Liberation Mono", "Menlo", "Courier New", Courier,
     monospace;
-  --lineHeight: 1.2;
+  --lineHeight: 1.6;
 
   /* Type scale ratio on smaller screens */
   --ratioSm: 1.2; /* Minor third */
@@ -165,49 +166,6 @@ pre {
   background-color: var(--grayHighlight);
 }
 
-/* body */
-body {
-  line-height: 1.6;
-  font-family: Georgia, serif;
-}
-
-/* horizontal rules */
-hr {
-  border: none;
-  border-top: thin solid #ccc;
-}
-
-/* tables */
-table {
-  border-top: double black;
-  border-bottom: thin solid black;
-  border-spacing: 0;
-  margin: 0 auto;
-}
-
-th {
-  border-bottom: thin solid black;
-}
-
-td {
-  padding: 0 0.5em;
-}
-
-/* definition lists */
-dd {
-  margin-left: 1.5em;
-}
-
-/* footnotes */
-a.noteref {
-  font-size: 0.7333em;
-  vertical-align: super;
-}
-
-#notes > li > p {
-  display: inline;
-}
-
 /* links */
 a[rel="external"] {
 	background:url(/external.png) 99% 40% no-repeat;
@@ -231,7 +189,7 @@ div.image {
 }
 
 div.image img {
-  border: thin solid #ccc;
+  border: thin solid var(--grayHighlight);
   padding: 2px;
 }
 
@@ -257,10 +215,10 @@ div.image p strong {
   
   .popout span{ /*style for image*/
   position: absolute;
-  background-color: white;
+  background-color: var(--backgroundColor);
   padding: 5px;
   left: -1000px;
-  border: 1px dashed gray;
+  border: 1px dashed var(--gray);
   visibility: hidden;
   color: black;
   text-decoration: none;
@@ -290,95 +248,6 @@ div.image p strong {
   .showonmobile {
     display: none;
   }
-}
-
-/* error pages */
-.error .icon {
-  float: left;
-  font-size: 4em;
-  line-height: 1em;
-  margin-right: 0.2em;
-}
-
-/* math */
-merror {
-  display: inline;
-  font-size: 1em;
-}
-
-math[display=block] {
-  overflow: auto;
-  margin: 0.75em 0;
-}
-
-math {
-  white-space: nowrap;
-}
-
-.numberedEq span {
-  float: right;
-}
-
-/* meta content */
-.meta {
-  font-family: sans;
-  font-size: 0.875em;
-}
-
-.meta,
-.meta a:link,
-.meta a:visited {
-  color: #888;
-}
-
-h1 + div.dateline {
-  margin-top: -1.25em;
-  text-transform: uppercase;
-}
-
-#mathml-notice {
-  float: right;
-  width: 11em;
-  border: thin solid #ccc;
-  margin-left: 1.0em;
-  font-size: 0.8em;
-  padding: 0.5em;
-}
-
-#mathml-notice img {
-  float: left;
-  margin: 0;
-  padding: 0;
-  margin-right: 0.5em;
-}
-
-/* code */
-code .selector,
-code .difflines,
-code .function,
-code .bold,
-code .keyword {
-  font-weight: bold;
-}
-
-code .comment,
-code .preproc,
-code .italics,
-code .value {
-  font-style: italic;
-}
-
-code .string,
-code .regexp,
-code .character,
-code .number {
-  color: #444;
-}
-
-code .math,
-code .comment,
-code .preproc {
-  color: #666;
 }
 
 /* We use some features that pygments doesn't support,
