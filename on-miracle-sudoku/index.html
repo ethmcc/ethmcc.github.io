@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.85">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?6803847c">
+    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?3c7b4f2e">
   </head>
   
   <body class="Site">
@@ -35,42 +35,32 @@
     </div>
 
     <section class="Article-content">
-        <p>The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2. </p>
+        <p>The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2.</p>
 <p>I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: <a href="https://www.youtube.com/watch?v=yKf9aUIxdb4">https://www.youtube.com/watch?v=yKf9aUIxdb4</a>.</p>
-<p>Sudoku and Chess Sudoku constraints are purely combinatorial, meaning a board with fewer than 8 given digits cannot be uniquely solvable. The consecutive constraint, however, allows for a dramatic reduction in the number of given digits. </p>
-<p>I decided to explore solutions to Miracle Sudoku by viewing them as an <em>exact cover</em> problem, solved in Python using Donald Knuth’s <em>“dancing links”</em> implementation of Algorithm X. I hope to write up my implementation in a future programming post. </p>
+<p>Sudoku and Chess Sudoku constraints are purely combinatorial, meaning a board with fewer than 8 given digits cannot be uniquely solvable. The consecutive constraint, however, allows for a dramatic reduction in the number of given digits.</p>
+<p>I decided to explore solutions to Miracle Sudoku by viewing them as an <em>exact cover</em> problem, solved in Python using Donald Knuth’s <em>“dancing links”</em> implementation of Algorithm X. I hope to write up my implementation in a future programming post.</p>
 <h2>Rules of the game:</h2>
 <p>A Miracle Sudoku is a variant Sudoku with the following additional constraints:</p>
 <ul>
-<li>Two “Chess Sudoku” constraints: <ul>
+<li>Two “Chess Sudoku” constraints:</li>
 <li>Cells which are separated by a Chess King’s move cannot contain the same digit.</li>
 <li>Cells which are separated by a Chess Knight’s move cannot contain the same digit.</li>
-</ul>
-</li>
-<li>A consecutive constraint:<ul>
+<li>A consecutive constraint:</li>
 <li>No two orthogonally adjacent cells may contain consecutive digits.</li>
 </ul>
-</li>
-</ul>
-<p>Any fully-filled Sudoku board can be rotated or reflected to obtain another fully-filled Sudoku board, logically equivalent to the original. It is not hard to see that each fully-filled Miracle Sudoku board corresponds to a full set of 8 distinct equivalent versions of itself via such dihedral symmetries. </p>
-<p>In a variant Sudoku with a purely combinatorial ruleset, any of the 9!=326,880 permutations of the label set preserves the ruleset, but there is only one permutation of the labels on a Miracle Sudoku which will preserves the adjacency constraint: inverting the labels of the digits 1 through 9 (relabelling each 9 as a 1, 8 as a 2, etc). </p>
+<p>Any fully-filled Sudoku board can be rotated or reflected to obtain another fully-filled Sudoku board, logically equivalent to the original. It is not hard to see that each fully-filled Miracle Sudoku board corresponds to a full set of 8 distinct equivalent versions of itself via such dihedral symmetries.</p>
+<p>In a variant Sudoku with a purely combinatorial ruleset, any of the 9!=326,880 permutations of the label set preserves the ruleset, but there is only one permutation of the labels on a Miracle Sudoku which will preserves the adjacency constraint: inverting the labels of the digits 1 through 9 (relabelling each 9 as a 1, 8 as a 2, etc).</p>
 <h2>Theorems:</h2>
 <ul>
-<li>There are exactly 72 fully-filled Miracle Sudoku boards.<ul>
+<li>There are exactly 72 fully-filled Miracle Sudoku boards.</li>
 <li>There are a total of 72/8 = 9 essentially unique fully-filled Miracle Sudoku boards up to rotations and mirroring, one for each choice of the center digit as 1 through 9.</li>
-<li>Including both mirroring and inverting the labels 1 through 9, there are only 5 essentially unique fully-filled Miracle Sudoku boards, one for each choice of the center digit as 1 through 5. </li>
-</ul>
-</li>
-<li>Any fully-filled Miracle Sudoku board can be obtained as the unique solution to a Miracle Sudoku puzzle with only two givens. <ul>
+<li>Including both mirroring and inverting the labels 1 through 9, there are only 5 essentially unique fully-filled Miracle Sudoku boards, one for each choice of the center digit as 1 through 5.</li>
+<li>Any fully-filled Miracle Sudoku board can be obtained as the unique solution to a Miracle Sudoku puzzle with only two givens.</li>
 <li>There is no uniquely-solvable Miracle Sudoku puzzle with only one given.</li>
 <li>In fact, the givens in any uniquely solvable Miracle Sudoku puzzle must bear at least two distinct numerals (in distinct rows and columns).</li>
-</ul>
-</li>
-<li>There are 174,816 ways to set two givens such that the resulting Miracle Sudoku puzzle is uniquely solvable. <ul>
+<li>There are 174,816 ways to set two givens such that the resulting Miracle Sudoku puzzle is uniquely solvable.</li>
 <li>This gives 174,816/8 = 21,852 essentially unique Miracle Sudoku puzzles bearing two givens (although many of these will quickly converge on each other when solving).</li>
-<li>A random choice of two distinct givens will result in a valid, uniquely solvable Miracle Sudoku puzzle just under 75% of the time. </li>
-</ul>
-</li>
+<li>A random choice of two distinct givens will result in a valid, uniquely solvable Miracle Sudoku puzzle just under 75% of the time.</li>
 <li>A table of the 5 essentially unique Miracle Sudoku solutions is presented below, along with a table of all the full 72.</li>
 </ul>
 <h2>Table of Miracle Sudoku boards</h2>
@@ -131,9 +121,10 @@
 </code></pre></div>
 
 
+
 </details>
 
-<p>Here are a couple constructed Miracle Sudoku puzzles: </p>
+<p>Here are a couple constructed Miracle Sudoku puzzles:</p>
 <details>
 <summary>Click to expand ... </summary>
 
@@ -158,6 +149,7 @@
 .........
 .........
 </code></pre></div>
+
 
 
 </details>

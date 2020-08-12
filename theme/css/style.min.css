@@ -233,6 +233,7 @@ div.image p strong {
 .popout{
   position: relative;
   z-index: 0;
+  cursor: pointer;
   }
   
   .popout:hover{
