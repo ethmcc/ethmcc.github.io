@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> A JavaScript Quine, and the recursion theorem >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta name="description" content="A very aesthetically pleasing ECMAScript 6 Quine, and an upsetting proof of Kleene's fixed-point theorem.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?3c7b4f2e">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="https://ethmcc.github.io">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section " href="https://ethmcc.github.io/research">/research</a>
+      <a class="Nav-section " href="https://ethmcc.github.io/cv">/cv</a>
+      <a class="Nav-section Nav-section--active" href="https://ethmcc.github.io/archives">/posts</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> A JavaScript Quine, and the recursion theorem</h1>
+    <div class="Article-meta">
+      <time datetime="2020-08-20" class="Article-date">Aug 20, 2020</time>
+    </div>
+
+    <section class="Article-content">
+        <p>I saw the following JavaScript quine (<em>modern</em> JavaScript: ES6 and up) presented in <a href="https://youtu.be/6avJHaC3C2U?t=1802">Dylan Beatie's talk at NDC London 2020</a>: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="o">=</span><span class="nx">_</span><span class="p">=&gt;</span><span class="sb">`$=</span><span class="si">${</span><span class="nx">$</span><span class="si">}</span><span class="sb">;$()`</span><span class="p">;</span><span class="nx">$</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>The same approach can be rendered with a few more parentheses as an <a href="https://duckduckgo.com/?q=!ducky+IIFE">IIFE</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nx">$</span><span class="o">=</span><span class="p">()=&gt;</span><span class="sb">`($=</span><span class="si">${</span><span class="nx">$</span><span class="si">}</span><span class="sb">)()`</span><span class="p">)()</span>
+</code></pre></div>
+
+
+<p>Either way, although this quine is brilliantly short, it's actually fairly easily parseable at sight. The only genuine bit of obfuscation is that <code>$</code> is being used as a variable name. You might reasonably assume this is a trick to get the variable name to match up with the template literal string (the sort of thing that does actually happen frequently with quines), but here it doesn't actually serve any purpose apart from obfuscation. We could use another variable name and we'd still have a quine just the same:</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nx">func</span><span class="o">=</span><span class="p">()=&gt;</span><span class="sb">`(func=</span><span class="si">${</span><span class="nx">func</span><span class="si">}</span><span class="sb">)()`</span><span class="p">)()</span>
+</code></pre></div>
+
+
+<p>Pop open a console in your web browser and try it out. </p>
+<p>We can parse it by hand a bit more clearly if we look first at this bit of code:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">func</span><span class="o">=</span><span class="nx">_</span><span class="p">=&gt;</span><span class="sb">`func=</span><span class="si">${</span><span class="nx">X</span><span class="si">}</span><span class="sb">;func();`</span><span class="p">;</span><span class="nx">func</span><span class="p">();</span>
+</code></pre></div>
+
+
+<p>If <code>X</code> were a defined expression in our source code, this would be valid JavaScript code. The first statement (terminated by the semi-colon) assigns an arrow function to the variable name <code>func</code>. The second statement executes the function we just stored in <code>func</code>. </p>
+<p>The arrow function itself ignores its input and just returns what looks like a JavaScript assignment from a template placeholder to the variable named <code>func</code>, followed by an execution statement. </p>
+<p>Plugging in <code>func</code> itself: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">func</span><span class="o">=</span><span class="nx">_</span><span class="p">=&gt;</span><span class="sb">`func=</span><span class="si">${</span><span class="nx">func</span><span class="si">}</span><span class="sb">;func();`</span><span class="p">;</span><span class="nx">func</span><span class="p">();</span>
+</code></pre></div>
+
+
+<p>Now we have a fully valid piece of JavaScript code. The thing that makes this quine actually work, and makes the JavaScript language almost a cheating language for writing quines in, is JavaScript's <code>Function.prototype.toString()</code> method, described <a href="https://tc39.es/ecma262/#sec-function.prototype.tostring">here in the ECMAScript 262 specification</a>:</p>
+<blockquote>
+<p>If <code>Type(func)</code> is <code>Object</code> and <code>func</code> has a <code>SourceText</code> internal slot and <code>func</code> <code>SourceText</code> is a sequence of Unicode code points and <code>! HostHasSourceTextAvailable(func)</code> is <code>true</code>, then
+Return <code>! UTF16Encode(func.[[SourceText]])</code>.</p>
+</blockquote>
+<p>In other words, when we load our arrow expression into the variable <code>func</code>, the <code>Function</code> constructor gets called and remembers the source-code within the <code>SourceText</code> internal slot of the <code>new</code> <code>Function</code> object constructed. Then that source code just gets printed out when we call the <code>toString</code> method on the function or, in this case, when the template literal's placeholder calls the <code>toString()</code> method implicitly. </p>
+<hr>
+<p>However, this "cheating" makes JavaScript a perfect example language for proving Kleene's Recursion Theorem. Let's first look at the formal statement of the recursion theorem:</p>
+<blockquote>
+<p>Let <span class="math">\(f:\omega\rightarrow\omega\)</span> be computable. There is an index <span class="math">\(e\in\omega\)</span> such that <span class="math">\(\varphi_e=\varphi_{f(e)}\)</span>. </p>
+</blockquote>
+<p>Now let's suppose we take JavaScript functions as our model of computation (which assumes we've looked after some pesky details, like that we've implemented some suitable class to handle arbitrarily large integer inputs, JavaScript's memory bound of <span class="math">\(2^{32}\)</span> notwithstanding our imagination). </p>
+<p>How is our indexing of partial-computable functions defined? To obtain the <span class="math">\(e'th\)</span> partial-computable function <span class="math">\(\varphi_e\)</span>, render <span class="math">\(e\)</span> in base <span class="math">\(1,112,064\)</span>, interpret it as a UTF-16 string, and run it as JavaScript source through a JavaScript interpreter. (There are a number of reasonable ways to define input and output here, or for a cleaner take, we could abstract away input-ouput and view the <span class="math">\(e'th\)</span> program as representing the <span class="math">\(e'th\)</span> computably-enumerable set.)</p>
+<p>Since JavaScript has a <code>.toString()</code> method built into its functions, finding fixed points is easy: given a total computable function <span class="math">\(f\)</span>, let <code>source</code> be some source code fed into our algorithm (however we've decided to handle input), compute <span class="math">\(f(f.toString())\)</span> and execute it like so: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">source</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">source</span> <span class="p">}</span>
+<span class="nx">f</span><span class="o">=</span><span class="nb">eval</span><span class="p">(</span><span class="nx">$</span><span class="p">{</span><span class="nx">source</span><span class="p">});</span>
+<span class="nx">f</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">toString</span><span class="p">())();</span>
+</code></pre></div>
+
+
+<p>Interpret this source code as the UTF-16 string <code>f=${_e}$;\n f(f.toString())();</code> representing a number <span class="math">\(e\)</span> in base <span class="math">\(1,112,064\)</span>. Then by definition <span class="math">\(\varphi_e=\varphi_{f(e)}\)</span>. </p>
+<hr>
+<p>Of course, if you don't want to ordain JavaScript as our distinguished model of computation, you might complain about this proof: JavaScript after all is just cheating by storing the source code of our functions. But in fact, if we can prove Kleene's recursion theorem for JavaScript, then any othe language or computation model will follow by a simple lifting argument, assuming either model can simulate computations in the other. </p>
+<p>The essence of this argument is a pattern of mind-bending reasoning that comes up frequently in computability theory: because the recursion theorem <em>might as well hold</em>, it in fact <em>must hold</em>. But those details are for another post. </p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="https://ethmcc.github.io/tag/javascript.html">javascript</a>
+      <a href="https://ethmcc.github.io/tag/programming.html">programming</a>
+      <a href="https://ethmcc.github.io/tag/mathematics.html">mathematics</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="https://ethmcc.github.io/theme/webassets-external/aa0d705803a571fab1b5ccd2234ec19b_progress.js"></script>
+  </body>
+</html>

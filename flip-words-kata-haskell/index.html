@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> Flipping words in Haskell >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta name="description" content="A Code Kata involving a couple of Monads.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?3c7b4f2e">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="https://ethmcc.github.io">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section " href="https://ethmcc.github.io/research">/research</a>
+      <a class="Nav-section " href="https://ethmcc.github.io/cv">/cv</a>
+      <a class="Nav-section Nav-section--active" href="https://ethmcc.github.io/archives">/posts</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> Flipping words in Haskell</h1>
+    <div class="Article-meta">
+      <time datetime="2020-07-30" class="Article-date">Jul 30, 2020</time>
+    </div>
+
+    <section class="Article-content">
+        <p>The following was a very simple programming kata I ran through in Haskell and had fun with. It lends itself to a very natural solution with Monads.</p>
+<p>I didn't see any other submission that took a monadic approach to this problem at all, so I thought I'd share. Here's the problem:</p>
+<blockquote>
+<p>Write a function which takes a string as input, e.g. "hello, this is a sentence", and then outputs another string where each word (space delimited) longer than 5 characters is reversed. So for our example input, the output should be: ",olleh this is a ecnetnes".</p>
+</blockquote>
+<p>In a procedural language, especially ones with excellent support for string manipulation like Python or Javascript, the most obvious approach is to split up the input string into words by splitting along <code>" "</code>, then walk through that list of words with a loop, with an if-block checking if the length of the word is long enough and then reversing it.</p>
+<p>Of course, Haskell has enough syntactic sugar to do a list comprehension, or we could <code>words</code> our string and then walk through it with a <code>foldl</code> (or for perfomance's sake probably a <code>foldr</code> would be superior), concatenating at each step of the fold with either the next string or the reverse of the next string depending on your Boolean value. In the end, this solution would look a lot like a solution written in Python or Javascript, and it's the approach I saw taken in every other submission on the kata.</p>
+<p>However, the best code in Haskell, in my opinion, doesn't just devolve back into simulating for loops and if blocks. Haskell reads cleanest when it starts with very simple functions, and then combines those functions in standard ways to build up bigger functions.</p>
+<h3>The thing about this style of programming is that the minute you start doing it, you immediately run into Monads.</h3>
+<p>Alright, let's get started. I'll be working in the interactive environment:</p>
+<div class="highlight"><pre><span></span><code>$ ghci
+GHCi, version <span class="m">8</span>.8.4: https://www.haskell.org/ghc/  :? <span class="k">for</span> <span class="nb">help</span>
+Loaded package environment from ~/.ghc/x86_64-darwin-8.8.4/environments/default
+Prelude&gt;
+</code></pre></div>
+
+
+<p>The whole time, I'll be using ghci to check type annotations of expressions we write, using the <code>:type</code> command. Looking at how GHC interprets our type annotations will actually drive a lot of our coding: we're practicing <em>type driven development</em>, perhaps? </p>
+<p>We only really need two basic functions here. We could probably do with less, but to keep it super clear, let's write two: <code>condRev</code>, which either reverses or doesn't reverse a string, depending on a Boolean parameter, and <code>isLong</code>, which takes an <code>Int</code> and a <code>String</code> and let's us know whether the string is longer than the int.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span><span class="o">&gt;</span> <span class="n">condRev</span> <span class="ow">=</span> <span class="nf">\</span><span class="n">b</span> <span class="n">s</span> <span class="ow">-&gt;</span> <span class="kr">if</span> <span class="n">b</span> <span class="kr">then</span> <span class="n">reverse</span> <span class="n">s</span> <span class="kr">else</span> <span class="n">s</span>
+<span class="kt">Prelude</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">condRev</span>
+<span class="nf">condRev</span> <span class="ow">::</span> <span class="kt">Bool</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+
+<span class="kt">Prelude</span><span class="o">&gt;</span> <span class="n">isLong</span> <span class="ow">=</span> <span class="n">flip</span> <span class="p">((</span><span class="o">&gt;=</span><span class="p">)</span> <span class="o">.</span> <span class="n">length</span><span class="p">)</span>
+<span class="kt">Prelude</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">isLong</span>
+<span class="nf">isLong</span> <span class="ow">::</span> <span class="kt">Foldable</span> <span class="n">t</span> <span class="ow">=&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="n">t</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+</code></pre></div>
+
+
+<p>Now you might not notice it, but we're working already in a Monad! Specifically, we're in the <code>(-&gt;) r</code> monad. We'll need <code>Control.Monad</code>, so let's import it:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span><span class="o">&gt;</span> <span class="kr">import</span> <span class="nn">Control.Monad</span>
+<span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span>
+</code></pre></div>
+
+
+<p>The <code>(-&gt;) r</code> Monad is a context for computation where all the monadic objects are functions with an <code>r</code> input. For us, by the way, <code>r</code> is the parameterized type <code>[a]</code> in GHCi's type annotations above. Actually, for our problem we're specifically interested in <code>[Char]</code>, or more readably, <code>String</code>.</p>
+<h3>How do we know we want to be in the <code>(-&gt;) String</code> Monad?</h3>
+<p>Well, <code>isLong</code> is a function taking an <code>Int</code> and a <code>String</code> and outputting a <code>Bool</code>, but we don't want to think about it that way: we'd rather think of it as a function taking an <code>Int</code> as a parameter, and then returning a function <code>:: String -&gt; Bool</code>, i.e. a <code>(-&gt;) String Bool</code>. If we write <code>m</code> for our <code>(-&gt;) String</code> Monad, then we can write this as <code>m Bool</code>. It's a <em>monadic Boolean</em>.</p>
+<p>Same thing for <code>condRev</code>. It's certainly a function that takes a <code>Bool</code> and a <code>String</code> and outputs a <code>String</code>, but we'd rather think of it as a function that takes a <code>Bool</code> and then outputs a function <code>:: String -&gt; String</code>, i.e. a monadic string.</p>
+<h3>In short: the data we're really interested in manipulating is all parameterized by strings, so it makes sense to be in the <code>(-&gt;) String</code> Monad.</h3>
+<p>From our perspective inside the <code>(-&gt;) String</code> Monad, we think of <code>isLong</code> as a monadic function of type <code>:: Int -&gt; m Bool</code>, and <code>condRev</code> as a monadic function of type <code>:: Bool -&gt; m String</code>. We want to compose these two monadic functions and get a monadic function of type <code>:: Int -&gt; m String</code>, so we use the Kleisli arrow:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="p">(</span><span class="o">&gt;=&gt;</span><span class="p">)</span>
+<span class="p">(</span><span class="o">&gt;=&gt;</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">Monad</span> <span class="n">m</span> <span class="ow">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">m</span> <span class="n">b</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">b</span> <span class="ow">-&gt;</span> <span class="n">m</span> <span class="n">c</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">m</span> <span class="n">c</span>
+</code></pre></div>
+
+
+<p>Exactly what we want.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">condFlipWord</span> <span class="ow">=</span> <span class="n">isLong</span> <span class="o">&gt;=&gt;</span> <span class="n">condRev</span>
+<span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">condFlipWord</span>
+<span class="nf">condFlipWord</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</code></pre></div>
+
+
+<p>What does <code>condFlipWord</code> do? Well, it takes an <code>Int</code> and outputs a monadic <code>String</code>, or rather, a function from <code>String</code> to <code>String</code>. Looking at the logic of <code>isLong</code> and <code>condRev</code> it's easy to see what their Kleisli composition does:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">condFlipWord</span> <span class="mi">4</span> <span class="s">&quot;jumping&quot;</span>
+<span class="s">&quot;gnipmuj&quot;</span>
+<span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">condFlipWord</span> <span class="mi">10</span> <span class="s">&quot;jumping&quot;</span>
+<span class="s">&quot;jumping&quot;</span>
+</code></pre></div>
+
+
+<p>Of course, we're not quite done. We wanted a function that didn't flip a whole string depending on the string's length, but rather operated on each individual word in the string.</p>
+<p>It will be helpful to use the library function <code>words</code>. Let's check its type and play around with it:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">words</span>
+<span class="nf">words</span> <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span>
+<span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">words</span> <span class="s">&quot;this is a sentence&quot;</span>
+<span class="p">[</span><span class="s">&quot;this&quot;</span><span class="p">,</span><span class="s">&quot;is&quot;</span><span class="p">,</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="s">&quot;sentence&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+
+<h3>Now we're already running into another Monad, albeit likely a more familiar one.</h3>
+<p>Yep, it's <code>[]</code>, the List monad. Of course, the functor for mapping functions into a List datatype is <code>map</code>. But we don't want to <code>map</code> our whole <code>condFlipWords</code> function there:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">map</span> <span class="n">condFlipWord</span>
+<span class="nf">map</span> <span class="n">condFlipWord</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]]</span>
+</code></pre></div>
+
+
+<p>Instead we just want to pass the <code>String -&gt; String</code> <em>output</em> of our <code>condFlipWord</code> function, i.e. we just want to <code>map</code> the <em>output</em> of our function. In other words, we want to <em>compose</em> the output of <code>condFlipWord</code> with <code>map</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">condFlipWords</span> <span class="ow">=</span> <span class="n">map</span> <span class="o">.</span> <span class="n">condFlipWord</span>
+<span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">condFlipWords</span>
+<span class="nf">condFlipWords</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span>
+
+<span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">condFlipWords</span> <span class="mi">5</span> <span class="p">(</span><span class="n">words</span> <span class="s">&quot;this is a sentence&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="s">&quot;this&quot;</span><span class="p">,</span><span class="s">&quot;is&quot;</span><span class="p">,</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="s">&quot;ecnetnes&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+
+<p>Of course, we also want to pre-compose our function with <code>words</code> so it will start with a string input, and post-compose with <code>unwords</code> so it returns the flattened string as output.</p>
+<h3>We just have to be careful about the position of arguments and where we apply the compositions:</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span>
+<span class="o">&lt;</span><span class="n">interactive</span><span class="o">&gt;:</span><span class="mi">1</span><span class="kt">:</span><span class="mi">17</span><span class="kt">:</span> <span class="ne">error</span><span class="kt">:</span>
+    <span class="err">•</span> <span class="kt">Couldn&#39;t</span> <span class="n">match</span> <span class="kr">type</span> <span class="err">‘</span><span class="p">[</span><span class="kt">String</span><span class="p">]</span><span class="err">’</span> <span class="n">with</span> <span class="err">‘</span><span class="kt">Int</span><span class="err">’</span>
+
+<span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">flip</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span>
+<span class="nf">flip</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span> <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="kt">Char</span><span class="p">]]</span>
+</code></pre></div>
+
+
+<p>Great! We also need to <code>unwords</code> it to get back from <code>[[Char]]</code> (i.e. <code>[String]</code>) to <code>String</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="n">unwords</span> <span class="o">.</span> <span class="p">(</span><span class="n">flip</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">interactive</span><span class="o">&gt;:</span><span class="mi">1</span><span class="kt">:</span><span class="mi">12</span><span class="kt">:</span> <span class="ne">error</span><span class="kt">:</span>
+    <span class="err">•</span> <span class="kt">Couldn&#39;t</span> <span class="n">match</span> <span class="kr">type</span> <span class="err">‘</span><span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="kt">Char</span><span class="p">]]</span><span class="err">’</span> <span class="n">with</span> <span class="err">‘</span><span class="p">[</span><span class="kt">String</span><span class="p">]</span><span class="err">’</span>
+</code></pre></div>
+
+
+<p>Oops! Our final curried output of <code>flip condFlipWords . words</code> is of type <code>:: [String]</code>, but the uncurried output is of type <code>:: Int -&gt; [String]</code>, which we can't plug into <code>unwords</code>. We <em>only want to unwords the output</em>. Again, that means a composition: in this case using <code>(unwords .)</code>. Let's check its type first to make sure this operator makes sense to use:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="p">(</span><span class="n">unwords</span> <span class="o">.</span><span class="p">)</span>
+<span class="p">(</span><span class="n">unwords</span> <span class="o">.</span><span class="p">)</span> <span class="ow">::</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+</code></pre></div>
+
+
+<p>Yep! Exactly what we need. Let's verify we get the type we wanted when we compose:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="kt">:</span><span class="n">t</span> <span class="p">(</span><span class="n">unwords</span> <span class="o">.</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="n">flip</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span><span class="p">)</span>
+<span class="p">(</span><span class="n">unwords</span> <span class="o">.</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="n">flip</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span><span class="p">)</span>
+  <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+</code></pre></div>
+
+
+<p>Perfect! Or almost: we'd rather flip the parameters back.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">condFlipSentence</span> <span class="ow">=</span> <span class="n">flip</span> <span class="o">$</span> <span class="p">(</span><span class="n">unwords</span> <span class="o">.</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="n">flip</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>Our particular problem statement considered words of length 5 or longer to be long, so with a bit of partial application:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">flipWords</span> <span class="ow">=</span> <span class="n">condFlipSentence</span> <span class="mi">5</span>
+</code></pre></div>
+
+
+<p>Here's the final behavior of our function:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Prelude</span> <span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span> <span class="n">flipWords</span> <span class="s">&quot;this is a sentence&quot;</span>
+<span class="s">&quot;this is a ecnetnes&quot;</span>
+</code></pre></div>
+
+
+<p>Here's the whole code:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">import</span> <span class="nn">Control.Monad</span>
+
+<span class="nf">condRev</span> <span class="ow">=</span> <span class="nf">\</span><span class="n">b</span> <span class="n">s</span> <span class="ow">-&gt;</span> <span class="kr">if</span> <span class="n">b</span> <span class="kr">then</span> <span class="n">reverse</span> <span class="n">s</span> <span class="kr">else</span> <span class="n">s</span>
+<span class="nf">isLong</span> <span class="ow">=</span> <span class="n">flip</span> <span class="p">((</span><span class="o">&gt;=</span><span class="p">)</span> <span class="o">.</span> <span class="n">length</span><span class="p">)</span>
+
+<span class="nf">condFlipWord</span> <span class="ow">=</span> <span class="n">isLong</span> <span class="o">&gt;=&gt;</span> <span class="n">condRev</span>
+
+<span class="nf">condFlipWords</span> <span class="ow">=</span> <span class="n">map</span> <span class="o">.</span> <span class="n">condFlipWord</span>
+
+<span class="nf">condFlipSentence</span> <span class="ow">=</span> <span class="n">flip</span> <span class="o">$</span> <span class="p">(</span><span class="n">unwords</span> <span class="o">.</span><span class="p">)</span> <span class="o">.</span> <span class="p">(</span><span class="n">flip</span> <span class="n">condFlipWords</span> <span class="o">.</span> <span class="n">words</span><span class="p">)</span>
+
+<span class="nf">flipWords</span> <span class="ow">=</span> <span class="n">condFlipSentence</span> <span class="mi">5</span>
+</code></pre></div>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="https://ethmcc.github.io/tag/haskell.html">haskell</a>
+      <a href="https://ethmcc.github.io/tag/monads.html">monads</a>
+      <a href="https://ethmcc.github.io/tag/programming.html">programming</a>
+      <a href="https://ethmcc.github.io/tag/katas.html">katas</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="https://ethmcc.github.io/theme/webassets-external/aa0d705803a571fab1b5ccd2234ec19b_progress.js"></script>
+  </body>
+</html>

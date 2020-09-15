@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> A variant sudoku solver >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta name="description" content="A Python module for solving variant sudoku.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?3c7b4f2e">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="https://ethmcc.github.io">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section " href="https://ethmcc.github.io/research">/research</a>
+      <a class="Nav-section " href="https://ethmcc.github.io/cv">/cv</a>
+      <a class="Nav-section Nav-section--active" href="https://ethmcc.github.io/archives">/posts</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> A variant sudoku solver</h1>
+    <div class="Article-meta">
+      <time datetime="2020-05-18" class="Article-date">May 18, 2020</time>
+    </div>
+
+    <section class="Article-content">
+        <p>In <a href="../miracle-sudoku">a previous post</a>, I enumerated the solutions to a recently-introduced variant sudoku called <em>Miracle Sudoku</em>, which combines several chess-sudoku constraints together with an adjacency constraint. </p>
+<p>In this post, I'll demonstrate the variant sudoku library I wrote to produce those counts.</p>
+<p>The set <code>multicover</code> module, with the dancing links implementation, and the <code>variant_sudoku</code> module are all combined into a single Python package that I've called <code>sudoku</code>. We can import the Sudoku class like this:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sudoku</span> <span class="kn">import</span> <span class="n">Sudoku</span>
+</code></pre></div>
+
+
+<p>You can also go ahead and import the <code>SetMultiCover</code> class using relative imports, if you want to apply it to other combinatorial problems:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sudoku.multicover</span> <span class="kn">import</span> <span class="n">SetMultiCover</span> <span class="k">as</span> <span class="n">SMC</span>
+</code></pre></div>
+
+
+<p>Using the package is simple. The class by default accepts input sudoku puzzles formatted as 2D arrays of digits between <code>1-9</code>, with <code>0</code> representing a blanks:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Here&#39;s a sample sudoku puzzle</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="p">]</span>
+</code></pre></div>
+
+
+<p>We can solve the puzzle by calling Sudoku() on it:</p>
+<div class="highlight"><pre><span></span><code><span class="n">solutions</span> <span class="o">=</span> <span class="n">Sudoku</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>Sudoku() returns a generator holding all the possible solutions.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">solution</span> <span class="ow">in</span> <span class="n">solutions</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----</span><span class="se">\n</span><span class="s2">Solution:</span><span class="se">\n</span><span class="s2">----&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>The Sudoku class implements a <code>__str__</code> dunder method, so we'll get a nicely formatted printed output:</p>
+<details>
+<summary>Output ... </summary>
+
+<div class="highlight"><pre><span></span><code>----
+Solution:
+----
+<span class="m">832157496</span>
+<span class="m">745396218</span>
+<span class="m">196284753</span>
+<span class="m">257831649</span>
+<span class="m">984672531</span>
+<span class="m">613549827</span>
+<span class="m">378415962</span>
+<span class="m">429763185</span>
+<span class="m">561928374</span>
+</code></pre></div>
+
+
+</details>
+
+<p>We can also explore variant sudokus. Let's start with a remarkably sparse sudoku board:</p>
+<div class="highlight"><pre><span></span><code><span class="n">grid</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="p">]</span>
+</code></pre></div>
+
+
+<p>Only one given! This would have billions of solutions using
+just the traditional sudoku ruleset.</p>
+<p>But variant constraints can make this fun! Let's use the king
+and knight "chess sudoku" rules and add a consecutive rule:</p>
+<div class="highlight"><pre><span></span><code><span class="n">solutions</span> <span class="o">=</span> <span class="n">Sudoku</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="s2">&quot;king&quot;</span><span class="p">,</span> <span class="s2">&quot;knight&quot;</span><span class="p">,</span> <span class="s2">&quot;consecutive&quot;</span><span class="p">)</span>
+
+<span class="c1"># Printing out and numbering all the solutions:</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">solution</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">solutions</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;----</span><span class="se">\n</span><span class="s2">Solution #</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">----&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
+</code></pre></div>
+
+
+<details>
+<summary>Output ... </summary>
+
+<div class="highlight"><pre><span></span><code>----
+Solution <span class="c1">#0:</span>
+----
+<span class="m">147582936</span>
+<span class="m">693147582</span>
+<span class="m">258693147</span>
+<span class="m">714258693</span>
+<span class="m">369714258</span>
+<span class="m">825369714</span>
+<span class="m">471825369</span>
+<span class="m">936471825</span>
+<span class="m">582936471</span>
+----
+Solution <span class="c1">#1:</span>
+----
+<span class="m">162738495</span>
+<span class="m">495162738</span>
+<span class="m">738495162</span>
+<span class="m">516273849</span>
+<span class="m">849516273</span>
+<span class="m">273849516</span>
+<span class="m">951627384</span>
+<span class="m">384951627</span>
+<span class="m">627384951</span>
+----
+Solution <span class="c1">#2:</span>
+----
+<span class="m">159483726</span>
+<span class="m">726159483</span>
+<span class="m">483726159</span>
+<span class="m">615948372</span>
+<span class="m">372615948</span>
+<span class="m">948372615</span>
+<span class="m">261594837</span>
+<span class="m">837261594</span>
+<span class="m">594837261</span>
+----
+Solution <span class="c1">#3:</span>
+----
+<span class="m">174639285</span>
+<span class="m">528174639</span>
+<span class="m">963528174</span>
+<span class="m">417963528</span>
+<span class="m">852417963</span>
+<span class="m">396852417</span>
+<span class="m">741396852</span>
+<span class="m">285741396</span>
+<span class="m">639285741</span>
+----
+Solution <span class="c1">#4:</span>
+----
+<span class="m">627384951</span>
+<span class="m">384951627</span>
+<span class="m">951627384</span>
+<span class="m">273849516</span>
+<span class="m">849516273</span>
+<span class="m">516273849</span>
+<span class="m">738495162</span>
+<span class="m">495162738</span>
+<span class="m">162738495</span>
+----
+Solution <span class="c1">#5:</span>
+----
+<span class="m">582936471</span>
+<span class="m">936471825</span>
+<span class="m">471825369</span>
+<span class="m">825369714</span>
+<span class="m">369714258</span>
+<span class="m">714258693</span>
+<span class="m">258693147</span>
+<span class="m">693147582</span>
+<span class="m">147582936</span>
+----
+Solution <span class="c1">#6:</span>
+----
+<span class="m">639285741</span>
+<span class="m">285741396</span>
+<span class="m">741396852</span>
+<span class="m">396852417</span>
+<span class="m">852417963</span>
+<span class="m">417963528</span>
+<span class="m">963528174</span>
+<span class="m">528174639</span>
+<span class="m">174639285</span>
+----
+Solution <span class="c1">#7:</span>
+----
+<span class="m">594837261</span>
+<span class="m">837261594</span>
+<span class="m">261594837</span>
+<span class="m">948372615</span>
+<span class="m">372615948</span>
+<span class="m">615948372</span>
+<span class="m">483726159</span>
+<span class="m">726159483</span>
+<span class="m">159483726</span>
+</code></pre></div>
+
+
+</details>
+
+<p>The solutions are returned as Sudoku objects, the Sudoku <code>__str__</code> 
+dunder method formats them nicely for printing, but they can also 
+be converted back into a 2D grid list using <code>.to_grid()</code>: </p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----</span><span class="se">\n</span><span class="s2">A solution grid:</span><span class="se">\n</span><span class="s2">----&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">solutions</span><span class="o">.</span><span class="n">to_grid</span><span class="p">())</span>
+</code></pre></div>
+
+
+<details>
+<summary>Output ... </summary>
+
+<div class="highlight"><pre><span></span><code>----
+A solution grid:
+----
+<span class="o">[[</span><span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span><span class="o">]</span>,
+ <span class="o">[</span><span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span><span class="o">]]</span>
+</code></pre></div>
+
+
+</details>
+
+<p>The sudoku package is built on a powerful set-multicover module
+which uses Knuth's efficient algorithm X behind the scenes, you can use
+it for all kinds of other combinatorial problems:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">n_queens_problem</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">(</span><span class="s2">&quot;queen_on_position&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span> <span class="p">(</span>
+            <span class="p">(</span><span class="s2">&quot;queen_on_rank&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;queen_on_file&quot;</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;queen_on_backward_diag&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;queen_on_forward_diag&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">SMC</span><span class="p">(</span>
+        <span class="n">constraints</span><span class="p">,</span> <span class="n">must_satisfy</span><span class="o">=</span><span class="p">[(</span><span class="n">r</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;queen_on_rank&quot;</span><span class="p">,</span> <span class="s2">&quot;queen_on_file&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+    <span class="p">)</span>
+
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;----</span><span class="se">\n</span><span class="s2">Found </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">n_queens_problem</span><span class="p">(</span><span class="n">N</span><span class="p">))</span><span class="si">}</span><span class="s2"> solutions to the </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> queens problem&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+
+
+<details>
+<summary>Output ... </summary>
+
+<div class="highlight"><pre><span></span><code>----
+Found <span class="m">92</span> solutions to the <span class="m">8</span> queens problem
+</code></pre></div>
+
+
+</details>
+
+<h2>Try it yourself</h2>
+<p>If you'd like to play with the package yourself online without downloading the package, I've put it up <a href="https://repl.it/@ethmcc1/variantSudokuSolver">on repl.it</a> for your convenience. </p>
+<p>Keep in mind that although the package is <em>very fast</em>, the spaces of various variant sudoku solutions are <em>enormous</em>, so you could benefit from running the code on your local machine, or a faster cloud server if you have access to one!</p>
+<iframe height="600px" width="100%" src="https://repl.it/@ethmcc1/variantSudokuSolver?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="https://ethmcc.github.io/tag/programming.html">programming</a>
+      <a href="https://ethmcc.github.io/tag/python.html">python</a>
+      <a href="https://ethmcc.github.io/tag/sudoku.html">sudoku</a>
+      <a href="https://ethmcc.github.io/tag/exact-cover.html">exact cover</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="https://ethmcc.github.io/theme/webassets-external/aa0d705803a571fab1b5ccd2234ec19b_progress.js"></script>
+  </body>
+</html>

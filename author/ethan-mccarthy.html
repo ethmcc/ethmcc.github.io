@@ -32,7 +32,95 @@
 
 <ol id="post-list">
         <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/on-miracle-sudoku" rel="bookmark" title="Permalink to On Miracle Sudoku">On Miracle Sudoku</a></h2> </header>
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/a-javascript-quine" rel="bookmark" title="Permalink to A JavaScript Quine, and the recursion theorem">A JavaScript Quine, and the recursion theorem</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-08-20T00:00:00-04:00"> Aug 20, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>I saw the following JavaScript quine (<em>modern</em> JavaScript: ES6 and up) presented in <a href="https://youtu.be/6avJHaC3C2U?t=1802">Dylan Beatie's talk at NDC London 2020</a>: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="o">=</span><span class="nx">_</span><span class="p">=&gt;</span><span class="sb">`$=</span><span class="si">${</span><span class="nx">$</span><span class="si">}</span><span class="sb">;$()`</span><span class="p">;</span><span class="nx">$</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>The same approach can be rendered with a few more parentheses as an <a href="https://duckduckgo.com/?q=!ducky+IIFE">IIFE</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nx">$</span><span class="o">=</span><span class="p">()=&gt;</span><span class="sb">`($=</span><span class="si">${</span><span class="nx">$</span><span class="si">}</span><span class="sb">)()`</span><span class="p">)()</span>
+</code></pre></div>
+
+
+<p>Either way, although this quine is brilliantly short, it's actually fairly easily parseable at sight …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/sql-murder-mystery" rel="bookmark" title="Permalink to SQL Murder Mystery">SQL Murder Mystery</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-08-01T00:00:00-04:00"> Aug 01, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Northwestern's Knight Labs has a fun little diversion for practicing your SQL commands.</p>
+<blockquote>
+<p>A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on …</p></blockquote> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/flip-words-kata-haskell" rel="bookmark" title="Permalink to Flipping words in Haskell">Flipping words in Haskell</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-07-30T00:00:00-04:00"> Jul 30, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>The following was a very simple programming kata I ran through in Haskell and had fun with. It lends itself to a very natural solution with Monads.</p>
+<p>I didn't see any other submission that took a monadic approach to this problem at all, so I thought I'd share. Here's the …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/sudoku-multicover" rel="bookmark" title="Permalink to Representing Sudoku variants as set multicover problems">Representing Sudoku variants as set multicover problems</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-23T00:00:00-04:00"> May 23, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>In previous posts, I introduced <a href="../miracle-sudoku">the Miracle Sudoku</a> variant and <a href="../sudoku">my variant sudoku solver package</a>, which I used for enumerating solutions to that variant. I also explained <a href="../dancing-links">the algorithm that package uses</a> for solving set-multicover problems: Knuth's <em>dancing links</em>. </p>
+<p>In this post, I'll quickly explain how Sudoku problems can be …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/dancing-links" rel="bookmark" title="Permalink to A Dancing Links implementation for set multicover">A Dancing Links implementation for set multicover</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-20T00:00:00-04:00"> May 20, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>In my previous posts <a href="../miracle-sudoku">on Miracle Sudoku</a> and <a href="../sudoku">on my variant sudoku solver package</a>, I mentioned implementing Knuth's dancing links algorithm for set multicover problems. </p>
+<p>At its heart, the algorithm is a straightforward depth-first search, but which exploits the structure of a set multicover problem to efficiently eliminate branches of …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/sudoku" rel="bookmark" title="Permalink to A variant sudoku solver">A variant sudoku solver</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-18T00:00:00-04:00"> May 18, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>In <a href="../miracle-sudoku">a previous post</a>, I enumerated the solutions to a recently-introduced variant sudoku called <em>Miracle Sudoku</em>, which combines several chess-sudoku constraints together with an adjacency constraint. </p>
+<p>In this post, I'll demonstrate the variant sudoku library I wrote to produce those counts.</p>
+<p>The set <code>multicover</code> module, with the dancing links implementation …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/pyenv-virtualenv" rel="bookmark" title="Permalink to Starting with pyenv-virtualenv in macOS">Starting with pyenv-virtualenv in macOS</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-13T00:00:00-04:00"> May 13, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>There are a few plugins and programs available to support development in virtual environments with Python in macOS, but I've had most success with a combination of <code>pyenv</code> and <code>pyenv-virtualenv</code>.</p>
+<p>Here's the approach I take. I'll assume you have <code>Homebrew</code> installed on your system and are running <code>zsh</code> for your …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/miracle-sudoku" rel="bookmark" title="Permalink to On Miracle Sudoku">On Miracle Sudoku</a></h2> </header>
                 <footer class="post-info">
                     <time class="published" datetime="2020-05-11T00:00:00-04:00"> May 11, 2020 </time>
                     <address class="vcard author">By

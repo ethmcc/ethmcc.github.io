@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> SQL Murder Mystery >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta name="description" content="Practice your SQL commands with a fun diversion from Northwestern's Knight Labs.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?3c7b4f2e">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="https://ethmcc.github.io">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section " href="https://ethmcc.github.io/research">/research</a>
+      <a class="Nav-section " href="https://ethmcc.github.io/cv">/cv</a>
+      <a class="Nav-section Nav-section--active" href="https://ethmcc.github.io/archives">/posts</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> SQL Murder Mystery</h1>
+    <div class="Article-meta">
+      <time datetime="2020-08-01" class="Article-date">Aug 01, 2020</time>
+    </div>
+
+    <section class="Article-content">
+        <p>Northwestern's Knight Labs has a fun little diversion for practicing your SQL commands.</p>
+<blockquote>
+<p>A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on ​Jan.15, 2018​ and that it took place in ​SQL City​. Start by retrieving the corresponding crime scene report from the police department’s database.</p>
+</blockquote>
+<p>You can check it out for yourself here: <a href="http://mystery.knightlab.com/">SQL Murder Mystery</a>.</p>
+<p>Spoiler alert, here's how my experience went below:</p>
+<hr>
+<p>Alright, I know I want to look at the <code>crime_scene_reports</code>, but looking at the scheme table doesn't tell me what the <code>date</code> format is so I'll check first:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">crime_scene_report</span> <span class="k">limit</span> <span class="mi">1</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">date        type    description                                         city</span>
+<span class="err">20180115    robbery A Man Dressed as Spider-Man Is on a Robbery Spree   NYC</span>
+</code></pre></div>
+
+
+<p>Alright, looks like yyymmdd, so let's grab our crime scene report:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">description</span> <span class="k">from</span> <span class="n">crime_scene_report</span> <span class="k">where</span> <span class="k">type</span> <span class="k">is</span> <span class="s1">&#39;murder&#39;</span>
+<span class="k">and</span> <span class="n">city</span> <span class="k">is</span> <span class="s1">&#39;SQL City&#39;</span> <span class="k">and</span> <span class="nb">date</span> <span class="k">is</span> <span class="s1">&#39;20180115&#39;</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">description</span>
+<span class="err">Security footage shows that there were 2 witnesses. The first witness lives at</span>
+<span class="err">the last house on &quot;Northwestern Dr&quot;. The second witness, named Annabel, lives</span>
+<span class="err">somewhere on &quot;Franklin Ave&quot;.</span>
+</code></pre></div>
+
+
+<hr>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="err">\</span><span class="o">*</span> <span class="k">from</span> <span class="n">person</span>
+<span class="k">where</span> <span class="n">name</span> <span class="k">like</span> <span class="s1">&#39;Annabel%&#39;</span>
+<span class="k">and</span> <span class="n">address_street_name</span> <span class="k">like</span> <span class="s1">&#39;Franklin%&#39;</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">id    name           license_id address_number address_street_name ssn</span>
+<span class="err">16371 Annabel Miller 490173     103            Franklin Ave        318771143</span>
+</code></pre></div>
+
+
+<p>If it were real life, I'd probably try both <code>asc</code> and <code>desc</code> for the "last house."</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="err">\</span><span class="o">*</span> <span class="k">from</span> <span class="n">person</span>
+<span class="k">where</span> <span class="n">address_street_name</span> <span class="k">is</span> <span class="s1">&#39;Northwestern Dr&#39;</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">address_number</span> <span class="k">desc</span>
+<span class="k">limit</span> <span class="mi">1</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">id    name           license_id address_number address_street_name ssn</span>
+<span class="err">14887 Morty Schapiro 118009     4919           Northwestern Dr     111564949</span>
+</code></pre></div>
+
+
+<hr>
+<p>I tried Morty's interview first and never actually went back to Annabel's (turns out she didn't have one).</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">transcript</span> <span class="k">from</span> <span class="n">interview</span> <span class="k">where</span> <span class="n">person_id</span> <span class="k">is</span> <span class="mi">14887</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">transcript</span>
+<span class="err">I heard a gunshot and then saw a man run out. He had a</span>
+<span class="err">&quot;Get Fit Now Gym&quot; bag. The membership number on the bag</span>
+<span class="err">started with &quot;48Z&quot;. Only gold members have those bags.</span>
+<span class="err">The man got into a car with a plate that included &quot;H42W&quot;.</span>
+</code></pre></div>
+
+
+<p>Alright, another basic command here:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">name</span> <span class="k">from</span> <span class="n">get_fit_now_member</span>
+<span class="k">where</span> <span class="n">id</span> <span class="k">like</span> <span class="s1">&#39;48Z%&#39;</span>
+<span class="k">and</span> <span class="n">membership_status</span> <span class="k">is</span> <span class="s1">&#39;gold&#39;</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">name</span>
+<span class="err">Joe Germuska</span>
+<span class="err">Jeremy Bowers</span>
+</code></pre></div>
+
+
+<p>Well now, not narrowed down yet. Finally we get to use some <code>join</code>s!</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">name</span> <span class="k">from</span> <span class="n">get_fit_now_member</span>
+<span class="k">join</span> <span class="n">person</span> <span class="k">on</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">person_id</span><span class="o">=</span><span class="n">person</span><span class="p">.</span><span class="n">id</span>
+<span class="k">join</span> <span class="n">drivers_license</span> <span class="k">on</span> <span class="n">person</span><span class="p">.</span><span class="n">license_id</span><span class="o">=</span><span class="n">drivers_license</span><span class="p">.</span><span class="n">id</span>
+<span class="k">where</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">id</span> <span class="k">like</span> <span class="s1">&#39;48Z%&#39;</span> <span class="k">and</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">membership_status</span> <span class="k">is</span> <span class="s1">&#39;gold&#39;</span>
+<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">plate_number</span> <span class="k">like</span> <span class="s1">&#39;%H42W%&#39;</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">name</span>
+<span class="err">Jeremy Bowers</span>
+</code></pre></div>
+
+
+<p>There's our perp!</p>
+<hr>
+<p>The exercise goes on and asks you to find out the mastermind behind it, let's look to see if our perp had an interview:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">transcript</span> <span class="k">from</span> <span class="n">interview</span> <span class="k">where</span> <span class="n">person_id</span> <span class="k">is</span> <span class="mi">67318</span><span class="err">​</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">transcript</span>
+<span class="err">I was hired by a woman with a lot of money. I don&#39;t know her</span>
+<span class="err">name but I know she&#39;s around 5&#39;5&quot; (65&quot;) or 5&#39;7&quot; (67&quot;). She</span>
+<span class="err">has red hair and she drives a Tesla Model S. I know that she</span>
+<span class="err">attended the SQL Symphony Concert 3 times in December 2017.</span>
+</code></pre></div>
+
+
+<p>Alright now, challenge! Let's try to do this in a single shot. We're going to have to <code>join</code> our <code>person</code> and <code>drivers_license</code> tables with the <code>facebook_event_checkin</code> table.</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">name</span><span class="p">,</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">event_name</span><span class="p">,</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="nb">date</span>
+<span class="k">from</span> <span class="n">person</span>
+<span class="k">join</span> <span class="n">drivers_license</span> <span class="k">on</span> <span class="n">person</span><span class="p">.</span><span class="n">license_id</span><span class="o">=</span><span class="n">drivers_license</span><span class="p">.</span><span class="n">id</span>
+<span class="k">join</span> <span class="n">facebook_event_checkin</span> <span class="k">on</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">person_id</span><span class="o">=</span><span class="n">person</span><span class="p">.</span><span class="n">id</span>
+<span class="k">where</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">event_name</span> <span class="k">like</span> <span class="s1">&#39;%symphony%&#39;</span>
+<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">car_make</span> <span class="k">is</span> <span class="s1">&#39;Tesla&#39;</span>
+<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">car_model</span> <span class="k">is</span> <span class="s1">&#39;Model S&#39;</span>
+<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">hair_color</span> <span class="k">is</span> <span class="s1">&#39;red&#39;</span>
+<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">gender</span> <span class="k">is</span> <span class="s1">&#39;female&#39;</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">name             event_name           date</span>
+<span class="err">Miranda Priestly SQL Symphony Concert 20171206</span>
+<span class="err">Miranda Priestly SQL Symphony Concert 20171212</span>
+<span class="err">Miranda Priestly SQL Symphony Concert 20171229</span>
+</code></pre></div>
+
+
+<p>There's our three visits in 2017!</p>
+</details>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="https://ethmcc.github.io/tag/sql.html">sql</a>
+      <a href="https://ethmcc.github.io/tag/sql-lite.html">sql-lite</a>
+      <a href="https://ethmcc.github.io/tag/programming.html">programming</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="https://ethmcc.github.io/theme/webassets-external/aa0d705803a571fab1b5ccd2234ec19b_progress.js"></script>
+  </body>
+</html>

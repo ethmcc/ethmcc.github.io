@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> A Dancing Links implementation for set multicover >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta name="description" content="An implementation of Knuth's Dancing Links for my sudoku solver.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?3c7b4f2e">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="https://ethmcc.github.io">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section " href="https://ethmcc.github.io/research">/research</a>
+      <a class="Nav-section " href="https://ethmcc.github.io/cv">/cv</a>
+      <a class="Nav-section Nav-section--active" href="https://ethmcc.github.io/archives">/posts</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> A Dancing Links implementation for set multicover</h1>
+    <div class="Article-meta">
+      <time datetime="2020-05-20" class="Article-date">May 20, 2020</time>
+    </div>
+
+    <section class="Article-content">
+        <p>In my previous posts <a href="../miracle-sudoku">on Miracle Sudoku</a> and <a href="../sudoku">on my variant sudoku solver package</a>, I mentioned implementing Knuth's dancing links algorithm for set multicover problems. </p>
+<p>At its heart, the algorithm is a straightforward depth-first search, but which exploits the structure of a set multicover problem to efficiently eliminate branches of the search tree. </p>
+<p>Since we're leveraging the structure of the problem, it helps to put that structure into a class.</p>
+<p>A covering problem instance consists of a set of <em>constraints</em> and a set of <em>choices</em>. The constraints simply form an abstract set, with each <em>choice</em> being a subset of the constraints. The intended interpretation is that a given choice <em>satisfies</em> its <em>constraints</em>. </p>
+<p>The goal of an exact cover problem is to pick a minimal set of choices to satisfy every constraint. </p>
+<p>To put things more concretely, we can take the same approach as Knuth and view the covering problem instance as a 2D matrix, where columns correspond to constraints and rows correspond to choices.</p>
+<p>Enumerating the columns <span class="math">\(c\)</span> and rows <span class="math">\(r\)</span>, we get a matrix representation <span class="math">\(A\)</span> of the covering problem by placing a <span class="math">\(1\)</span> in <span class="math">\(A(r, c)\)</span> if choice <span class="math">\(r\)</span> belongs to constraint <span class="math">\(c\)</span>.</p>
+<p>The <em>multiset multicover</em> problem generalizes this in two ways: </p>
+<ol>
+<li>The constraints are a <em>multiset</em>, with the intended interpretation being that a constraint which appears with multiplicity should be satisfied with the same multiplicity. </li>
+<li>The choices are multisets, with the intended interpretation being that a constraint appearing in a choice with multiplicity is satisfied by that choice with that multiplicity.</li>
+</ol>
+<p>Including just the first generalization gives a <em>set multicover</em> problem, including the second gives a <em>multiset multicover</em> problem. </p>
+<p>A third generalization, which isn't required for traditional Sudoku but which is required for combinatorial puzzles like the <em><span class="math">\(n\)</span> queens problem</em> and which we'll require for our variant Sudoku module, is to allow for some constraints to be <em>optional</em>: meaning that they can fail to be satisfied, but must not be satisfied more than the specified limit of times.</p>
+<p>Our <code>SetMultiCover</code> class will take as its argument a dictionary of <code>choices</code>, where the keys are the choices and the corresponding values are sets of constraints satisfied by the choice.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SetMultiCover</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">choices</span><span class="p">,</span> <span class="n">initial_choices</span><span class="o">=</span><span class="p">(),</span> <span class="n">multiplicities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">must_satisfy</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+</code></pre></div>
+
+
+<p>For the dancing links aglorithm, we also need to operate along the <em>rows</em>: given a constraint, we need to know all the choices which satisfy that constraint. Dancing links uses this to efficiently eliminate other choices from the search space once a constraint is satisfied. So we'll need to recover this <em>row-to-column</em>, or <em>constraint-to-choices</em>, representation:</p>
+<div class="highlight"><pre><span></span><code>        <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span> <span class="o">=</span> <span class="n">choices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">[</span><span class="n">choice</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>To accomodate the <em>multicover</em> generalization, we need to keep counters of the number of times a constraint still needs to be satisfied (for each constraint, we'll decrement this value as we satisfy it). The <em>optional constraint</em> generalization is easy, we simply keep separate counters for the required and the optional constraints. </p>
+<p>To make things simpler, when a list of required constraints <em>isn't</em> provided, we revert to the regular set multicover problem where <em>all</em> constraints are required. This might seem a bit backwards, but it's the correct approach to take instead of requiring that a user who wnats a regular set multicover problem provide a redundant list of all the constraints. </p>
+<div class="highlight"><pre><span></span><code>        <span class="c1"># Dump constraints into required/optional Counters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optional_constraints</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">must_satisfy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">must_satisfy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optional_constraints</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">constraint</span>
+                <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">constraint</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">multiplicities</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">multiplicities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">optional_constraints</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Default to all constraints must be satisfied.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">multiplicities</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">multiplicities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="c1"># Dictionary mapping constraint to which counter it belongs.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">which_counter</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">which_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">which_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">optional_constraints</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">optional_constraints</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+
+<p>As part of the implementation, we'll go ahead and build the solution by calling in to the private <code>_dancing_links</code> solver we're about to write. To make things a bit more Pythonic, we'll be making the objects of this class into iterators, so we provide the standard iterator methods.</p>
+<div class="highlight"><pre><span></span><code>        <span class="c1"># Initialize partial solution being constructed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solution</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Dump in initial solutions and solve.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">initial_choices</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_make_choice</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dancing_links</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># If we can&#39;t make all the initial choices, puzzle is unsolveable.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(())</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">it</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>Alright, now time to write the <code>_dancing_links</code> method. </p>
+<p>Knuth's algorithm proceeds as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="k">1.</span>  If the matrix A has no columns, the current partial
+    solution is a valid solution; terminate successfully.
+
+<span class="k">2.</span>  Otherwise choose a column c (deterministically).
+
+<span class="k">3.</span>  Choose a row r such that A(r, c) = 1 (nondeterministically).
+
+<span class="k">4.</span>  Include row r in the partial solution.
+
+<span class="k">5.</span>  For each column j such that A(r, j) = 1,
+        for each row i such that A(i, j) = 1,
+            delete row i from matrix A.
+        delete column j from matrix A.
+</code></pre></div>
+
+
+<p>We execute a depth-first traversal on the search tree to
+find all the solutions.</p>
+<p>The only important optimization is Knuth's "S heuristic":</p>
+<div class="highlight"><pre><span></span><code>    When choosing a new unsatisfied column, we always pick
+    the column with the fewest number of 1&#39;s (constraint
+    with the fewest number of choices).
+</code></pre></div>
+
+
+<p>Once we've selected a column, we consider each choice of row in order and recurse down each of those branches of the search tree.</p>
+<p>Because we are considering a multicover problem with multiplicity, this column may remain selected, meaning we'd have to make multiple choices of rows from this column. To eliminate branching over different orders of those choices we enforce an order on rows by Python's built in <code>id()</code> serialization.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_dancing_links</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">last_choice</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">:</span>
+            <span class="c1"># Matrix A has no columns, can yield the current partial</span>
+            <span class="c1"># solution and terminate.</span>
+            <span class="k">yield</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">selected_column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">:</span>
+            <span class="c1"># Still working on the same column, so only consider row</span>
+            <span class="c1"># choices in order.</span>
+            <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">choice</span>
+                <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">selected_column</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">last_choice</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Need to select a new column. Pick the column according</span>
+            <span class="c1"># to S heuristic.</span>
+            <span class="n">constrained_column</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">col</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">col</span><span class="p">]),</span>
+            <span class="p">)</span>
+            <span class="n">choices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">constrained_column</span><span class="p">])</span>
+
+        <span class="c1"># Recurse on each of the possile choices.</span>
+        <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_make_choice</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dancing_links</span><span class="p">(</span>
+                <span class="n">selected_column</span><span class="o">=</span><span class="n">constrained_column</span><span class="p">,</span> <span class="n">last_choice</span><span class="o">=</span><span class="n">choice</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_backtrack</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>The <code>_make_choice</code> method needs to do a lot of book-keeping: once we've decided to choose a column <span class="math">\(j\)</span>, we need to go through the column and look at every corresponding row <span class="math">\(i\)</span> where <span class="math">\(A(i,j)=1\)</span>. For each such row <span class="math">\(i\)</span>, if that constraint has now been already satisfied its limited number of times, we need to go through it and remove every other column (<code>other_choice</code>) satisfying that constraint. </p>
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">_make_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">[</span><span class="n">choice</span><span class="p">]:</span>
+            <span class="n">counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">which_counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span>
+            <span class="n">counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]:</span>
+                <span class="k">del</span> <span class="n">counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">other_choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">constraint</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">other_constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">[</span><span class="n">other_choice</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">other_constraint</span> <span class="o">!=</span> <span class="n">constraint</span><span class="p">:</span>
+                            <span class="c1"># WARNING: note we introduce an asymmetry</span>
+                            <span class="c1"># between constraint_to_chocies and</span>
+                            <span class="c1"># choices_to_constraint</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">other_constraint</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span>
+                                <span class="n">other_choice</span>
+                            <span class="p">)</span>
+</code></pre></div>
+
+
+<p>One perhaps ugly feature we've commented on above is that as we apply this algorithm, we're only actually mutating the <code>constraint_to_choices</code> dictionaries, so if you want to modify this algorithm yourself, keep in mind that these dictionaries don't remain symmetric once the algorithm starts running. </p>
+<p>However, this symmetry is essential to make it easy to backtrack during our depth-first-search, since we have all the information we need to recover in the <code>choice_to_constraints</code> dictionary we haven't mutated:</p>
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">_backtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">choice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">[</span><span class="n">choice</span><span class="p">]:</span>
+            <span class="n">counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">which_counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">constraint</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">counter</span><span class="p">:</span>
+                <span class="c1"># restore what we deleted from constraint_to_choices</span>
+                <span class="k">for</span> <span class="n">other_choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">constraint</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">other_constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">[</span><span class="n">other_choice</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">other_constraint</span> <span class="o">!=</span> <span class="n">constraint</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">constraint_to_choices</span><span class="p">[</span><span class="n">other_constraint</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                                <span class="n">other_choice</span>
+                            <span class="p">)</span>
+            <span class="n">counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div>
+
+
+<p>And that's the whole implementation. I'll show how to put it into action to solve variant sudokus and other puzzles in a future post. </p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="https://ethmcc.github.io/tag/programming.html">programming</a>
+      <a href="https://ethmcc.github.io/tag/python.html">python</a>
+      <a href="https://ethmcc.github.io/tag/sudoku.html">sudoku</a>
+      <a href="https://ethmcc.github.io/tag/exact-cover.html">exact cover</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="https://ethmcc.github.io/theme/webassets-external/aa0d705803a571fab1b5ccd2234ec19b_progress.js"></script>
+  </body>
+</html>

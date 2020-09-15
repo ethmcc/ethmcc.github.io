@@ -32,7 +32,41 @@
 
 <ol id="post-list">
         <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/on-miracle-sudoku" rel="bookmark" title="Permalink to On Miracle Sudoku">On Miracle Sudoku</a></h2> </header>
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/sudoku-multicover" rel="bookmark" title="Permalink to Representing Sudoku variants as set multicover problems">Representing Sudoku variants as set multicover problems</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-23T00:00:00-04:00"> May 23, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>In previous posts, I introduced <a href="../miracle-sudoku">the Miracle Sudoku</a> variant and <a href="../sudoku">my variant sudoku solver package</a>, which I used for enumerating solutions to that variant. I also explained <a href="../dancing-links">the algorithm that package uses</a> for solving set-multicover problems: Knuth's <em>dancing links</em>. </p>
+<p>In this post, I'll quickly explain how Sudoku problems can be …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/dancing-links" rel="bookmark" title="Permalink to A Dancing Links implementation for set multicover">A Dancing Links implementation for set multicover</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-20T00:00:00-04:00"> May 20, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>In my previous posts <a href="../miracle-sudoku">on Miracle Sudoku</a> and <a href="../sudoku">on my variant sudoku solver package</a>, I mentioned implementing Knuth's dancing links algorithm for set multicover problems. </p>
+<p>At its heart, the algorithm is a straightforward depth-first search, but which exploits the structure of a set multicover problem to efficiently eliminate branches of …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/sudoku" rel="bookmark" title="Permalink to A variant sudoku solver">A variant sudoku solver</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2020-05-18T00:00:00-04:00"> May 18, 2020 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://ethmcc.github.io/author/ethan-mccarthy.html">Ethan McCarthy</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>In <a href="../miracle-sudoku">a previous post</a>, I enumerated the solutions to a recently-introduced variant sudoku called <em>Miracle Sudoku</em>, which combines several chess-sudoku constraints together with an adjacency constraint. </p>
+<p>In this post, I'll demonstrate the variant sudoku library I wrote to produce those counts.</p>
+<p>The set <code>multicover</code> module, with the dancing links implementation …</p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://ethmcc.github.io/miracle-sudoku" rel="bookmark" title="Permalink to On Miracle Sudoku">On Miracle Sudoku</a></h2> </header>
                 <footer class="post-info">
                     <time class="published" datetime="2020-05-11T00:00:00-04:00"> May 11, 2020 </time>
                     <address class="vcard author">By
