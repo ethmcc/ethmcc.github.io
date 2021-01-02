@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"></link><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"></link><id>https://ethmcc.github.io/</id><updated>2020-08-20T00:00:00-04:00</updated><entry><title>A JavaScript Quine, and the recursion theorem</title><link href="https://ethmcc.github.io/a-javascript-quine" rel="alternate"></link><published>2020-08-20T00:00:00-04:00</published><updated>2020-08-20T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-08-20:/a-javascript-quine</id><summary type="html">&lt;p&gt;I saw the following JavaScript quine (&lt;em&gt;modern&lt;/em&gt; JavaScript: ES6 and up) presented in &lt;a href="https://youtu.be/6avJHaC3C2U?t=1802"&gt;Dylan Beatie's talk at NDC London 2020&lt;/a&gt;: &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"></link><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"></link><id>https://ethmcc.github.io/</id><updated>2021-03-28T00:00:00-04:00</updated><entry><title>Pomoduino time-management clock</title><link href="https://ethmcc.github.io/pomoduino" rel="alternate"></link><published>2021-03-28T00:00:00-04:00</published><updated>2021-03-28T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2021-03-28:/pomoduino</id><summary type="html">&lt;p&gt;I built a Pomodoro timer out of a microcontroller and a 16-pin LCD.&lt;/p&gt;
+&lt;div class="figure" style="width: 50%"&gt;
+&lt;img alt="Start the timer by pressing the button." src="https://ethmcc.github.io/images/pomodoro_demo_1.jpg" /&gt;
+&lt;p class="caption"&gt;Start the timer by pressing the button.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;The Pomodoro time-management technique uses sets of four &amp;quot;Pomodoro&amp;quot; work intervals, so-named after the tomato-shaped kitchen timer used by its inventor, Francesco Cirillo.&lt;/p&gt;
+&lt;p&gt;Each Pomodoro interval is a 25-minute period …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I built a Pomodoro timer out of a microcontroller and a 16-pin LCD.&lt;/p&gt;
+&lt;div class="figure" style="width: 50%"&gt;
+&lt;img alt="Start the timer by pressing the button." src="https://ethmcc.github.io/images/pomodoro_demo_1.jpg" /&gt;
+&lt;p class="caption"&gt;Start the timer by pressing the button.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;The Pomodoro time-management technique uses sets of four &amp;quot;Pomodoro&amp;quot; work intervals, so-named after the tomato-shaped kitchen timer used by its inventor, Francesco Cirillo.&lt;/p&gt;
+&lt;p&gt;Each Pomodoro interval is a 25-minute period of uninterrupted work, between which a short break is taken (3-5 minutes). After completing four consecutive Pomodoros, a longer break is taken (15-30 minutes).&lt;/p&gt;
+&lt;p&gt;This Pomoduino Clock keeps track of your completed Pomodoros on the liquid-crystal display with a cute, custom tomato glyph. After each work period, you'll be notified to take a break with a short chime. After you complete four Pomodoros, you'll be notified to take a longer break with a longer chime.&lt;/p&gt;
+&lt;hr class="docutils" /&gt;
+&lt;div class="section" id="pictures"&gt;
+&lt;h2&gt;Pictures&lt;/h2&gt;
+&lt;p&gt;Below you can see some demo pictures to get an idea of the project.&lt;/p&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Watch the depleting bar as your pomodoro counts down." src="https://ethmcc.github.io/images/pomodoro_demo_2.jpg" /&gt;
+&lt;p class="caption"&gt;Watch the depleting bar as your pomodoro counts down.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Pomoduino will keep track of your Pomodoro sets and notify you when it's time for a break." src="https://ethmcc.github.io/images/pomodoro_demo_3.jpg" /&gt;
+&lt;p class="caption"&gt;Pomoduino will keep track of your Pomodoro sets and notify you when it's time for a break.&lt;/p&gt;
+&lt;/div&gt;
+&lt;!-- - - - - - - - - - - --&gt;
+&lt;!-- Code --&gt;
+&lt;!-- - - - - --&gt;
+&lt;!-- Check out the source code for the project in Arduino's Web IDE right here: --&gt;
+&lt;!-- .. raw:: html --&gt;
+&lt;!-- &lt;iframe src=https://create.arduino.cc/editor/ethmcc/33c8d8e8-a6ca-4758-b3a0-0ed5d540db39/preview?F=ReadMe.adoc?embed style="height:510px;width:100%;margin:10px 0" frameborder=0&gt;&lt;/iframe&gt; --&gt;
+&lt;/div&gt;
+</content><category term="programming"></category><category term="arduino"></category><category term="microcontrollers"></category><category term="embeded systems"></category><category term="c++"></category></entry><entry><title>Weather Journal</title><link href="https://ethmcc.github.io/weather" rel="alternate"></link><published>2020-12-20T00:00:00-05:00</published><updated>2020-12-20T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-12-20:/weather</id><summary type="html">&lt;p&gt;I wrote an Android application for keeping a journal on the local weather.&lt;/p&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Keep a daily Weather Journal! Grab the local weather report for your location and write a little bit each day." src="https://ethmcc.github.io/images/weather_demo_1.png" /&gt;
+&lt;/div&gt;
+&lt;p&gt;Getting in the practice of writing a bit daily can be a helpful grounding exercise. Weather Journal is a native Android application, written in Java, with the simple premise of being a place to go each day …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I wrote an Android application for keeping a journal on the local weather.&lt;/p&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Keep a daily Weather Journal! Grab the local weather report for your location and write a little bit each day." src="https://ethmcc.github.io/images/weather_demo_1.png" /&gt;
+&lt;/div&gt;
+&lt;p&gt;Getting in the practice of writing a bit daily can be a helpful grounding exercise. Weather Journal is a native Android application, written in Java, with the simple premise of being a place to go each day to maintain a bit of writing ritual.&lt;/p&gt;
+&lt;p&gt;It interfaces with Android location services for GPS location, and interfaces with a third-party web API to fetch your local weather report.&lt;/p&gt;
+&lt;p&gt;Journal entries are stored in a local SQLite database, and can be edited or deleted from the app. The app also interfaces with the file system to export journal notes to text files, wherever you may want to archive them.&lt;/p&gt;
+&lt;hr class="docutils" /&gt;
+&lt;div class="section" id="pictures"&gt;
+&lt;h2&gt;Pictures&lt;/h2&gt;
+&lt;p&gt;Below you can see some more demo screenshots to get an idea of the app:&lt;/p&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Of course, you can edit ould journal entries, or delete them as you like." src="https://ethmcc.github.io/images/weather_demo_2.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure"&gt;
+&lt;img alt="Want to export your journal entries to archive elsewhere? The Weather Journal can do that!" src="https://ethmcc.github.io/images/weather_demo_3.png" /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="programming"></category><category term="android"></category><category term="mobile development"></category></entry><entry><title>A JavaScript Quine, and the recursion theorem</title><link href="https://ethmcc.github.io/a-javascript-quine" rel="alternate"></link><published>2020-08-20T00:00:00-04:00</published><updated>2020-08-20T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-08-20:/a-javascript-quine</id><summary type="html">&lt;p&gt;I saw the following JavaScript quine (&lt;em&gt;modern&lt;/em&gt; JavaScript: ES6 and up) presented in &lt;a href="https://youtu.be/6avJHaC3C2U?t=1802"&gt;Dylan Beatie's talk at NDC London 2020&lt;/a&gt;: &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;_&lt;/span&gt;&lt;span class="p"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="sb"&gt;`$=&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;;$()`&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -136,8 +191,8 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;date        type    description                                         city&lt;/span&gt;
-&lt;span class="err"&gt;20180115    robbery A Man Dressed as Spider-Man Is on a Robbery Spree   NYC&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;date        type    description                                         city
+20180115    robbery A Man Dressed as Spider-Man Is on a Robbery Spree   NYC
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -147,10 +202,10 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;description&lt;/span&gt;
-&lt;span class="err"&gt;Security footage shows that there were 2 witnesses. The first witness lives at&lt;/span&gt;
-&lt;span class="err"&gt;the last house on &amp;quot;Northwestern Dr&amp;quot;. The second witness, named Annabel, lives&lt;/span&gt;
-&lt;span class="err"&gt;somewhere on &amp;quot;Franklin Ave&amp;quot;.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;description
+Security footage shows that there were 2 witnesses. The first witness lives at
+the last house on &amp;quot;Northwestern Dr&amp;quot;. The second witness, named Annabel, lives
+somewhere on &amp;quot;Franklin Ave&amp;quot;.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -161,8 +216,8 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;id    name           license_id address_number address_street_name ssn&lt;/span&gt;
-&lt;span class="err"&gt;16371 Annabel Miller 490173     103            Franklin Ave        318771143&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;id    name           license_id address_number address_street_name ssn
+16371 Annabel Miller 490173     103            Franklin Ave        318771143
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -174,8 +229,8 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;id    name           license_id address_number address_street_name ssn&lt;/span&gt;
-&lt;span class="err"&gt;14887 Morty Schapiro 118009     4919           Northwestern Dr     111564949&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;id    name           license_id address_number address_street_name ssn
+14887 Morty Schapiro 118009     4919           Northwestern Dr     111564949
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -185,11 +240,11 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;transcript&lt;/span&gt;
-&lt;span class="err"&gt;I heard a gunshot and then saw a man run out. He had a&lt;/span&gt;
-&lt;span class="err"&gt;&amp;quot;Get Fit Now Gym&amp;quot; bag. The membership number on the bag&lt;/span&gt;
-&lt;span class="err"&gt;started with &amp;quot;48Z&amp;quot;. Only gold members have those bags.&lt;/span&gt;
-&lt;span class="err"&gt;The man got into a car with a plate that included &amp;quot;H42W&amp;quot;.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;transcript&lt;/span&gt;
+&lt;span class="nv"&gt;I&lt;/span&gt; &lt;span class="nv"&gt;heard&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="nv"&gt;gunshot&lt;/span&gt; &lt;span class="nv"&gt;and&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt; &lt;span class="nv"&gt;saw&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="nv"&gt;man&lt;/span&gt; &lt;span class="nv"&gt;run&lt;/span&gt; &lt;span class="nv"&gt;out&lt;/span&gt;. &lt;span class="nv"&gt;He&lt;/span&gt; &lt;span class="nv"&gt;had&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="s"&gt;Get Fit Now Gym&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="nv"&gt;bag&lt;/span&gt;. &lt;span class="nv"&gt;The&lt;/span&gt; &lt;span class="nv"&gt;membership&lt;/span&gt; &lt;span class="nv"&gt;number&lt;/span&gt; &lt;span class="nv"&gt;on&lt;/span&gt; &lt;span class="nv"&gt;the&lt;/span&gt; &lt;span class="nv"&gt;bag&lt;/span&gt;
+&lt;span class="nv"&gt;started&lt;/span&gt; &lt;span class="nv"&gt;with&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="s"&gt;48Z&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;. &lt;span class="nv"&gt;Only&lt;/span&gt; &lt;span class="nv"&gt;gold&lt;/span&gt; &lt;span class="nv"&gt;members&lt;/span&gt; &lt;span class="nv"&gt;have&lt;/span&gt; &lt;span class="nv"&gt;those&lt;/span&gt; &lt;span class="nv"&gt;bags&lt;/span&gt;.
+&lt;span class="nv"&gt;The&lt;/span&gt; &lt;span class="nv"&gt;man&lt;/span&gt; &lt;span class="nv"&gt;got&lt;/span&gt; &lt;span class="nv"&gt;into&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="nv"&gt;car&lt;/span&gt; &lt;span class="nv"&gt;with&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="nv"&gt;plate&lt;/span&gt; &lt;span class="nv"&gt;that&lt;/span&gt; &lt;span class="nv"&gt;included&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="s"&gt;H42W&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -200,9 +255,9 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;name&lt;/span&gt;
-&lt;span class="err"&gt;Joe Germuska&lt;/span&gt;
-&lt;span class="err"&gt;Jeremy Bowers&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;name
+Joe Germuska
+Jeremy Bowers
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -215,8 +270,8 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;name&lt;/span&gt;
-&lt;span class="err"&gt;Jeremy Bowers&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;name
+Jeremy Bowers
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -227,11 +282,11 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;transcript&lt;/span&gt;
-&lt;span class="err"&gt;I was hired by a woman with a lot of money. I don&amp;#39;t know her&lt;/span&gt;
-&lt;span class="err"&gt;name but I know she&amp;#39;s around 5&amp;#39;5&amp;quot; (65&amp;quot;) or 5&amp;#39;7&amp;quot; (67&amp;quot;). She&lt;/span&gt;
-&lt;span class="err"&gt;has red hair and she drives a Tesla Model S. I know that she&lt;/span&gt;
-&lt;span class="err"&gt;attended the SQL Symphony Concert 3 times in December 2017.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;transcript
+I was hired by a woman with a lot of money. I don&amp;#39;t know her
+name but I know she&amp;#39;s around 5&amp;#39;5&amp;quot; (65&amp;quot;) or 5&amp;#39;7&amp;quot; (67&amp;quot;). She
+has red hair and she drives a Tesla Model S. I know that she
+attended the SQL Symphony Concert 3 times in December 2017.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -248,10 +303,10 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;name             event_name           date&lt;/span&gt;
-&lt;span class="err"&gt;Miranda Priestly SQL Symphony Concert 20171206&lt;/span&gt;
-&lt;span class="err"&gt;Miranda Priestly SQL Symphony Concert 20171212&lt;/span&gt;
-&lt;span class="err"&gt;Miranda Priestly SQL Symphony Concert 20171229&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;name             event_name           date
+Miranda Priestly SQL Symphony Concert 20171206
+Miranda Priestly SQL Symphony Concert 20171212
+Miranda Priestly SQL Symphony Concert 20171229
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
