@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> Python and JavaScript performance >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Tracing JIT compilers, and an anecdotal view of Python and JavaScript performance.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content=" Python and JavaScript performance ">
+    <meta property="og:description" content=" Tracing JIT compilers, and an anecdotal view of Python and JavaScript performance. ">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content=" https://ethmcc.github.io/python-js-tracing-jit ">
+
+    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?039850d7">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="https://ethmcc.github.io">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="https://ethmcc.github.io/archives">/posts</a>
+      <a class="Nav-section " href="https://ethmcc.github.io/projects">/projects</a>
+      <a class="Nav-section " href="https://ethmcc.github.io/resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> Python and JavaScript performance</h1>
+    <div class="Article-meta">
+      <time datetime="2021-12-15" class="Article-date">Dec 15, 2021</time>
+    </div>
+
+    <section class="Article-content">
+        <p>I came across <a href="https://youtu.be/3PcIJKd1PKU">a cheeky little demonstration</a> on YouTube comparing the same algorithm written in Python, C, and x86 assembly.</p>
+<p>It compares the following pessimal C code:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">isPrime</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">){</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">numPrimes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mi">250001</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">numPrimes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">isPrime</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">numPrimes</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>... with the naive equivalent in Python:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">isPrime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="p">)):</span>
+      <span class="k">return</span> <span class="mi">0</span>
+  <span class="k">return</span> <span class="mi">1</span>
+
+<span class="n">numPrimes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">250001</span><span class="p">):</span>
+  <span class="n">numPrimes</span><span class="o">+=</span><span class="n">isPrime</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">numPrimes</span><span class="p">))</span>
+</code></pre></div>
+
+
+<p>Here are my own quick-and-dirty performance results:</p>
+<div class="highlight"><pre><span></span><code>% gcc -o primes primes.c
+% <span class="nb">time</span> ./primes
+<span class="m">22044</span>
+./primes  <span class="m">2</span>.79s user <span class="m">0</span>.00s system <span class="m">99</span>% cpu <span class="m">2</span>.795 total
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> python primes.py
+<span class="m">22043</span>
+python primes.py  <span class="m">233</span>.53s user <span class="m">0</span>.44s system <span class="m">99</span>% cpu <span class="m">3</span>:54.17 total
+</code></pre></div>
+
+
+<p>Wow! 83 times slower. Nothing too suprising, though: just the difference between an interpreted language like Python, and a compiled language like C. </p>
+<p>But wait, I do use another scripting language regularly: JavaScript. Let's see how JavaScript fares.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">isPrime</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">n</span> <span class="o">/</span> <span class="mf">2</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">n</span> <span class="o">%</span> <span class="nx">i</span><span class="p">))</span> <span class="k">return</span> <span class="mf">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mf">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">numPrimes</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mf">250001</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">numPrimes</span> <span class="o">+=</span> <span class="nx">isPrime</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">numPrimes</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>Since JavaScript is another interpreted language, so we'd expect its performance to be closer to Python than to compiled C, right?</p>
+<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> node primes.js
+<span class="m">22044</span>
+node primes.js  <span class="m">1</span>.49s user <span class="m">0</span>.04s system <span class="m">96</span>% cpu <span class="m">1</span>.574 total
+</code></pre></div>
+
+
+<p>What?! 87 percent faster than the compiled C program? Is JavaScript really faster than C?</p>
+<p>Well, not quite, we forgot to turn optimization on when we compiled our C code: </p>
+<div class="highlight"><pre><span></span><code>% gcc -O -o primes primes.c
+% <span class="nb">time</span> ./primes
+<span class="m">22044</span>
+./primes  <span class="m">0</span>.87s user <span class="m">0</span>.01s system <span class="m">84</span>% cpu <span class="m">1</span>.032 total
+</code></pre></div>
+
+
+<p>We can let out a sigh of relief, C with basic optimizations is still 71% faster than our JavaScript code.<sup id="fnref:footnote"><a class="footnote-ref" href="#fn:footnote">1</a></sup> </p>
+<p>So why is JavaScript so fast? Well, node uses V8, which utilizes a tracing JIT compiler. While code is running, it looks for segments of "hot" code to optimize into machine code. Since our program is two big hot loops, they get optimized and JavaScript runs this simple algorithm on the order of as fast as C.</p>
+<p>But wait, Python also has an implementation with a tracing JIT compiler, called pypy. So can Python achieve the same performance?</p>
+<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> pypy primes.py
+<span class="m">22044</span>
+pypy test.py  <span class="m">102</span>.81s user <span class="m">0</span>.39s system <span class="m">99</span>% cpu <span class="m">1</span>:43.39 total
+</code></pre></div>
+
+
+<p>Over twice as fast as the CPython running time, but still orders of magnitude slower than JavaScript. What's going on? If both pypy and the V8 engine use the same basic techniques, shouldn't the performance be similar?</p>
+<p>Let's look at the code: they all have pretty much the same structure. What stands out in the Python version and not in the C and JavaScript versions is the use of Python's <code>range</code> iterator.</p>
+<p>Python doesn't have C-style loops, but we can emulate it with a while loop and post-increment:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">isPrime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="p">)):</span>
+      <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">return</span> <span class="mi">1</span>
+
+<span class="n">numPrimes</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">250001</span><span class="p">:</span>
+  <span class="n">numPrimes</span><span class="o">+=</span><span class="n">isPrime</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+  <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">numPrimes</span><span class="p">))</span>
+</code></pre></div>
+
+
+<p>And now let's try pypy again:</p>
+<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> pypy primes2.py
+<span class="m">22044</span>
+pypy primes2.py  <span class="m">4</span>.18s user <span class="m">0</span>.07s system <span class="m">97</span>% cpu <span class="m">4</span>.364 total
+</code></pre></div>
+
+
+<p>Wow! Of course, this is still 2.8 times slower than our node result, but at least we seem to be in the same ballpark.</p>
+<p>Now, before you run off to your Python code bases to remove idiomatic loops and iterators, and replace them with <code>while</code> loops and imperative looping variables, keep in mind: when running with CPython, there is no such win to be had. A CPython implementation will be just as slow either way. Stick with the nice, readable iterator loops.</p>
+<p>The lesson here is that pypy and tracing JIT is no silver bullet to Python performance. V8-like results on idomatic Python are not here yet, and a Python for loop is still not a place you want to be if you're running a <span class="math">\(\Theta(n^2)\)</span> algorithm. </p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:footnote">
+<p>Higher optimization levels don't help (in fact, they actually hurt a bit <a href="https://www.youtube.com/watch?v=r-TLSBdHe1A">(a not uncommon state of affairs)</a>).&#160;<a class="footnote-backref" href="#fnref:footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="https://ethmcc.github.io/tag/javascript.html">javascript</a>
+      <a href="https://ethmcc.github.io/tag/python.html">python</a>
+      <a href="https://ethmcc.github.io/tag/node.html">node</a>
+      <a href="https://ethmcc.github.io/tag/pypy.html">pypy</a>
+      <a href="https://ethmcc.github.io/tag/v8.html">v8</a>
+      <a href="https://ethmcc.github.io/tag/jit.html">jit</a>
+      <a href="https://ethmcc.github.io/tag/programming.html">programming</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="https://ethmcc.github.io/theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  </body>
+</html>
