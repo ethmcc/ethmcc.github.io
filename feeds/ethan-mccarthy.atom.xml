@@ -78,7 +78,7 @@ python primes.py  &lt;span class="m"&gt;233&lt;/span&gt;.53s user &lt;span class
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Since JavaScript is another interpreted language, so we'd expect its performance to be closer to Python than to compiled C, right?&lt;/p&gt;
+&lt;p&gt;Since JavaScript is another interpreted language, we'd expect its performance to be closer to Python than to compiled C, right?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;% &lt;span class="nb"&gt;time&lt;/span&gt; node primes.js
 &lt;span class="m"&gt;22044&lt;/span&gt;
 node primes.js  &lt;span class="m"&gt;1&lt;/span&gt;.49s user &lt;span class="m"&gt;0&lt;/span&gt;.04s system &lt;span class="m"&gt;96&lt;/span&gt;% cpu &lt;span class="m"&gt;1&lt;/span&gt;.574 total
