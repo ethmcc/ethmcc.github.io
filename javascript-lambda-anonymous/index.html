@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> Lambdas and anonymous functions in JavaScript >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Lambda expressions, anonymous functions and JavaScript.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content=" Lambdas and anonymous functions in JavaScript ">
+    <meta property="og:description" content=" Lambda expressions, anonymous functions and JavaScript. ">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content=" ../javascript-lambda-anonymous ">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> Lambdas and anonymous functions in JavaScript</h1>
+    <div class="Article-meta">
+      <time datetime="2020-07-08" class="Article-date">Jul 08, 2020</time>
+    </div>
+
+    <section class="Article-content">
+        <p>There's a lot of confusion in the JavaScript community around the term “lambda”. </p>
+<p>I'll eschew pointing to any particular examples, as they can get pretty heated. 
+It all revolves around the terms "lambda expression" (or "lambda", for short), a 
+term which originated in the mathematical side of computer science, and "anonymous 
+function", which is a programming term. So what's going on here?</p>
+<p>Functions in JavaScript are values that can be passed around like any other values, 
+e.g. string values, number values, or other object values. This is sometimes expressed 
+in the phrase “functions as first class citizens”. </p>
+<p>It's best to think of these values like actual values: a function value is just 
+some object living in memory. Let me be clear: when I say <em>function value</em> here, 
+I don't mean the value taken by a function on some input, I mean the function object 
+itself: <em>the value in memory that the function</em> <strong>is</strong>, itself, per se, intrinsically 
+(mind blown).</p>
+<hr>
+<p>It is worth here keeping a distinction in mind between <em>reference types</em> and 
+<em>value types</em>. Functions are a <em>reference type</em>, whereas types like strings or numbers 
+are <em>value types</em>. For value types, we get the following behavior as one might expect: </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="mf">2</span> <span class="o">===</span> <span class="mf">2</span>
+<span class="kc">true</span>
+<span class="o">&gt;</span> <span class="mf">2</span><span class="o">+</span><span class="mf">2</span> <span class="o">===</span> <span class="mf">4</span>
+<span class="kc">true</span>
+<span class="o">&gt;</span> <span class="s1">&#39;four&#39;</span> <span class="o">===</span> <span class="s1">&#39;four&#39;</span>
+<span class="kc">true</span>
+<span class="o">&gt;</span> <span class="s1">&#39;f&#39;</span><span class="o">+</span><span class="s1">&#39;our&#39;</span> <span class="o">===</span> <span class="s1">&#39;four&#39;</span>
+<span class="kc">true</span>
+</code></pre></div>
+
+
+<p>But for functions, we create separate objects each time we evaluate a function literal: </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="p">((</span><span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">)</span> <span class="o">===</span> <span class="p">((</span><span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">)</span>
+<span class="kc">false</span>
+</code></pre></div>
+
+
+<p>Arrays work similarly:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">]</span> <span class="o">===</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">]</span>
+<span class="kc">false</span>
+</code></pre></div>
+
+
+<p>If you come from a C background, you can think of what JavaScript is doing when 
+it evaluates the array literal <code>[1,2,3]</code> as creating a new array in memory, dumping 
+the contents <code>1</code>,<code>2</code>,<code>3</code> into consecutive addresses in memory, and returning a pointer 
+to the first address (the one storing the <code>1</code>). </p>
+<hr>
+<p>In JavaScript, a function is defined either within a <em>function declaration</em>, or 
+a <em>function expression</em>. A function declaration announces to the JavaScript engine 
+that it should note information about the existence of a function, and attaches 
+it to an identifier within the enclosing environment. A declared function is “named” 
+within its enclosing environment, so it can be called later. </p>
+<p>How is this done? Pretty much how you might expect: when an environment is created
+, a map of key-value pairs is created which translates identifiers into the objects 
+in scope. Whenever we have a call to some name in that environment (or, with lower 
+priority, in a child environment), we can look at the identifier table to find out 
+what object the name refers to. </p>
+<p>The very basic but very important thing to realize here is this: to tell whether 
+a function is “anonymous” or “named” <em>depends on which environment we're talking about</em>. 
+The name of a function is a property of the environment, <em>not of the function</em>. 
+Within a given environment, the named functions are those functions with names in 
+the key-value store of identifiers, the anonymous functions are all the other functions.</p>
+<p>Unfortunately, JavaScript makes it more confusing than that: in JavaScript, the 
+function object itself may have a property field, called <code>name</code>. You can understand 
+why such a property would be useful: recursion and debugging logs come to mind. 
+However some sort of “name”-ish thing, which is a property of a function rather 
+than a property of an enclosing environment, is very much a different concept from 
+an identifier as we talk about them in general programming. </p>
+<p>For example, let's use a JavaScript <em>function expression</em> to define a function with 
+a <code>name</code> property of <code>foo</code>, and then try to call it as if that name were a valid 
+identifier:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="kd">let</span> <span class="nx">fooVar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="nx">x</span> <span class="p">};</span>
+<span class="kc">undefined</span>
+<span class="o">&gt;</span> <span class="nx">fooVar</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="s1">&#39;foo&#39;</span>
+<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">Uncaught</span> <span class="ne">ReferenceError</span><span class="o">:</span> <span class="nx">foo</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">defined</span>
+</code></pre></div>
+
+
+<p>We can see that in fact, whatever the “name” field of this function which holds 
+<code>foo</code> is, it certainly doesn't provide an identifier within the enclosing environment. 
+It's a <em>named anonymous function</em>? Oh sure it has a name, but it keeps that name 
+anonymous to everyone else. If you prefer to sweep the unpleasant contradiction 
+under the rug, Mozilla calls this a <em>named function expression</em>.</p>
+<p>In fact, the name field does serve as an identifier, but not in the environment 
+the function is being used in: 
+<em>it serves as an identifier within the function's own function environment</em>. 
+Again, the essential point: whether a function is anonymous or not is a property 
+of the environment, not the function: foo above is anonymous in the outside environment, 
+but named in its own environment. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="mf">8</span> <span class="o">+</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mf">2</span><span class="p">)</span> <span class="o">?</span> <span class="mf">1</span> <span class="o">:</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">1</span><span class="p">)}(</span><span class="mf">6</span><span class="p">);</span>
+<span class="mf">21</span>
+</code></pre></div>
+
+
+<p>Of course, in our <code>fooVar</code> example we <em>did</em> provide, in a roundabout way, an identifier 
+for this function in the variable named <code>fooVar</code>. In fact, if we don't provide an 
+explicit name for the name field, ECMAScript's spec requires that an assignment 
+of a variable identifier to also set the internal name field of the function object 
+constructed, even works for arrow functions: </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">};</span>
+<span class="kc">undefined</span>
+<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="s1">&#39;foo&#39;</span>
+<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="mf">4</span>
+</code></pre></div>
+
+
+<p>If you don't like the variable assignment example because it still had the identifier 
+<code>fooVar</code>, rest assured we can have genuinely <em>“named anonymous functions”</em> in JavaScript: </p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="mf">0</span> <span class="o">+</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span> <span class="p">}</span> <span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="mf">4</span>
+<span class="o">&gt;</span> <span class="s2">&quot;this function is named &quot;</span> <span class="o">+</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">}</span> <span class="p">.</span> <span class="nx">name</span><span class="p">;</span>
+<span class="s2">&quot;this function is named foo&quot;</span>
+<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">Uncaught</span> <span class="ne">ReferenceError</span><span class="o">:</span> <span class="nx">foo</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">defined</span>
+</code></pre></div>
+
+
+<hr>
+<p>Alright, so the term <em>anonymous function</em> is a bit tricky when applied to JavaScript. 
+What about <em>lambda</em>? Well, the best equivalent (within the JavaScript world) to 
+the meaning of the phrase <em>lambda expression</em> (outside the JavaScript world) is 
+<em>function expression</em>. </p>
+<p>JavaScript has always had function expressions, even before it introduced the 
+<em>arrow function expressions</em> notation that approximates the syntax of <em>lambda expressions</em> 
+from the lambda calculus and other languages with similar syntax. </p>
+<p>Nowadays, if someone talks about a <em>lambda</em> in JavaScript, they're often referring 
+to a function expression that uses the <em>arrow function</em> syntax, or they could simply 
+be referring to any function expression. It can be important to distinguish between 
+<em>function expressions</em> and <em>arrow function expressions</em>, since they behave a little 
+differently with how their <code>this</code> and <code>arguments</code> properties are constructed.</p>
+<hr>
+<p>So what's the lesson to be learned here? Well, it's best to avoid the term 
+<em>anonymous function</em> and <em>lambda</em> in JavaScript. JavaScript has <em>function declarations</em>,<br>
+<em>function expressions</em>, and <em>arrow function expressions</em>, and those are the best 
+terms to use. </p>
+<p>If you have to translate general computer science ideas from outside the JavaScript 
+world into the JavaScript world: <em>lambda expression</em>, <em>anonymous function</em>, and 
+<em>function expression</em>, and <em>function literal</em> from the outside world all translate 
+to <em>function expression</em> and <em>arrow function expression</em> in the JavaScript world.</p>
+<p>Function expressions can be <em>named</em> or <em>anonymous</em>, but it's important to understand 
+how that distinction has to do with an internal property of functions in JavaScript, 
+whereas the general computer-science concept of <em>anonymous function</em> has to do with 
+lexical scoping and bound identifiers within an environment.</p>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="../tag/javascript.html">javascript</a>
+      <a href="../tag/lambda-expressions.html">lambda expressions</a>
+      <a href="../tag/anonymous-functions.html">anonymous functions</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  </body>
+</html>

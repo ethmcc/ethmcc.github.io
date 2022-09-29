@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> On Homoiconicity >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Homoiconicity as a design concept">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content=" On Homoiconicity ">
+    <meta property="og:description" content=" Homoiconicity as a design concept ">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content=" ../homoiconicity ">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> On Homoiconicity</h1>
+    <div class="Article-meta">
+      <time datetime="2022-09-27" class="Article-date">Sep 27, 2022</time>
+    </div>
+
+    <section class="Article-content">
+        <p>Recently I wanted to use the word <em>homoiconic</em> to describe 
+a design feature. I have my own idea of what meaning is 
+conveyed by the word, but decided I should probably look up 
+modern usage to see what meaning others might take from it. </p>
+<p>I encountered a lot of arguments, and a lot of concern over 
+whether the term was even meaningful. </p>
+<p>From Wiki <em>?DefinitionOfHomoiconic</em> :</p>
+<blockquote>
+<p>There is some debate about what exactly consitutes
+homoiconicity, and about which languages are 
+homoiconic</p>
+</blockquote>
+<p>Unfortunately this page does not exist on the current Wiki 
+as of September 2022.</p>
+<p>Questions of the following type abound on forums, which I paraphrase:</p>
+<blockquote>
+<p>Is homoiconicity well-defined? 
+Is the word mathematically rigorous? 
+Is there a test that can be applied to 
+show that Lisp is homoiconic but C isn't?</p>
+</blockquote>
+<p>To approach this question at face value, every definition I've seen attempting 
+to apply homoiconicity as a formal
+property of a language focuses on "the internal representation of code", 
+that is, they are concerned with the <em>implementation</em>. 
+If we were to try to mathematically formalize this, perhaps we could apply 
+the definition then to a formal semantics.</p>
+<p>Every approach to formalizing the semantics of C that I have seen certainly 
+doesn't take an approach that could be described as homoiconic. 
+One would expect that a natural understanding of the semantics of C 
+would discuss memory and addresses, rather than something that looks like C expressions. 
+Indeed, any language based more on procedures than on expressions, simply does 
+not have in mind the concept of homoiconicity as a design feature.</p>
+<p>Both K&amp;C and the ANSI C standard themselves are informal (mathematically) natural 
+language descriptions, 
+whereas the specifications for e.g. SML and Scheme provide formal semantics. 
+The Scheme specification, in particular, provide a fairly homoiconic 
+formal semantics in terms of mathematical objects that look very much 
+directly like Scheme expressions.</p>
+<p>However, I doubt that formally rigorous mathematical definitions will actually help 
+much here, or provide better meaning or understanding to programmers. </p>
+<p>For example, a very practical and meaningful distinction between the code-as-data 
+properties of Lisp, versus those of C, can be noticed in the following observation:</p>
+<blockquote>
+<p>You can write a Scheme interpreter in about 20 lines of Scheme.</p>
+<p>You'd be hard-pressed to write a C interpreter in less than 20,000 lines of C.  </p>
+</blockquote>
+<p>This is an observation that is directly relevant to a programmer. </p>
+<p>While it would certainly be of mathematical interest to provide some sort of formalism that 
+could help mathematicians to study this, the observation is clearly 
+meaningful and valid whether or not mathematicians have provided a 
+formalism to help explain it.</p>
+<p>Most formal mathematical definitions would not notice a difference between 20 
+lines and 20,000 lines, so a completely naive approach would be likely to fail,
+although I would not bet the house against there being some more subtle way to 
+formally tease out the difference. I would not expect this to work well for C 
+itself, because again: C doesn't have a clearly suitable formal semantics.</p>
+<h2>As a design concept</h2>
+<p>The approach of asking whether a language "has homoiconicity", or has not, 
+as in some sort of desirable marketing term to attract users, doesn't seem 
+particularly fruitful. To my work as a programmer, the concept of homoiconicity 
+has been more productively understood as a <em>design concept</em>.</p>
+<p>Consider the design of the UNIX shell: one runs programs in the shell by typing 
+commands, but that same sequence of commands can itself be packaged into a program itself 
+as a shell script. That is, there is homoiconicity between user interaction 
+with programs, and programs themselves. </p>
+<p>The "everything is a file" principle similarly provides 
+<em>uniformity of representation</em> between numerous other concepts, 
+e.g. between devices and device drivers.</p>
+<p>It is then the advantages that homoiconicity can provide which should be weighed: 
+extensibility, automatic extension of new features across 
+old programs without needing to rewrite the old, etc. Homoiconicity, that is, the 
+technique of 
+<em>choosing a uniform representation for objects across otherwise distinct contexts</em>, 
+can then be considered, among other techniques, as a means of 
+realizing these advantages.</p>
+<h2>History of the term</h2>
+<p>Thinking of homoiconicity as a <em>design concept</em>, rather than as a formal 
+property of a language, is at least not without historical basis. Here we see the first 
+recorded use of the term in programming, by Moores and L. Peter Deutsch, 
+describing their TRAC® language<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> in the 1965 ACM Proceedings: </p>
+<blockquote>
+<p>One of the main design goals was that the 
+input script of TRAC (what is typed in by the 
+user) should be identical to the text which guides 
+the internal action of the TRAC processor.  </p>
+<p>Because TRAC procedures and text have the same 
+representation inside and outside the processor, 
+the term <em>homo-iconic</em> is applicable, from 
+<em>homo</em> meaning the same, and <em>icon</em> meaning 
+representation.  </p>
+</blockquote>
+<p>We can see first of all that the term is used as a design concept, 
+and that they refer primarily to implementation, rather 
+than formal properties of the language itself.</p>
+<p>They attribute the terminology to the suggestion of 
+Warren S. McCulloch, after C.S. Peirce, and cite LISP
+as an inspiration: </p>
+<blockquote>
+<p>Lisp, although elegant in concept, becomes inelegant in practice. 
+It even "cheats" in the frequent use of machine-language procedures. 
+... Were the S-language the only LISP language, LISP would be close 
+to being homo-iconic (excluding the machine-language functions).</p>
+</blockquote>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Incidentally, TRAC® language (with the registered trademark symbol) 
+is one of the three beginner languages recommended by Ted Nelson 
+in <em>Computer Lib</em>, after BASIC and before APL.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="../tag/design.html">design</a>
+      <a href="../tag/lisp.html">lisp</a>
+      <a href="../tag/unix.html">unix</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  </body>
+</html>

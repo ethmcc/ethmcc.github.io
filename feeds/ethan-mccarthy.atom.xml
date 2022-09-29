@@ -1,5 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"></link><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"></link><id>https://ethmcc.github.io/</id><updated>2021-12-15T00:00:00-05:00</updated><entry><title>Python and JavaScript performance</title><link href="https://ethmcc.github.io/python-js-tracing-jit" rel="alternate"></link><published>2021-12-15T00:00:00-05:00</published><updated>2021-12-15T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2021-12-15:/python-js-tracing-jit</id><summary type="html">&lt;p&gt;I came across &lt;a href="https://youtu.be/3PcIJKd1PKU"&gt;a cheeky little demonstration&lt;/a&gt; on YouTube comparing the same algorithm written in Python, C, and x86 assembly.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"></link><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"></link><id>https://ethmcc.github.io/</id><updated>2022-09-27T00:00:00-04:00</updated><entry><title>On Homoiconicity</title><link href="https://ethmcc.github.io/homoiconicity" rel="alternate"></link><published>2022-09-27T00:00:00-04:00</published><updated>2022-09-27T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2022-09-27:/homoiconicity</id><summary type="html">&lt;p&gt;Recently I wanted to use the word &lt;em&gt;homoiconic&lt;/em&gt; to describe 
+a design feature. I have my own idea of what meaning is 
+conveyed by the word, but decided I should probably look up 
+modern usage to see what meaning others might take from it. &lt;/p&gt;
+&lt;p&gt;I encountered a lot of arguments …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently I wanted to use the word &lt;em&gt;homoiconic&lt;/em&gt; to describe 
+a design feature. I have my own idea of what meaning is 
+conveyed by the word, but decided I should probably look up 
+modern usage to see what meaning others might take from it. &lt;/p&gt;
+&lt;p&gt;I encountered a lot of arguments, and a lot of concern over 
+whether the term was even meaningful. &lt;/p&gt;
+&lt;p&gt;From Wiki &lt;em&gt;?DefinitionOfHomoiconic&lt;/em&gt; :&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;There is some debate about what exactly consitutes
+homoiconicity, and about which languages are 
+homoiconic&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Unfortunately this page does not exist on the current Wiki 
+as of September 2022.&lt;/p&gt;
+&lt;p&gt;Questions of the following type abound on forums, which I paraphrase:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Is homoiconicity well-defined? 
+Is the word mathematically rigorous? 
+Is there a test that can be applied to 
+show that Lisp is homoiconic but C isn't?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To approach this question at face value, every definition I've seen attempting 
+to apply homoiconicity as a formal
+property of a language focuses on "the internal representation of code", 
+that is, they are concerned with the &lt;em&gt;implementation&lt;/em&gt;. 
+If we were to try to mathematically formalize this, perhaps we could apply 
+the definition then to a formal semantics.&lt;/p&gt;
+&lt;p&gt;Every approach to formalizing the semantics of C that I have seen certainly 
+doesn't take an approach that could be described as homoiconic. 
+One would expect that a natural understanding of the semantics of C 
+would discuss memory and addresses, rather than something that looks like C expressions. 
+Indeed, any language based more on procedures than on expressions, simply does 
+not have in mind the concept of homoiconicity as a design feature.&lt;/p&gt;
+&lt;p&gt;Both K&amp;amp;C and the ANSI C standard themselves are informal (mathematically) natural 
+language descriptions, 
+whereas the specifications for e.g. SML and Scheme provide formal semantics. 
+The Scheme specification, in particular, provide a fairly homoiconic 
+formal semantics in terms of mathematical objects that look very much 
+directly like Scheme expressions.&lt;/p&gt;
+&lt;p&gt;However, I doubt that formally rigorous mathematical definitions will actually help 
+much here, or provide better meaning or understanding to programmers. &lt;/p&gt;
+&lt;p&gt;For example, a very practical and meaningful distinction between the code-as-data 
+properties of Lisp, versus those of C, can be noticed in the following observation:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You can write a Scheme interpreter in about 20 lines of Scheme.&lt;/p&gt;
+&lt;p&gt;You'd be hard-pressed to write a C interpreter in less than 20,000 lines of C.  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This is an observation that is directly relevant to a programmer. &lt;/p&gt;
+&lt;p&gt;While it would certainly be of mathematical interest to provide some sort of formalism that 
+could help mathematicians to study this, the observation is clearly 
+meaningful and valid whether or not mathematicians have provided a 
+formalism to help explain it.&lt;/p&gt;
+&lt;p&gt;Most formal mathematical definitions would not notice a difference between 20 
+lines and 20,000 lines, so a completely naive approach would be likely to fail,
+although I would not bet the house against there being some more subtle way to 
+formally tease out the difference. I would not expect this to work well for C 
+itself, because again: C doesn't have a clearly suitable formal semantics.&lt;/p&gt;
+&lt;h2&gt;As a design concept&lt;/h2&gt;
+&lt;p&gt;The approach of asking whether a language "has homoiconicity", or has not, 
+as in some sort of desirable marketing term to attract users, doesn't seem 
+particularly fruitful. To my work as a programmer, the concept of homoiconicity 
+has been more productively understood as a &lt;em&gt;design concept&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Consider the design of the UNIX shell: one runs programs in the shell by typing 
+commands, but that same sequence of commands can itself be packaged into a program itself 
+as a shell script. That is, there is homoiconicity between user interaction 
+with programs, and programs themselves. &lt;/p&gt;
+&lt;p&gt;The "everything is a file" principle similarly provides 
+&lt;em&gt;uniformity of representation&lt;/em&gt; between numerous other concepts, 
+e.g. between devices and device drivers.&lt;/p&gt;
+&lt;p&gt;It is then the advantages that homoiconicity can provide which should be weighed: 
+extensibility, automatic extension of new features across 
+old programs without needing to rewrite the old, etc. Homoiconicity, that is, the 
+technique of 
+&lt;em&gt;choosing a uniform representation for objects across otherwise distinct contexts&lt;/em&gt;, 
+can then be considered, among other techniques, as a means of 
+realizing these advantages.&lt;/p&gt;
+&lt;h2&gt;History of the term&lt;/h2&gt;
+&lt;p&gt;Thinking of homoiconicity as a &lt;em&gt;design concept&lt;/em&gt;, rather than as a formal 
+property of a language, is at least not without historical basis. Here we see the first 
+recorded use of the term in programming, by Moores and L. Peter Deutsch, 
+describing their TRAC® language&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1"&gt;1&lt;/a&gt;&lt;/sup&gt; in the 1965 ACM Proceedings: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;One of the main design goals was that the 
+input script of TRAC (what is typed in by the 
+user) should be identical to the text which guides 
+the internal action of the TRAC processor.  &lt;/p&gt;
+&lt;p&gt;Because TRAC procedures and text have the same 
+representation inside and outside the processor, 
+the term &lt;em&gt;homo-iconic&lt;/em&gt; is applicable, from 
+&lt;em&gt;homo&lt;/em&gt; meaning the same, and &lt;em&gt;icon&lt;/em&gt; meaning 
+representation.  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We can see first of all that the term is used as a design concept, 
+and that they refer primarily to implementation, rather 
+than formal properties of the language itself.&lt;/p&gt;
+&lt;p&gt;They attribute the terminology to the suggestion of 
+Warren S. McCulloch, after C.S. Peirce, and cite LISP
+as an inspiration: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Lisp, although elegant in concept, becomes inelegant in practice. 
+It even "cheats" in the frequent use of machine-language procedures. 
+... Were the S-language the only LISP language, LISP would be close 
+to being homo-iconic (excluding the machine-language functions).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="footnote"&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;Incidentally, TRAC® language (with the registered trademark symbol) 
+is one of the three beginner languages recommended by Ted Nelson 
+in &lt;em&gt;Computer Lib&lt;/em&gt;, after BASIC and before APL.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content><category term="programming"></category><category term="design"></category><category term="lisp"></category><category term="unix"></category></entry><entry><title>Contexts and aspects</title><link href="https://ethmcc.github.io/shotgun-surgery" rel="alternate"></link><published>2022-07-24T00:00:00-04:00</published><updated>2022-07-24T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2022-07-24:/shotgun-surgery</id><summary type="html">&lt;p&gt;I'm reading the 2nd edition of Martin Fowler's &lt;em&gt;Refactoring&lt;/em&gt;, here is his description of the "shotgun surgery" code smell:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You whiff this when, every time you make a change, you have to make a lot of little edits to a lot of different classes. When the changes are all over …&lt;/p&gt;&lt;/blockquote&gt;</summary><content type="html">&lt;p&gt;I'm reading the 2nd edition of Martin Fowler's &lt;em&gt;Refactoring&lt;/em&gt;, here is his description of the "shotgun surgery" code smell:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You whiff this when, every time you make a change, you have to make a lot of little edits to a lot of different classes. When the changes are all over the place, they are hard to find, and it’s easy to miss an important change.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Thinking about the process you would have to take to, for example, add a new feature to a web app, "lots of little edits to a lot of different classes" are going to happen for every new feature:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create or edit models for the new entities in the database &lt;/li&gt;
+&lt;li&gt;Create or edit classes to manage the new entity&lt;/li&gt;
+&lt;li&gt;Create or edit methods in the new classes for the new functionality&lt;/li&gt;
+&lt;li&gt;Create or edit schema for serializing/deserializing data from the database&lt;/li&gt;
+&lt;li&gt;Create or edit schema for serializing/deserializing data for the API&lt;/li&gt;
+&lt;li&gt;Create or edit API endpoints for the functionality&lt;/li&gt;
+&lt;li&gt;Create or edit frontend components for the functionality&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It seems to me that shotgun surgery could arise from violations of the &lt;em&gt;Single responsibility principle&lt;/em&gt; (SRP), in that if many individual modules are each serving many actors, then they will all have to change. &lt;/p&gt;
+&lt;p&gt;This situation is described in the "Divergent Change" code smell:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Divergent change occurs when one module is often changed in different ways for different reasons. If you look at a module and say, “Well, I will have to change these three functions every time I get a new database; I have to change these four functions every time there is a new financial instrument,” this is an indication of divergent change. The database interaction and financial processing problems are separate contexts, and we can make our programming life better by moving such contexts into separate modules.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The single responsibility principle states that each module of source code should serve only one actor. An actor is an abstract personification of sources of change requests or feature requets. Put another way, a module should have only a single reason for change. However, the fact that a single actor is served by many modules does not mean that there is a SRP violation. &lt;/p&gt;
+&lt;p&gt;Put in table form:
+| Actors | Modules | Conditions |
+|--------|---------|------------|
+| Many | Many | SRP violation, shotgun surgery, divergent change |
+| Many | One | SRP violation, divergent change |
+| One | Many | shotgun surgery |&lt;/p&gt;
+&lt;p&gt;It doesn't seem to me that having to change many modules to introduce a feature is actually a problem, as long as all those modules serve only the single actor on whose behalf the change is being made.&lt;/p&gt;
+&lt;p&gt;Perhaps it's best to think of an application as partitioned into a sort of horizontal and vertical grid. Along the vertical slices, we have actors who produce user stories: payroll, financial instruments, users, etc. These we can identify with &lt;em&gt;aspects&lt;/em&gt; of the software. Along the horizontal slices, we have &lt;em&gt;contexts&lt;/em&gt;: database models, database access, business objects, APIs, and GUIs. &lt;/p&gt;
+&lt;p&gt;A single vertical slice will cut across all contexts. A horizontal context change will slice across all aspects. &lt;/p&gt;</content><category term="programming"></category><category term="design"></category><category term="software"></category></entry><entry><title>Python and JavaScript performance</title><link href="https://ethmcc.github.io/python-js-tracing-jit" rel="alternate"></link><published>2021-12-15T00:00:00-05:00</published><updated>2021-12-15T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2021-12-15:/python-js-tracing-jit</id><summary type="html">&lt;p&gt;I came across &lt;a href="https://youtu.be/3PcIJKd1PKU"&gt;a cheeky little demonstration&lt;/a&gt; on YouTube comparing the same algorithm written in Python, C, and x86 assembly.&lt;/p&gt;
 &lt;p&gt;It compares the following pessimal C code:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;#include&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;isPrime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
@@ -204,13 +351,8 @@ pypy primes2.py  &lt;span class="m"&gt;4&lt;/span&gt;.18s user &lt;span class="m
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="programming, python, javascript"></category><category term="javascript"></category><category term="python"></category><category term="node"></category><category term="pypy"></category><category term="v8"></category><category term="jit"></category><category term="programming"></category></entry><entry><title>Pomoduino time-management clock</title><link href="https://ethmcc.github.io/pomoduino" rel="alternate"></link><published>2021-03-28T00:00:00-04:00</published><updated>2021-03-28T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2021-03-28:/pomoduino</id><summary type="html">&lt;p&gt;I built a Pomodoro timer out of a microcontroller and a 16-pin LCD.&lt;/p&gt;
-&lt;div class="figure" style="width: 50%"&gt;
-&lt;img alt="Start the timer by pressing the button." src="https://ethmcc.github.io/images/pomodoro_demo_1.jpg" /&gt;
-&lt;p class="caption"&gt;Start the timer by pressing the button.&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;The Pomodoro time-management technique uses sets of four &amp;quot;Pomodoro&amp;quot; work intervals, so-named after the tomato-shaped kitchen timer used by its inventor, Francesco Cirillo.&lt;/p&gt;
-&lt;p&gt;Each Pomodoro interval is a 25-minute period …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I built a Pomodoro timer out of a microcontroller and a 16-pin LCD.&lt;/p&gt;
+&lt;/script&gt;</content><category term="programming"></category><category term="javascript"></category><category term="python"></category><category term="node"></category><category term="pypy"></category><category term="v8"></category><category term="jit"></category></entry><entry><title>Pomoduino time-management clock</title><link href="https://ethmcc.github.io/pomoduino" rel="alternate"></link><published>2021-03-28T00:00:00-04:00</published><updated>2021-03-28T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2021-03-28:/pomoduino</id><summary type="html">&lt;p class="first last"&gt;I built a pomodoro timer for Arduino-compatible microcontrollers.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;I built a Pomodoro timer out of a microcontroller and a 16-pin LCD.&lt;/p&gt;
 &lt;div class="figure" style="width: 50%"&gt;
 &lt;img alt="Start the timer by pressing the button." src="https://ethmcc.github.io/images/pomodoro_demo_1.jpg" /&gt;
 &lt;p class="caption"&gt;Start the timer by pressing the button.&lt;/p&gt;
@@ -237,11 +379,8 @@ pypy primes2.py  &lt;span class="m"&gt;4&lt;/span&gt;.18s user &lt;span class="m
 &lt;!-- .. raw:: html --&gt;
 &lt;!-- &lt;iframe src=https://create.arduino.cc/editor/ethmcc/33c8d8e8-a6ca-4758-b3a0-0ed5d540db39/preview?F=ReadMe.adoc?embed style="height:510px;width:100%;margin:10px 0" frameborder=0&gt;&lt;/iframe&gt; --&gt;
 &lt;/div&gt;
-</content><category term="programming"></category><category term="arduino"></category><category term="microcontrollers"></category><category term="embeded systems"></category><category term="c++"></category><category term="project"></category></entry><entry><title>Weather Journal</title><link href="https://ethmcc.github.io/weather" rel="alternate"></link><published>2020-12-20T00:00:00-05:00</published><updated>2020-12-20T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-12-20:/weather</id><summary type="html">&lt;p&gt;I wrote an Android application for keeping a journal on the local weather.&lt;/p&gt;
-&lt;div class="figure"&gt;
-&lt;img alt="Keep a daily Weather Journal! Grab the local weather report for your location and write a little bit each day." src="https://ethmcc.github.io/images/weather_demo_1.png" /&gt;
-&lt;/div&gt;
-&lt;p&gt;Getting in the practice of writing a bit daily can be a helpful grounding exercise. Weather Journal is a native Android application, written in Java, with the simple premise of being a place to go each day …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I wrote an Android application for keeping a journal on the local weather.&lt;/p&gt;
+</content><category term="programming"></category><category term="arduino"></category><category term="microcontrollers"></category><category term="embeded systems"></category><category term="c++"></category><category term="project"></category></entry><entry><title>Weather Journal</title><link href="https://ethmcc.github.io/weather" rel="alternate"></link><published>2020-12-20T00:00:00-05:00</published><updated>2020-12-20T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-12-20:/weather</id><summary type="html">&lt;p class="first last"&gt;I wrote an Android application for keeping a journal of local weather conditions.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;I wrote an Android application for keeping a journal on the local weather.&lt;/p&gt;
 &lt;div class="figure"&gt;
 &lt;img alt="Keep a daily Weather Journal! Grab the local weather report for your location and write a little bit each day." src="https://ethmcc.github.io/images/weather_demo_1.png" /&gt;
 &lt;/div&gt;
@@ -382,7 +521,7 @@ Return &lt;code&gt;! UTF16Encode(func.[[SourceText]])&lt;/code&gt;.&lt;/p&gt;
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="programming, mathematics, javascript"></category><category term="javascript"></category><category term="programming"></category><category term="mathematics"></category></entry><entry><title>SQL Murder Mystery</title><link href="https://ethmcc.github.io/sql-murder-mystery" rel="alternate"></link><published>2020-08-01T00:00:00-04:00</published><updated>2020-08-01T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-08-01:/sql-murder-mystery</id><summary type="html">&lt;p&gt;Northwestern's Knight Labs has a fun little diversion for practicing your SQL commands.&lt;/p&gt;
+&lt;/script&gt;</content><category term="mathematics"></category><category term="javascript"></category><category term="mathematics"></category></entry><entry><title>SQL Murder Mystery</title><link href="https://ethmcc.github.io/sql-murder-mystery" rel="alternate"></link><published>2020-08-01T00:00:00-04:00</published><updated>2020-08-01T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-08-01:/sql-murder-mystery</id><summary type="html">&lt;p&gt;Northwestern's Knight Labs has a fun little diversion for practicing your SQL commands.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A crime has taken place and the detective needs your help. The detective gave you the crime scene report, but you somehow lost it. You vaguely remember that the crime was a ​murder​ that occurred sometime on …&lt;/p&gt;&lt;/blockquote&gt;</summary><content type="html">&lt;p&gt;Northwestern's Knight Labs has a fun little diversion for practicing your SQL commands.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -516,7 +655,7 @@ Miranda Priestly SQL Symphony Concert 20171229
 
 
 &lt;p&gt;There's our three visits in 2017!&lt;/p&gt;
-&lt;/details&gt;</content><category term="programming, databases"></category><category term="sql"></category><category term="sql-lite"></category><category term="programming"></category></entry><entry><title>Flipping words in Haskell</title><link href="https://ethmcc.github.io/flip-words-kata-haskell" rel="alternate"></link><published>2020-07-30T00:00:00-04:00</published><updated>2020-07-30T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-07-30:/flip-words-kata-haskell</id><summary type="html">&lt;p&gt;The following was a very simple programming kata I ran through in Haskell and had fun with. It lends itself to a very natural solution with Monads.&lt;/p&gt;
+&lt;/details&gt;</content><category term="programming"></category><category term="sql"></category><category term="databases"></category></entry><entry><title>Flipping words in Haskell</title><link href="https://ethmcc.github.io/flip-words-kata-haskell" rel="alternate"></link><published>2020-07-30T00:00:00-04:00</published><updated>2020-07-30T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-07-30:/flip-words-kata-haskell</id><summary type="html">&lt;p&gt;The following was a very simple programming kata I ran through in Haskell and had fun with. It lends itself to a very natural solution with Monads.&lt;/p&gt;
 &lt;p&gt;I didn't see any other submission that took a monadic approach to this problem at all, so I thought I'd share. Here's the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The following was a very simple programming kata I ran through in Haskell and had fun with. It lends itself to a very natural solution with Monads.&lt;/p&gt;
 &lt;p&gt;I didn't see any other submission that took a monadic approach to this problem at all, so I thought I'd share. Here's the problem:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -664,7 +803,154 @@ Prelude&amp;gt;
 &lt;span class="nf"&gt;condFlipSentence&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;flip&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;unwords&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flip&lt;/span&gt; &lt;span class="n"&gt;condFlipWords&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="nf"&gt;flipWords&lt;/span&gt; &lt;span class="ow"&gt;=&lt;/span&gt; &lt;span class="n"&gt;condFlipSentence&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="programming, haskell"></category><category term="haskell"></category><category term="monads"></category><category term="programming"></category><category term="katas"></category></entry><entry><title>Representing Sudoku variants as set multicover problems</title><link href="https://ethmcc.github.io/sudoku-multicover" rel="alternate"></link><published>2020-05-23T00:00:00-04:00</published><updated>2020-05-23T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-23:/sudoku-multicover</id><summary type="html">&lt;p&gt;In previous posts, I introduced &lt;a href="../miracle-sudoku"&gt;the Miracle Sudoku&lt;/a&gt; variant and &lt;a href="../sudoku"&gt;my variant sudoku solver package&lt;/a&gt;, which I used for enumerating solutions to that variant. I also explained &lt;a href="../dancing-links"&gt;the algorithm that package uses&lt;/a&gt; for solving set-multicover problems: Knuth's &lt;em&gt;dancing links&lt;/em&gt;. &lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="programming"></category><category term="haskell"></category><category term="monads"></category><category term="katas"></category><category term="functional programming"></category></entry><entry><title>Lambdas and anonymous functions in JavaScript</title><link href="https://ethmcc.github.io/javascript-lambda-anonymous" rel="alternate"></link><published>2020-07-08T00:00:00-04:00</published><updated>2020-07-08T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-07-08:/javascript-lambda-anonymous</id><summary type="html">&lt;p&gt;There's a lot of confusion in the JavaScript community around the term “lambda”. &lt;/p&gt;
+&lt;p&gt;I'll eschew pointing to any particular examples, as they can get pretty heated. 
+It all revolves around the terms "lambda expression" (or "lambda", for short), a 
+term which originated in the mathematical side of computer science, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;There's a lot of confusion in the JavaScript community around the term “lambda”. &lt;/p&gt;
+&lt;p&gt;I'll eschew pointing to any particular examples, as they can get pretty heated. 
+It all revolves around the terms "lambda expression" (or "lambda", for short), a 
+term which originated in the mathematical side of computer science, and "anonymous 
+function", which is a programming term. So what's going on here?&lt;/p&gt;
+&lt;p&gt;Functions in JavaScript are values that can be passed around like any other values, 
+e.g. string values, number values, or other object values. This is sometimes expressed 
+in the phrase “functions as first class citizens”. &lt;/p&gt;
+&lt;p&gt;It's best to think of these values like actual values: a function value is just 
+some object living in memory. Let me be clear: when I say &lt;em&gt;function value&lt;/em&gt; here, 
+I don't mean the value taken by a function on some input, I mean the function object 
+itself: &lt;em&gt;the value in memory that the function&lt;/em&gt; &lt;strong&gt;is&lt;/strong&gt;, itself, per se, intrinsically 
+(mind blown).&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;It is worth here keeping a distinction in mind between &lt;em&gt;reference types&lt;/em&gt; and 
+&lt;em&gt;value types&lt;/em&gt;. Functions are a &lt;em&gt;reference type&lt;/em&gt;, whereas types like strings or numbers 
+are &lt;em&gt;value types&lt;/em&gt;. For value types, we get the following behavior as one might expect: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;2&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="mf"&gt;2&lt;/span&gt;
+&lt;span class="kc"&gt;true&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="mf"&gt;4&lt;/span&gt;
+&lt;span class="kc"&gt;true&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;four&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;four&amp;#39;&lt;/span&gt;
+&lt;span class="kc"&gt;true&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;f&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;our&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;four&amp;#39;&lt;/span&gt;
+&lt;span class="kc"&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But for functions, we create separate objects each time we evaluate a function literal: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kc"&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Arrays work similarly:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mf"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;===&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mf"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="kc"&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you come from a C background, you can think of what JavaScript is doing when 
+it evaluates the array literal &lt;code&gt;[1,2,3]&lt;/code&gt; as creating a new array in memory, dumping 
+the contents &lt;code&gt;1&lt;/code&gt;,&lt;code&gt;2&lt;/code&gt;,&lt;code&gt;3&lt;/code&gt; into consecutive addresses in memory, and returning a pointer 
+to the first address (the one storing the &lt;code&gt;1&lt;/code&gt;). &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;In JavaScript, a function is defined either within a &lt;em&gt;function declaration&lt;/em&gt;, or 
+a &lt;em&gt;function expression&lt;/em&gt;. A function declaration announces to the JavaScript engine 
+that it should note information about the existence of a function, and attaches 
+it to an identifier within the enclosing environment. A declared function is “named” 
+within its enclosing environment, so it can be called later. &lt;/p&gt;
+&lt;p&gt;How is this done? Pretty much how you might expect: when an environment is created
+, a map of key-value pairs is created which translates identifiers into the objects 
+in scope. Whenever we have a call to some name in that environment (or, with lower 
+priority, in a child environment), we can look at the identifier table to find out 
+what object the name refers to. &lt;/p&gt;
+&lt;p&gt;The very basic but very important thing to realize here is this: to tell whether 
+a function is “anonymous” or “named” &lt;em&gt;depends on which environment we're talking about&lt;/em&gt;. 
+The name of a function is a property of the environment, &lt;em&gt;not of the function&lt;/em&gt;. 
+Within a given environment, the named functions are those functions with names in 
+the key-value store of identifiers, the anonymous functions are all the other functions.&lt;/p&gt;
+&lt;p&gt;Unfortunately, JavaScript makes it more confusing than that: in JavaScript, the 
+function object itself may have a property field, called &lt;code&gt;name&lt;/code&gt;. You can understand 
+why such a property would be useful: recursion and debugging logs come to mind. 
+However some sort of “name”-ish thing, which is a property of a function rather 
+than a property of an enclosing environment, is very much a different concept from 
+an identifier as we talk about them in general programming. &lt;/p&gt;
+&lt;p&gt;For example, let's use a JavaScript &lt;em&gt;function expression&lt;/em&gt; to define a function with 
+a &lt;code&gt;name&lt;/code&gt; property of &lt;code&gt;foo&lt;/code&gt;, and then try to call it as if that name were a valid 
+identifier:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;fooVar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="kc"&gt;undefined&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;fooVar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;Uncaught&lt;/span&gt; &lt;span class="ne"&gt;ReferenceError&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt; &lt;span class="nx"&gt;is&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;defined&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can see that in fact, whatever the “name” field of this function which holds 
+&lt;code&gt;foo&lt;/code&gt; is, it certainly doesn't provide an identifier within the enclosing environment. 
+It's a &lt;em&gt;named anonymous function&lt;/em&gt;? Oh sure it has a name, but it keeps that name 
+anonymous to everyone else. If you prefer to sweep the unpleasant contradiction 
+under the rug, Mozilla calls this a &lt;em&gt;named function expression&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;In fact, the name field does serve as an identifier, but not in the environment 
+the function is being used in: 
+&lt;em&gt;it serves as an identifier within the function's own function environment&lt;/em&gt;. 
+Again, the essential point: whether a function is anonymous or not is a property 
+of the environment, not the function: foo above is anonymous in the outside environment, 
+but named in its own environment. For example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;8&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;n&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="mf"&gt;1&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)}(&lt;/span&gt;&lt;span class="mf"&gt;6&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="mf"&gt;21&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Of course, in our &lt;code&gt;fooVar&lt;/code&gt; example we &lt;em&gt;did&lt;/em&gt; provide, in a roundabout way, an identifier 
+for this function in the variable named &lt;code&gt;fooVar&lt;/code&gt;. In fact, if we don't provide an 
+explicit name for the name field, ECMAScript's spec requires that an assignment 
+of a variable identifier to also set the internal name field of the function object 
+constructed, even works for arrow functions: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="kc"&gt;undefined&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="mf"&gt;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you don't like the variable assignment example because it still had the identifier 
+&lt;code&gt;fooVar&lt;/code&gt;, rest assured we can have genuinely &lt;em&gt;“named anonymous functions”&lt;/em&gt; in JavaScript: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="mf"&gt;4&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;this function is named &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;this function is named foo&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;Uncaught&lt;/span&gt; &lt;span class="ne"&gt;ReferenceError&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt; &lt;span class="nx"&gt;is&lt;/span&gt; &lt;span class="nx"&gt;not&lt;/span&gt; &lt;span class="nx"&gt;defined&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;p&gt;Alright, so the term &lt;em&gt;anonymous function&lt;/em&gt; is a bit tricky when applied to JavaScript. 
+What about &lt;em&gt;lambda&lt;/em&gt;? Well, the best equivalent (within the JavaScript world) to 
+the meaning of the phrase &lt;em&gt;lambda expression&lt;/em&gt; (outside the JavaScript world) is 
+&lt;em&gt;function expression&lt;/em&gt;. &lt;/p&gt;
+&lt;p&gt;JavaScript has always had function expressions, even before it introduced the 
+&lt;em&gt;arrow function expressions&lt;/em&gt; notation that approximates the syntax of &lt;em&gt;lambda expressions&lt;/em&gt; 
+from the lambda calculus and other languages with similar syntax. &lt;/p&gt;
+&lt;p&gt;Nowadays, if someone talks about a &lt;em&gt;lambda&lt;/em&gt; in JavaScript, they're often referring 
+to a function expression that uses the &lt;em&gt;arrow function&lt;/em&gt; syntax, or they could simply 
+be referring to any function expression. It can be important to distinguish between 
+&lt;em&gt;function expressions&lt;/em&gt; and &lt;em&gt;arrow function expressions&lt;/em&gt;, since they behave a little 
+differently with how their &lt;code&gt;this&lt;/code&gt; and &lt;code&gt;arguments&lt;/code&gt; properties are constructed.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;So what's the lesson to be learned here? Well, it's best to avoid the term 
+&lt;em&gt;anonymous function&lt;/em&gt; and &lt;em&gt;lambda&lt;/em&gt; in JavaScript. JavaScript has &lt;em&gt;function declarations&lt;/em&gt;,&lt;br&gt;
+&lt;em&gt;function expressions&lt;/em&gt;, and &lt;em&gt;arrow function expressions&lt;/em&gt;, and those are the best 
+terms to use. &lt;/p&gt;
+&lt;p&gt;If you have to translate general computer science ideas from outside the JavaScript 
+world into the JavaScript world: &lt;em&gt;lambda expression&lt;/em&gt;, &lt;em&gt;anonymous function&lt;/em&gt;, and 
+&lt;em&gt;function expression&lt;/em&gt;, and &lt;em&gt;function literal&lt;/em&gt; from the outside world all translate 
+to &lt;em&gt;function expression&lt;/em&gt; and &lt;em&gt;arrow function expression&lt;/em&gt; in the JavaScript world.&lt;/p&gt;
+&lt;p&gt;Function expressions can be &lt;em&gt;named&lt;/em&gt; or &lt;em&gt;anonymous&lt;/em&gt;, but it's important to understand 
+how that distinction has to do with an internal property of functions in JavaScript, 
+whereas the general computer-science concept of &lt;em&gt;anonymous function&lt;/em&gt; has to do with 
+lexical scoping and bound identifiers within an environment.&lt;/p&gt;</content><category term="programming"></category><category term="javascript"></category><category term="lambda expressions"></category><category term="anonymous functions"></category></entry><entry><title>Representing Sudoku variants as set multicover problems</title><link href="https://ethmcc.github.io/sudoku-multicover" rel="alternate"></link><published>2020-05-23T00:00:00-04:00</published><updated>2020-05-23T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-23:/sudoku-multicover</id><summary type="html">&lt;p&gt;In previous posts, I introduced &lt;a href="../miracle-sudoku"&gt;the Miracle Sudoku&lt;/a&gt; variant and &lt;a href="../sudoku"&gt;my variant sudoku solver package&lt;/a&gt;, which I used for enumerating solutions to that variant. I also explained &lt;a href="../dancing-links"&gt;the algorithm that package uses&lt;/a&gt; for solving set-multicover problems: Knuth's &lt;em&gt;dancing links&lt;/em&gt;. &lt;/p&gt;
 &lt;p&gt;In this post, I'll quickly explain how Sudoku problems can be …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In previous posts, I introduced &lt;a href="../miracle-sudoku"&gt;the Miracle Sudoku&lt;/a&gt; variant and &lt;a href="../sudoku"&gt;my variant sudoku solver package&lt;/a&gt;, which I used for enumerating solutions to that variant. I also explained &lt;a href="../dancing-links"&gt;the algorithm that package uses&lt;/a&gt; for solving set-multicover problems: Knuth's &lt;em&gt;dancing links&lt;/em&gt;. &lt;/p&gt;
 &lt;p&gt;In this post, I'll quickly explain how Sudoku problems can be represented as set multicover problems. &lt;/p&gt;
 &lt;p&gt;Recall the definition of an &lt;em&gt;exact cover&lt;/em&gt; problem, and its generalization to &lt;em&gt;set multicover&lt;/em&gt; and &lt;em&gt;multiset multicover&lt;/em&gt; problems:&lt;/p&gt;
@@ -1122,7 +1408,7 @@ find all the solutions.&lt;/p&gt;
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="programming"></category><category term="programming"></category><category term="python"></category><category term="sudoku"></category><category term="exact cover"></category><category term="project"></category></entry><entry><title>A variant sudoku solver</title><link href="https://ethmcc.github.io/sudoku" rel="alternate"></link><published>2020-05-18T00:00:00-04:00</published><updated>2020-05-18T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-18:/sudoku</id><summary type="html">&lt;p&gt;In &lt;a href="../miracle-sudoku"&gt;a previous post&lt;/a&gt;, I enumerated the solutions to a recently-introduced variant sudoku called &lt;em&gt;Miracle Sudoku&lt;/em&gt;, which combines several chess-sudoku constraints together with an adjacency constraint. &lt;/p&gt;
+&lt;/script&gt;</content><category term="programming"></category><category term="python"></category><category term="sudoku"></category><category term="exact cover"></category><category term="project"></category></entry><entry><title>A variant sudoku solver</title><link href="https://ethmcc.github.io/sudoku" rel="alternate"></link><published>2020-05-18T00:00:00-04:00</published><updated>2020-05-18T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-18:/sudoku</id><summary type="html">&lt;p&gt;In &lt;a href="../miracle-sudoku"&gt;a previous post&lt;/a&gt;, I enumerated the solutions to a recently-introduced variant sudoku called &lt;em&gt;Miracle Sudoku&lt;/em&gt;, which combines several chess-sudoku constraints together with an adjacency constraint. &lt;/p&gt;
 &lt;p&gt;In this post, I'll demonstrate the variant sudoku library I wrote to produce those counts.&lt;/p&gt;
 &lt;p&gt;The set &lt;code&gt;multicover&lt;/code&gt; module, with the dancing links implementation …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In &lt;a href="../miracle-sudoku"&gt;a previous post&lt;/a&gt;, I enumerated the solutions to a recently-introduced variant sudoku called &lt;em&gt;Miracle Sudoku&lt;/em&gt;, which combines several chess-sudoku constraints together with an adjacency constraint. &lt;/p&gt;
 &lt;p&gt;In this post, I'll demonstrate the variant sudoku library I wrote to produce those counts.&lt;/p&gt;
@@ -1383,7 +1669,7 @@ Found &lt;span class="m"&gt;92&lt;/span&gt; solutions to the &lt;span class="m"&
 &lt;h2&gt;Try it yourself&lt;/h2&gt;
 &lt;p&gt;If you'd like to play with the package yourself online without downloading the package, I've put it up &lt;a href="https://repl.it/@ethmcc1/variantSudokuSolver"&gt;on repl.it&lt;/a&gt; for your convenience. &lt;/p&gt;
 &lt;p&gt;Keep in mind that although the package is &lt;em&gt;very fast&lt;/em&gt;, the spaces of various variant sudoku solutions are &lt;em&gt;enormous&lt;/em&gt;, so you could benefit from running the code on your local machine, or a faster cloud server if you have access to one!&lt;/p&gt;
-&lt;iframe height="600px" width="100%" src="https://repl.it/@ethmcc1/variantSudokuSolver?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"&gt;&lt;/iframe&gt;</content><category term="programming"></category><category term="programming"></category><category term="python"></category><category term="sudoku"></category><category term="exact cover"></category><category term="project"></category></entry><entry><title>Starting with pyenv-virtualenv in macOS</title><link href="https://ethmcc.github.io/pyenv-virtualenv" rel="alternate"></link><published>2020-05-13T00:00:00-04:00</published><updated>2020-05-13T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-13:/pyenv-virtualenv</id><summary type="html">&lt;p&gt;There are a few plugins and programs available to support development in virtual environments with Python in macOS, but I've had most success with a combination of &lt;code&gt;pyenv&lt;/code&gt; and &lt;code&gt;pyenv-virtualenv&lt;/code&gt;.&lt;/p&gt;
+&lt;iframe height="600px" width="100%" src="https://repl.it/@ethmcc1/variantSudokuSolver?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"&gt;&lt;/iframe&gt;</content><category term="programming"></category><category term="python"></category><category term="sudoku"></category><category term="exact cover"></category><category term="project"></category></entry><entry><title>Starting with pyenv-virtualenv in macOS</title><link href="https://ethmcc.github.io/pyenv-virtualenv" rel="alternate"></link><published>2020-05-13T00:00:00-04:00</published><updated>2020-05-13T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-13:/pyenv-virtualenv</id><summary type="html">&lt;p&gt;There are a few plugins and programs available to support development in virtual environments with Python in macOS, but I've had most success with a combination of &lt;code&gt;pyenv&lt;/code&gt; and &lt;code&gt;pyenv-virtualenv&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Here's the approach I take. I'll assume you have &lt;code&gt;Homebrew&lt;/code&gt; installed on your system and are running &lt;code&gt;zsh&lt;/code&gt; for your …&lt;/p&gt;</summary><content type="html">&lt;p&gt;There are a few plugins and programs available to support development in virtual environments with Python in macOS, but I've had most success with a combination of &lt;code&gt;pyenv&lt;/code&gt; and &lt;code&gt;pyenv-virtualenv&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Here's the approach I take. I'll assume you have &lt;code&gt;Homebrew&lt;/code&gt; installed on your system and are running &lt;code&gt;zsh&lt;/code&gt; for your shell. If you're in another shell, you'd at least have to replace the shell configuration file names as appropriate. &lt;/p&gt;
 &lt;hr&gt;
@@ -1440,10 +1726,10 @@ pyenv global &lt;span class="s1"&gt;&amp;#39;3.8.3&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;When calling for Python modules, &lt;code&gt;pyenv&lt;/code&gt; will look in the directories for these virtual environments in the order you've specified.&lt;/p&gt;</content><category term="programming, python"></category><category term="programming"></category><category term="python"></category><category term="environments"></category></entry><entry><title>On Miracle Sudoku</title><link href="https://ethmcc.github.io/miracle-sudoku" rel="alternate"></link><published>2020-05-11T00:00:00-04:00</published><updated>2020-05-11T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-11:/miracle-sudoku</id><summary type="html">&lt;p&gt;The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2.&lt;/p&gt;
-&lt;p&gt;I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;When calling for Python modules, &lt;code&gt;pyenv&lt;/code&gt; will look in the directories for these virtual environments in the order you've specified.&lt;/p&gt;</content><category term="programming"></category><category term="development"></category><category term="environments"></category><category term="python"></category></entry><entry><title>On Miracle Sudoku</title><link href="https://ethmcc.github.io/miracle-sudoku" rel="alternate"></link><published>2020-05-11T00:00:00-04:00</published><updated>2020-05-11T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2020-05-11:/miracle-sudoku</id><summary type="html">&lt;p&gt;The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2.&lt;/p&gt;
+&lt;p&gt;I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4" rel="external"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Sudoku and Chess …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2.&lt;/p&gt;
-&lt;p&gt;I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: &lt;a href="https://www.youtube.com/watch?v=yKf9aUIxdb4" rel="external"&gt;https://www.youtube.com/watch?v=yKf9aUIxdb4&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Sudoku and Chess Sudoku constraints are purely combinatorial, meaning a board with fewer than 8 given digits cannot be uniquely solvable. The consecutive constraint, however, allows for a dramatic reduction in the number of given digits.&lt;/p&gt;
 &lt;p&gt;I decided to explore solutions to Miracle Sudoku by viewing them as an &lt;em&gt;exact cover&lt;/em&gt; problem, solved in Python using Donald Knuth’s &lt;em&gt;“dancing links”&lt;/em&gt; implementation of Algorithm X. I hope to write up my implementation in a future programming post.&lt;/p&gt;
 &lt;h2&gt;Rules of the game:&lt;/h2&gt;
@@ -1559,4 +1845,4 @@ pyenv global &lt;span class="s1"&gt;&amp;#39;3.8.3&amp;#39;&lt;/span&gt;
 
 
 
-&lt;/details&gt;</content><category term="programming"></category><category term="sudoku"></category><category term="exact cover"></category><category term="project"></category></entry></feed>
+&lt;/details&gt;</content><category term="mathematics"></category><category term="sudoku"></category><category term="exact cover"></category><category term="project"></category></entry></feed>
