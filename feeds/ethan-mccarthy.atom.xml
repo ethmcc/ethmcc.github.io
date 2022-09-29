@@ -138,12 +138,33 @@ in &lt;em&gt;Computer Lib&lt;/em&gt;, after BASIC and before APL.&amp;#160;&lt;a
 &lt;p&gt;Divergent change occurs when one module is often changed in different ways for different reasons. If you look at a module and say, “Well, I will have to change these three functions every time I get a new database; I have to change these four functions every time there is a new financial instrument,” this is an indication of divergent change. The database interaction and financial processing problems are separate contexts, and we can make our programming life better by moving such contexts into separate modules.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;The single responsibility principle states that each module of source code should serve only one actor. An actor is an abstract personification of sources of change requests or feature requets. Put another way, a module should have only a single reason for change. However, the fact that a single actor is served by many modules does not mean that there is a SRP violation. &lt;/p&gt;
-&lt;p&gt;Put in table form:
-| Actors | Modules | Conditions |
-|--------|---------|------------|
-| Many | Many | SRP violation, shotgun surgery, divergent change |
-| Many | One | SRP violation, divergent change |
-| One | Many | shotgun surgery |&lt;/p&gt;
+&lt;p&gt;Put in table form:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Actors&lt;/th&gt;
+&lt;th&gt;Modules&lt;/th&gt;
+&lt;th&gt;Conditions&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Many&lt;/td&gt;
+&lt;td&gt;Many&lt;/td&gt;
+&lt;td&gt;SRP violation, shotgun surgery, divergent change&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Many&lt;/td&gt;
+&lt;td&gt;One&lt;/td&gt;
+&lt;td&gt;SRP violation, divergent change&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;One&lt;/td&gt;
+&lt;td&gt;Many&lt;/td&gt;
+&lt;td&gt;shotgun surgery&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;It doesn't seem to me that having to change many modules to introduce a feature is actually a problem, as long as all those modules serve only the single actor on whose behalf the change is being made.&lt;/p&gt;
 &lt;p&gt;Perhaps it's best to think of an application as partitioned into a sort of horizontal and vertical grid. Along the vertical slices, we have actors who produce user stories: payroll, financial instruments, users, etc. These we can identify with &lt;em&gt;aspects&lt;/em&gt; of the software. Along the horizontal slices, we have &lt;em&gt;contexts&lt;/em&gt;: database models, database access, business objects, APIs, and GUIs. &lt;/p&gt;
 &lt;p&gt;A single vertical slice will cut across all contexts. A horizontal context change will slice across all aspects. &lt;/p&gt;</content><category term="programming"></category><category term="design"></category><category term="software"></category></entry><entry><title>Python and JavaScript performance</title><link href="https://ethmcc.github.io/python-js-tracing-jit" rel="alternate"></link><published>2021-12-15T00:00:00-05:00</published><updated>2021-12-15T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2021-12-15:/python-js-tracing-jit</id><summary type="html">&lt;p&gt;I came across &lt;a href="https://youtu.be/3PcIJKd1PKU"&gt;a cheeky little demonstration&lt;/a&gt; on YouTube comparing the same algorithm written in Python, C, and x86 assembly.&lt;/p&gt;

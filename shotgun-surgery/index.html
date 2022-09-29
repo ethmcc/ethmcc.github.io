@@ -10,21 +10,21 @@
     <meta property="og:title" content=" Contexts and aspects ">
     <meta property="og:description" content=" A closer look at SRP, "shotgun surgery", and "divergent change" ">
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
-    <meta property="og:url" content=" https://ethmcc.github.io/shotgun-surgery ">
+    <meta property="og:url" content=" ../shotgun-surgery ">
 
-    <link rel="stylesheet" href="https://ethmcc.github.io/theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
   </head>
   
   <body class="Site">
 <header class="Site-header">
   <nav class="Nav">
     <div class="Nav-home">
-      <a href="https://ethmcc.github.io">>ethmcc</a>
+      <a href="..">>ethmcc</a>
     </div>
     <div class="Nav-sections">
-      <a class="Nav-section Nav-section--active" href="https://ethmcc.github.io/archives">/posts</a>
-      <a class="Nav-section " href="https://ethmcc.github.io/projects">/projects</a>
-      <a class="Nav-section " href="https://ethmcc.github.io/resume">/resume</a>
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
     </div>
   </nav>
   <div class="u-separator"></div>
@@ -59,12 +59,33 @@
 <p>Divergent change occurs when one module is often changed in different ways for different reasons. If you look at a module and say, “Well, I will have to change these three functions every time I get a new database; I have to change these four functions every time there is a new financial instrument,” this is an indication of divergent change. The database interaction and financial processing problems are separate contexts, and we can make our programming life better by moving such contexts into separate modules.</p>
 </blockquote>
 <p>The single responsibility principle states that each module of source code should serve only one actor. An actor is an abstract personification of sources of change requests or feature requets. Put another way, a module should have only a single reason for change. However, the fact that a single actor is served by many modules does not mean that there is a SRP violation. </p>
-<p>Put in table form:
-| Actors | Modules | Conditions |
-|--------|---------|------------|
-| Many | Many | SRP violation, shotgun surgery, divergent change |
-| Many | One | SRP violation, divergent change |
-| One | Many | shotgun surgery |</p>
+<p>Put in table form:</p>
+<table>
+<thead>
+<tr>
+<th>Actors</th>
+<th>Modules</th>
+<th>Conditions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Many</td>
+<td>Many</td>
+<td>SRP violation, shotgun surgery, divergent change</td>
+</tr>
+<tr>
+<td>Many</td>
+<td>One</td>
+<td>SRP violation, divergent change</td>
+</tr>
+<tr>
+<td>One</td>
+<td>Many</td>
+<td>shotgun surgery</td>
+</tr>
+</tbody>
+</table>
 <p>It doesn't seem to me that having to change many modules to introduce a feature is actually a problem, as long as all those modules serve only the single actor on whose behalf the change is being made.</p>
 <p>Perhaps it's best to think of an application as partitioned into a sort of horizontal and vertical grid. Along the vertical slices, we have actors who produce user stories: payroll, financial instruments, users, etc. These we can identify with <em>aspects</em> of the software. Along the horizontal slices, we have <em>contexts</em>: database models, database access, business objects, APIs, and GUIs. </p>
 <p>A single vertical slice will cut across all contexts. A horizontal context change will slice across all aspects. </p>
@@ -72,8 +93,8 @@
 
 
     <p class="Article-tags">tagged in
-      <a href="https://ethmcc.github.io/tag/design.html">design</a>
-      <a href="https://ethmcc.github.io/tag/software.html">software</a>
+      <a href="../tag/design.html">design</a>
+      <a href="../tag/software.html">software</a>
     </p>
 
   </article>
@@ -85,6 +106,6 @@
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="https://ethmcc.github.io/theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
   </body>
 </html>
