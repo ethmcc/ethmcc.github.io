@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> On Automated Testing >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Thoughts on why automated testing is for you, even if you think it isn't; with examples relevant to Python web development">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content=" On Automated Testing ">
+    <meta property="og:description" content=" Thoughts on why automated testing is for you, even if you think it isn't; with examples relevant to Python web development ">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content=" ../automated-testing ">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> On Automated Testing</h1>
+    <div class="Article-meta">
+      <time datetime="2022-08-01" class="Article-date">Aug 01, 2022</time>
+    </div>
+
+    <section class="Article-content">
+        <h2>What is automated testing?</h2>
+<p>It's common to hear people who aren't doing automated testing offer apologies: 
+it's "not for them'', it "doesn't fit their business model'', 
+it's not that they just haven't bothered to learn something new, it's that 
+they've really thought about it and believe they are making some sort of 
+productive tradeoff by avoiding it. </p>
+<p>Clearly we're carrying a great deal of baggage to the table 
+when we think of automated testing: impressions and prejudices about what 
+automated testing is, or what it means. </p>
+<p>To cut through this, it helps to get back to basics. There are two obvious
+parts to automated testing: the automation, and the testing. </p>
+<p><strong><em>Testing</em></strong> is simply running your code to see if it does what you expected. </p>
+<p>To <strong><em>automate</em></strong> this process means that you <em>write code to help you</em> run your code, 
+<em>and to help you</em> check if it does what you expected.</p>
+<p>Testing is not just a <em>best practice</em>, it's inevitable. You are doing it whether you are 
+intentional about it or not. Spinning up your WebApp, hacking on some code and then watching 
+your hot-reload server update with your changes, is primarily an activity of testing. In 
+this case, you're testing by running a command and clicking around in the compiled program.</p>
+<p>In this sense, testing is without question what every developer spends the majority of 
+their dev time doing, regardless of whether or not they write automated tests.</p>
+<p>The most common kind of testing I've seen being done in Python web development is
+running a development server with hot reload:</p>
+<div class="highlight"><pre><span></span><code>flask --app myapp --debug run
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code>gunicorn --reload myapp:factory
+</code></pre></div>
+
+
+<p>The developer then clicks on things to see if their code does what they wanted. 
+This process is great, as you get a fast feedback cycle between:</p>
+<ul>
+<li>Making changes </li>
+<li>Seeing the results</li>
+</ul>
+<p>To be sure, this kind of manual testing is always necessary. 
+However, the tools available for automating bits of your testing can provide 
+<em>even faster</em> feedback cycles than even a hot-reloading development server.</p>
+<p>There is no doubt that you <em>can</em> devote a lot of time to writing tests in order to 
+obtain more safety or more reliability, and I would even advocate for stronger 
+testing methodologies for most projects. However, even if you are someone worried 
+chiefly about speed of development, the logic is clear:
+* The faster you can test, the faster you can develop features. </p>
+<p>In fact, automation of testing is one of the easiest and most lucrative 
+places to win back development time. </p>
+<h2>Arange, Act, Assert</h2>
+<p>All testing (<em>included manual testing</em>), can be broken
+into three steps</p>
+<ul>
+<li><strong><em>Arrange</em></strong>: setting up the entities that will be subject to test</li>
+<li><strong><em>Act</em></strong>: Carry out the behavior you want to test </li>
+<li><strong><em>Assert</em></strong>: Check to see if everything did what you wanted it to do</li>
+</ul>
+<p>This falls nicely into a <em>given, when, then</em> format. An example:</p>
+<ul>
+<li><em>Given</em> an agency in the database with id = <code>:id</code></li>
+<li><em>When</em> I hit the <code>delete/:id</code> endpoint</li>
+<li><em>Then</em> the agency with id = <code>:id</code> should no longer be in the database</li>
+</ul>
+<h2>Arrange 🏗</h2>
+<p>Arranging is the first step, and it's one of the hardest steps of the whole process.</p>
+<p>I often hear stories like this:</p>
+<blockquote>
+<p>"The bug only happens with specific orders that have this 
+combination of three obscure properties"</p>
+</blockquote>
+<p>The difficulty is essential, and still persists with automated testing. 
+Indeed, a big part of automated testing frameworks are utilities to help 
+you package up precious canned entities so that they can be reused in tests. 
+These are called <em>test fixtures</em>. </p>
+<p>Automated testing provides a win here because these text fixtures can 
+be reused later, saving you the time of painstakingly reconstructing them, 
+possibly through the frontend.</p>
+<h2>Act 🎬</h2>
+<p>The acting portion of testing usually isn't as hard to automate:</p>
+<ul>
+<li>You probably know what method you wrote to facilitate 
+the action you want to test</li>
+<li>You named it with a descriptive name that says what it does (right?), 
+and that's what you're testing now!</li>
+</ul>
+<p>When testing manually, non-reversible actions can make life hard:</p>
+<blockquote>
+<p>"I found a few orders that I can use for testing this, but now that
+    I've deleted them I have none left to test with"</p>
+</blockquote>
+<p>Test as small as possible: start by testing the functions 
+you are calling from that endpoint, rather than with the 
+endpoint itself. </p>
+<p>Writing for automated tests can help you to write simpler, better designed 
+functions, by focusing on testing one thing at a time.</p>
+<h2>Assert 🔬</h2>
+<p>For asserting, the first piece of advice I would suggest for web development, 
+is to move the act of observation back from the frontend as much as possible.</p>
+<p>Also, take care not to assert too much: you are writing a test for one thing, 
+so don't assert everything you know about the entity.</p>
+<blockquote>
+<p><strong><em>CAUTION</em></strong>: don't run your function, copy the output, and then paste 
+it as the expected result of an assert. ✂️</p>
+</blockquote>
+<ul>
+<li>You will assert too much, leading to fragile tests 
+that break when they don't need to.</li>
+<li>There are full featured programs for capturing the exact behavior of an 
+old version of a program and alerting you to every observable change in 
+behavior in a new version, don't try to replicate this facility in your 
+    handwritten tests.</li>
+</ul>
+<h2>Automation isn't all-or-nothing</h2>
+<p>The main point I'd like to get across here is that you, as a developer
+are empowered to use the tools of automation to make your own development
+easier. You can start writing code to help you test, even in a codebase
+without a test suite.</p>
+<p>While a <em>fully-automated</em> test will do all the arranging, acting, and 
+checking of the results, you can start automating parts of the process today:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function_you_want_to_test</span><span class="p">(</span><span class="n">order_id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="c1"># your business logic functions up here</span>
+    <span class="k">return</span> <span class="mi">1</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">my_app.config</span> <span class="kn">import</span> <span class="n">config</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+    <span class="n">order_id</span> <span class="o">=</span> <span class="mi">27</span> <span class="c1"># order_id you found in mysql workbench</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">assert</span> <span class="n">function_you_want_to_test</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Everything passed!&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>To run a file, just press the ▶️ button in your code editor or IDE,
+everything in the <code>__name__ == '__main__'</code> block will be executed</p>
+<p>Compare this one click to the manual process: <em>starting your server, 
+opening up Google Chrome, logging in, navigating to orders, finding 
+the right order, selecting the option you want to test from a 
+dropdown ...</em></p>
+<h2>General advice</h2>
+<h3>Test code as you write it</h3>
+<blockquote>
+<p>"The earlier a problem is found, the better. If you think systematically about what you are writing as you write it, you can verify simple properties of the program as it is being constructed, with the result that your code will have gone through one round of testing before it is even compiled." -- <em>Practice of Programming</em>, P&amp;K</p>
+</blockquote>
+<h3>Start with boundary conditions</h3>
+<p>What should happen in the boundary cases? null case, blank input, negative case etc. 
+Cover these first. They are usually the easiest tests to write and easiest cases 
+to handle if you do them first, but can get hairy to shoehorn in if you leave 
+them to the end.</p>
+<h3>Test to ease refactoring</h3>
+<p>Adding tests gives you freedom to refactor boldly and with abandon. The smoothest and fastest path to developing a new feature is a scaffolding process:</p>
+<ul>
+<li>Write tests to make refactoring easy</li>
+<li>Refactor to make adding the feature easy</li>
+<li>Write simple tests for your feature</li>
+<li>Get your tests to pass as easily as you like</li>
+<li>Refactor boldly until satisfied</li>
+</ul>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="../tag/testing.html">testing</a>
+      <a href="../tag/design.html">design</a>
+      <a href="../tag/software.html">software</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  </body>
+</html>

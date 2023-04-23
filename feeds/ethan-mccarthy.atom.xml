@@ -116,7 +116,167 @@ is one of the three beginner languages recommended by Ted Nelson
 in &lt;em&gt;Computer Lib&lt;/em&gt;, after BASIC and before APL.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</content><category term="programming"></category><category term="design"></category><category term="lisp"></category><category term="unix"></category></entry><entry><title>A Definition of Architecture</title><link href="https://ethmcc.github.io/brooks-architecture" rel="alternate"></link><published>2022-07-16T00:00:00-04:00</published><updated>2022-07-16T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2022-07-16:/brooks-architecture</id><summary type="html">&lt;p&gt;Brooks gives the following definition of software system &lt;em&gt;architecture&lt;/em&gt; in his book &lt;em&gt;The Mythical Man Month&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;</content><category term="programming"></category><category term="design"></category><category term="lisp"></category><category term="unix"></category></entry><entry><title>On Automated Testing</title><link href="https://ethmcc.github.io/automated-testing" rel="alternate"></link><published>2022-08-01T00:00:00-04:00</published><updated>2022-08-01T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2022-08-01:/automated-testing</id><summary type="html">&lt;h2&gt;What is automated testing?&lt;/h2&gt;
+&lt;p&gt;It's common to hear people who aren't doing automated testing offer apologies: 
+it's "not for them'', it "doesn't fit their business model'', 
+it's not that they just haven't bothered to learn something new, it's that 
+they've really thought about it and believe they are making some …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;What is automated testing?&lt;/h2&gt;
+&lt;p&gt;It's common to hear people who aren't doing automated testing offer apologies: 
+it's "not for them'', it "doesn't fit their business model'', 
+it's not that they just haven't bothered to learn something new, it's that 
+they've really thought about it and believe they are making some sort of 
+productive tradeoff by avoiding it. &lt;/p&gt;
+&lt;p&gt;Clearly we're carrying a great deal of baggage to the table 
+when we think of automated testing: impressions and prejudices about what 
+automated testing is, or what it means. &lt;/p&gt;
+&lt;p&gt;To cut through this, it helps to get back to basics. There are two obvious
+parts to automated testing: the automation, and the testing. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Testing&lt;/em&gt;&lt;/strong&gt; is simply running your code to see if it does what you expected. &lt;/p&gt;
+&lt;p&gt;To &lt;strong&gt;&lt;em&gt;automate&lt;/em&gt;&lt;/strong&gt; this process means that you &lt;em&gt;write code to help you&lt;/em&gt; run your code, 
+&lt;em&gt;and to help you&lt;/em&gt; check if it does what you expected.&lt;/p&gt;
+&lt;p&gt;Testing is not just a &lt;em&gt;best practice&lt;/em&gt;, it's inevitable. You are doing it whether you are 
+intentional about it or not. Spinning up your WebApp, hacking on some code and then watching 
+your hot-reload server update with your changes, is primarily an activity of testing. In 
+this case, you're testing by running a command and clicking around in the compiled program.&lt;/p&gt;
+&lt;p&gt;In this sense, testing is without question what every developer spends the majority of 
+their dev time doing, regardless of whether or not they write automated tests.&lt;/p&gt;
+&lt;p&gt;The most common kind of testing I've seen being done in Python web development is
+running a development server with hot reload:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;flask --app myapp --debug run
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;gunicorn --reload myapp:factory
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The developer then clicks on things to see if their code does what they wanted. 
+This process is great, as you get a fast feedback cycle between:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Making changes &lt;/li&gt;
+&lt;li&gt;Seeing the results&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To be sure, this kind of manual testing is always necessary. 
+However, the tools available for automating bits of your testing can provide 
+&lt;em&gt;even faster&lt;/em&gt; feedback cycles than even a hot-reloading development server.&lt;/p&gt;
+&lt;p&gt;There is no doubt that you &lt;em&gt;can&lt;/em&gt; devote a lot of time to writing tests in order to 
+obtain more safety or more reliability, and I would even advocate for stronger 
+testing methodologies for most projects. However, even if you are someone worried 
+chiefly about speed of development, the logic is clear:
+* The faster you can test, the faster you can develop features. &lt;/p&gt;
+&lt;p&gt;In fact, automation of testing is one of the easiest and most lucrative 
+places to win back development time. &lt;/p&gt;
+&lt;h2&gt;Arange, Act, Assert&lt;/h2&gt;
+&lt;p&gt;All testing (&lt;em&gt;included manual testing&lt;/em&gt;), can be broken
+into three steps&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Arrange&lt;/em&gt;&lt;/strong&gt;: setting up the entities that will be subject to test&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Act&lt;/em&gt;&lt;/strong&gt;: Carry out the behavior you want to test &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;Assert&lt;/em&gt;&lt;/strong&gt;: Check to see if everything did what you wanted it to do&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This falls nicely into a &lt;em&gt;given, when, then&lt;/em&gt; format. An example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Given&lt;/em&gt; an agency in the database with id = &lt;code&gt;:id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;When&lt;/em&gt; I hit the &lt;code&gt;delete/:id&lt;/code&gt; endpoint&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Then&lt;/em&gt; the agency with id = &lt;code&gt;:id&lt;/code&gt; should no longer be in the database&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Arrange 🏗&lt;/h2&gt;
+&lt;p&gt;Arranging is the first step, and it's one of the hardest steps of the whole process.&lt;/p&gt;
+&lt;p&gt;I often hear stories like this:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;"The bug only happens with specific orders that have this 
+combination of three obscure properties"&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The difficulty is essential, and still persists with automated testing. 
+Indeed, a big part of automated testing frameworks are utilities to help 
+you package up precious canned entities so that they can be reused in tests. 
+These are called &lt;em&gt;test fixtures&lt;/em&gt;. &lt;/p&gt;
+&lt;p&gt;Automated testing provides a win here because these text fixtures can 
+be reused later, saving you the time of painstakingly reconstructing them, 
+possibly through the frontend.&lt;/p&gt;
+&lt;h2&gt;Act 🎬&lt;/h2&gt;
+&lt;p&gt;The acting portion of testing usually isn't as hard to automate:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You probably know what method you wrote to facilitate 
+the action you want to test&lt;/li&gt;
+&lt;li&gt;You named it with a descriptive name that says what it does (right?), 
+and that's what you're testing now!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When testing manually, non-reversible actions can make life hard:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;"I found a few orders that I can use for testing this, but now that
+    I've deleted them I have none left to test with"&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Test as small as possible: start by testing the functions 
+you are calling from that endpoint, rather than with the 
+endpoint itself. &lt;/p&gt;
+&lt;p&gt;Writing for automated tests can help you to write simpler, better designed 
+functions, by focusing on testing one thing at a time.&lt;/p&gt;
+&lt;h2&gt;Assert 🔬&lt;/h2&gt;
+&lt;p&gt;For asserting, the first piece of advice I would suggest for web development, 
+is to move the act of observation back from the frontend as much as possible.&lt;/p&gt;
+&lt;p&gt;Also, take care not to assert too much: you are writing a test for one thing, 
+so don't assert everything you know about the entity.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;CAUTION&lt;/em&gt;&lt;/strong&gt;: don't run your function, copy the output, and then paste 
+it as the expected result of an assert. ✂️&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;You will assert too much, leading to fragile tests 
+that break when they don't need to.&lt;/li&gt;
+&lt;li&gt;There are full featured programs for capturing the exact behavior of an 
+old version of a program and alerting you to every observable change in 
+behavior in a new version, don't try to replicate this facility in your 
+    handwritten tests.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Automation isn't all-or-nothing&lt;/h2&gt;
+&lt;p&gt;The main point I'd like to get across here is that you, as a developer
+are empowered to use the tools of automation to make your own development
+easier. You can start writing code to help you test, even in a codebase
+without a test suite.&lt;/p&gt;
+&lt;p&gt;While a &lt;em&gt;fully-automated&lt;/em&gt; test will do all the arranging, acting, and 
+checking of the results, you can start automating parts of the process today:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;function_you_want_to_test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;order_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="c1"&gt;# your business logic functions up here&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;my_app.config&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+    &lt;span class="n"&gt;order_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;27&lt;/span&gt; &lt;span class="c1"&gt;# order_id you found in mysql workbench&lt;/span&gt;
+    &lt;span class="n"&gt;expected&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;function_you_want_to_test&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;order_id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;expected&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Everything passed!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To run a file, just press the ▶️ button in your code editor or IDE,
+everything in the &lt;code&gt;__name__ == '__main__'&lt;/code&gt; block will be executed&lt;/p&gt;
+&lt;p&gt;Compare this one click to the manual process: &lt;em&gt;starting your server, 
+opening up Google Chrome, logging in, navigating to orders, finding 
+the right order, selecting the option you want to test from a 
+dropdown ...&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;General advice&lt;/h2&gt;
+&lt;h3&gt;Test code as you write it&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;"The earlier a problem is found, the better. If you think systematically about what you are writing as you write it, you can verify simple properties of the program as it is being constructed, with the result that your code will have gone through one round of testing before it is even compiled." -- &lt;em&gt;Practice of Programming&lt;/em&gt;, P&amp;amp;K&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;Start with boundary conditions&lt;/h3&gt;
+&lt;p&gt;What should happen in the boundary cases? null case, blank input, negative case etc. 
+Cover these first. They are usually the easiest tests to write and easiest cases 
+to handle if you do them first, but can get hairy to shoehorn in if you leave 
+them to the end.&lt;/p&gt;
+&lt;h3&gt;Test to ease refactoring&lt;/h3&gt;
+&lt;p&gt;Adding tests gives you freedom to refactor boldly and with abandon. The smoothest and fastest path to developing a new feature is a scaffolding process:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Write tests to make refactoring easy&lt;/li&gt;
+&lt;li&gt;Refactor to make adding the feature easy&lt;/li&gt;
+&lt;li&gt;Write simple tests for your feature&lt;/li&gt;
+&lt;li&gt;Get your tests to pass as easily as you like&lt;/li&gt;
+&lt;li&gt;Refactor boldly until satisfied&lt;/li&gt;
+&lt;/ul&gt;</content><category term="programming"></category><category term="testing"></category><category term="design"></category><category term="software"></category></entry><entry><title>A Definition of Architecture</title><link href="https://ethmcc.github.io/brooks-architecture" rel="alternate"></link><published>2022-07-16T00:00:00-04:00</published><updated>2022-07-16T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2022-07-16:/brooks-architecture</id><summary type="html">&lt;p&gt;Brooks gives the following definition of software system &lt;em&gt;architecture&lt;/em&gt; in his book &lt;em&gt;The Mythical Man Month&lt;/em&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;By the &lt;em&gt;architecture&lt;/em&gt; of a system, I mean the complete and detailed specification of the user interface.&lt;/p&gt;
 &lt;/blockquote&gt;
