@@ -39,10 +39,16 @@
     </div>
 
     <section class="Article-content">
-        <p>The Miracle Sudoku was introduced by Mitchell Lee, who gave a board containing only two given digits, a 1 and a 2.</p>
-<p>I was introduced to this Sudoku variant (and Lee’s board) by Simon Anthony of Cracking the Cryptic: <a href="https://www.youtube.com/watch?v=yKf9aUIxdb4" rel="external">https://www.youtube.com/watch?v=yKf9aUIxdb4</a>.</p>
-<p>Sudoku and Chess Sudoku constraints are purely combinatorial, meaning a board with fewer than 8 given digits cannot be uniquely solvable. The consecutive constraint, however, allows for a dramatic reduction in the number of given digits.</p>
-<p>I decided to explore solutions to Miracle Sudoku by viewing them as an <em>exact cover</em> problem, solved in Python using Donald Knuth’s <em>“dancing links”</em> implementation of Algorithm X. I hope to write up my implementation in a future programming post.</p>
+        <p>The Miracle Sudoku was introduced by Mitchell Lee, 
+who gave a board containing only two given digits, a 1 and a 2.</p>
+<p>I was introduced to this Sudoku variant (and Lee’s board) by 
+Simon Anthony of Cracking the Cryptic: <a href="https://www.youtube.com/watch?v=yKf9aUIxdb4" rel="external">https://www.youtube.com/watch?v=yKf9aUIxdb4</a>.</p>
+<p>Sudoku and Chess Sudoku constraints are purely combinatorial, 
+meaning a board with fewer than 8 given digits cannot be uniquely solvable. 
+The consecutive constraint, however, allows for a dramatic reduction in the number of given digits.</p>
+<p>I decided to explore solutions to Miracle Sudoku by viewing them as an <em>exact cover</em> problem, 
+solved in Python using Donald Knuth’s <em>“dancing links”</em> implementation of Algorithm X. 
+I hope to write up my implementation in a future programming post.</p>
 <h2>Rules of the game:</h2>
 <p>A Miracle Sudoku is a variant Sudoku with the following additional constraints:</p>
 <ul>
@@ -52,8 +58,15 @@
 <li>A consecutive constraint:</li>
 <li>No two orthogonally adjacent cells may contain consecutive digits.</li>
 </ul>
-<p>Any fully-filled Sudoku board can be rotated or reflected to obtain another fully-filled Sudoku board, logically equivalent to the original. It is not hard to see that each fully-filled Miracle Sudoku board corresponds to a full set of 8 distinct equivalent versions of itself via such dihedral symmetries.</p>
-<p>In a variant Sudoku with a purely combinatorial ruleset, any of the 9!=326,880 permutations of the label set preserves the ruleset, but there is only one permutation of the labels on a Miracle Sudoku which will preserves the adjacency constraint: inverting the labels of the digits 1 through 9 (relabelling each 9 as a 1, 8 as a 2, etc).</p>
+<p>Any fully-filled Sudoku board can be rotated or reflected to obtain another fully-filled Sudoku board, 
+logically equivalent to the original. 
+It is not hard to see that each fully-filled Miracle Sudoku board corresponds 
+to a full set of 8 distinct equivalent versions of itself via such dihedral symmetries.</p>
+<p>In a variant Sudoku with a purely combinatorial ruleset, 
+any of the 9!=326,880 permutations of the label set preserves the ruleset, 
+but there is only one permutation of the labels on a Miracle Sudoku which
+will preserves the adjacency constraint: inverting the labels of the 
+digits 1 through 9 (relabelling each 9 as a 1, 8 as a 2, etc).</p>
 <h2>Theorems:</h2>
 <ul>
 <li>There are exactly 72 fully-filled Miracle Sudoku boards.</li>
@@ -68,7 +81,9 @@
 <li>A table of the 5 essentially unique Miracle Sudoku solutions is presented below, along with a table of all the full 72.</li>
 </ul>
 <h2>Table of Miracle Sudoku boards</h2>
-<p>I’ve included a table below of the five essentially-unique Miracle Sudoku boards up to dihedral symmetries and relabeling. You can spot some remarkable symetries in the layout of digits.</p>
+<p>I’ve included a table below of the five essentially-unique 
+Miracle Sudoku boards up to dihedral symmetries and relabeling. 
+You can spot some remarkable symetries in the layout of digits.</p>
 <details>
 <summary>Click to expand ... </summary>
 
