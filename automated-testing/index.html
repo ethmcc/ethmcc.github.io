@@ -40,25 +40,24 @@
 
     <section class="Article-content">
         <h2>What is automated testing?</h2>
-<p>It has been my experience that a great deal of baggage is frequently 
-brought into discussions of automated testing: impressions and prejudices 
-about what automated testing is, how it should be done, and often an 
-impression of what it is for or where it is applicable (and often, it is 
-claimed within the web development industry, not applicable).</p>
-<p>To cut through this, it helps to get back to basics. There are two obvious
-parts to automated testing: the automation, and the testing. </p>
+<p>I've encountered many different opinions about automated software testing. 
+What it is, how it should be done, and often impressions of where it is
+or is not applicable. As with many subject within software development, these 
+impressions on the subject of testing carry a lot of baggage with them, and I 
+would like to encourage we cut through this and get back to basics. </p>
+<p>There are two obvious parts to automated testing: the automation, and the testing. </p>
 <p><strong><em>Testing</em></strong> is simply running your code to see if it does what you expected. </p>
-<p>To <strong><em>automate</em></strong> this process means that you <em>write code to help you</em> run your code, 
-<em>and to help you</em> check if it does what you expected.</p>
-<p>It becomes very clear now that the <strong>testing</strong> portion here is not just 
-a <em>best practice</em>, it's an inevitable part of software development. 
+<p>To <strong><em>automate</em></strong> this process means that you <em>write code</em> to help you run your code, 
+<em>and to help you check</em> if it does what you expected.</p>
+<p>It becomes very clear now that the <em>testing</em> portion here is not just 
+a <em>best practice</em> to be argued about, it's an inevitable reality of all software development. 
 Whether you are intentional about it or not, spinning up your web server, 
 hacking on some code and then reloading to see your changes, is a testing activity. </p>
-<p>We can say more: testing is, with little question, what every developer spends 
-the majority of their dev time doing, regardless of whether or not they write 
-any automated tests.</p>
-<p>When I worked developing web applications in Python, the testing I saw most 
-frequently involved running a development server with hot reload:</p>
+<p>And more than that: there is little doubt that these testing activities, viewed 
+broadly, make up a substantial portion of every developer's active programming time.
+This is regardless of whether or not the programmer writes any automated tests.</p>
+<p>When I worked developing web applications in Python, the testing activity I saw most 
+frequently involved running a development server with so-called "hot-reload":</p>
 <div class="highlight"><pre><span></span><code>flask<span class="w"> </span>--app<span class="w"> </span>myapp<span class="w"> </span>--debug<span class="w"> </span>run
 </code></pre></div>
 
@@ -68,20 +67,23 @@ frequently involved running a development server with hot reload:</p>
 
 
 <p>The developer then clicks on things to see if their code does what they wanted. 
+With these <code>--debug</code> or <code>--reload</code> options enabled, the program will automatically 
+rerun through your source code after every change, and serve the new output. 
 This process is great, as you get a <strong>fast feedback cycle</strong> between:</p>
 <ul>
 <li>Making changes </li>
 <li>Seeing the results</li>
 </ul>
-<p>This is frequently referred to as the <strong>inner programming loop</strong>, to draw 
+<p>This loop betwee making changes and testing changes is frequently referred 
+to as the <strong>inner programming loop</strong>, to draw 
 attention to its position as a performance bottleneck for programmer productivity. 
 If we can speed up this tight inner loop, so the story goes, we can speed up our 
-delivery of software. </p>
-<p>That is: while there is no doubt that you <em>can</em> devote a lot of time to writing tests in order to 
+delivery of software.</p>
+<p>While there is no doubt that you <em>can</em> devote a lot of time to writing tests in order to 
 obtain other goals, such as more safety or better reliability; even if 
-your only priority is speed of development, the logic is clear:
+your only priority is speed of development, the lesson is clear:
 * The faster you can test, the faster you can develop features. </p>
-<p>And in my experience, automation of testing tasks is one of the easiest and most lucrative 
+<p>In my experience, automation of testing tasks is one of the easiest and most lucrative 
 places to win back development time. </p>
 <h2>Arange, Act, Assert</h2>
 <p>Software testing of all kinds (<em>included manual testing</em>) is most commonly broken down 
@@ -148,12 +150,18 @@ behavior in a new version, don't try to replicate this facility in your
     handwritten tests.</li>
 </ul>
 <h2>Automation isn't all-or-nothing</h2>
-<p>The main point I'd like to get across here is that you, as a developer
+<p>The main point I'd like to get across here is that you, as a developer, 
 are empowered to use the tools of automation to make your own development
-easier. You can start writing code to help you test, even in a codebase
-without a test suite.</p>
+easier. </p>
+<p>Even if you are not fully onboard to write an entire automated test suite, 
+you can start writing code on your own to help you test. Even if these tests are
+never checked into a test suite or run in a continuous-integration pipeline, 
+simply putting your own programming skills to work automating your own workload 
+will pay dividends.</p>
 <p>While a <em>fully-automated</em> test will do all the arranging, acting, and 
-checking of the results, you can start automating parts of the process today:</p>
+checking of the results, you can start automating parts of the process today.</p>
+<p>Consider the following short test script, mixing automation to drive the test 
+with test data you found by hand:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function_you_want_to_test</span><span class="p">(</span><span class="n">order_id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="c1"># your business logic functions up here</span>
     <span class="k">return</span> <span class="mi">1</span>
@@ -171,9 +179,12 @@ checking of the results, you can start automating parts of the process today:</p
 
 
 <p>To run a file, just press the ▶️ button in your code editor or IDE,
-everything in the <code>__name__ == '__main__'</code> block will be executed</p>
-<p>Compare this one click to the manual process: <em>starting your server, 
-opening up Google Chrome, logging in, navigating to orders, finding 
+everything in the <code>__name__ == '__main__'</code> block will be executed.</p>
+<p>I would never recommend checking a test like this into source code 
+or into a test suite, but as a substitute for the manual process, 
+one click is a lot faster than the steps you'd have to take to 
+test manually: <em>starting your server, 
+opening up your browser, logging in, navigating to orders, finding 
 the right order, selecting the option you want to test from a 
 dropdown ...</em></p>
 <h2>General advice</h2>
@@ -192,7 +203,7 @@ them to the end.</p>
 <li>Write tests to make refactoring easy</li>
 <li>Refactor to make adding the feature easy</li>
 <li>Write simple tests for your feature</li>
-<li>Get your tests to pass as easily as you like</li>
+<li>Write code to get your tests to pass</li>
 <li>Refactor boldly until satisfied</li>
 </ul>
     </section>

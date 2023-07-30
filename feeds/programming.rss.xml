@@ -4,10 +4,10 @@ a design feature. I have my own idea of what meaning is
 conveyed by the word, but decided I should probably look up 
 modern usage to see what meaning others might take from it. &lt;/p&gt;
 &lt;p&gt;I encountered a lot of arguments …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ethan McCarthy</dc:creator><pubDate>Tue, 27 Sep 2022 00:00:00 -0400</pubDate><guid isPermaLink="false">tag:ethmcc.github.io,2022-09-27:/homoiconicity</guid><category>programming</category><category>design</category><category>lisp</category><category>unix</category></item><item><title>On Automated Testing</title><link>https://ethmcc.github.io/automated-testing</link><description>&lt;h2&gt;What is automated testing?&lt;/h2&gt;
-&lt;p&gt;It has been my experience that a great deal of baggage is frequently 
-brought into discussions of automated testing: impressions and prejudices 
-about what automated testing is, how it should be done, and often an 
-impression of what it is for or where it is applicable …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ethan McCarthy</dc:creator><pubDate>Mon, 01 Aug 2022 00:00:00 -0400</pubDate><guid isPermaLink="false">tag:ethmcc.github.io,2022-08-01:/automated-testing</guid><category>programming</category><category>testing</category><category>design</category><category>software</category></item><item><title>A Definition of Architecture</title><link>https://ethmcc.github.io/brooks-architecture</link><description>&lt;p&gt;Brooks gives the following definition of software system &lt;em&gt;architecture&lt;/em&gt; in his book &lt;em&gt;The Mythical Man Month&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;I've encountered many different opinions about automated software testing. 
+What it is, how it should be done, and often impressions of where it is
+or is not applicable. As with many subject within software development, these 
+impressions on the subject of testing carry a lot of …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ethan McCarthy</dc:creator><pubDate>Mon, 01 Aug 2022 00:00:00 -0400</pubDate><guid isPermaLink="false">tag:ethmcc.github.io,2022-08-01:/automated-testing</guid><category>programming</category><category>testing</category><category>design</category><category>software</category></item><item><title>A Definition of Architecture</title><link>https://ethmcc.github.io/brooks-architecture</link><description>&lt;p&gt;Brooks gives the following definition of software system &lt;em&gt;architecture&lt;/em&gt; in his book &lt;em&gt;The Mythical Man Month&lt;/em&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;By the &lt;em&gt;architecture&lt;/em&gt; of a system, I mean the complete and detailed specification of the user interface.&lt;/p&gt;
 &lt;/blockquote&gt;
