@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content=" ../python-js-tracing-jit ">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
   </head>
   
   <body class="Site">
@@ -41,23 +41,23 @@
     <section class="Article-content">
         <p>I came across <a href="https://youtu.be/3PcIJKd1PKU">a cheeky little demonstration</a> on YouTube comparing the same algorithm written in Python, C, and x86 assembly.</p>
 <p>It compares the following pessimal C code:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">isPrime</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">){</span><span class="w"></span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="p">))</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">isPrime</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">){</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="p">))</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">numPrimes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mi">250001</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">numPrimes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">isPrime</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">numPrimes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mi">250001</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="n">numPrimes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">isPrime</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 
-<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">numPrimes</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">numPrimes</span><span class="p">);</span>
 
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
@@ -77,31 +77,31 @@
 
 
 <p>Here are my own quick-and-dirty performance results:</p>
-<div class="highlight"><pre><span></span><code>% gcc -o primes primes.c
-% <span class="nb">time</span> ./primes
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>gcc<span class="w"> </span>-o<span class="w"> </span>primes<span class="w"> </span>primes.c
+%<span class="w"> </span><span class="nb">time</span><span class="w"> </span>./primes
 <span class="m">22044</span>
-./primes  <span class="m">2</span>.79s user <span class="m">0</span>.00s system <span class="m">99</span>% cpu <span class="m">2</span>.795 total
+./primes<span class="w">  </span><span class="m">2</span>.79s<span class="w"> </span>user<span class="w"> </span><span class="m">0</span>.00s<span class="w"> </span>system<span class="w"> </span><span class="m">99</span>%<span class="w"> </span>cpu<span class="w"> </span><span class="m">2</span>.795<span class="w"> </span>total
 </code></pre></div>
 
 
-<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> python primes.py
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span><span class="nb">time</span><span class="w"> </span>python<span class="w"> </span>primes.py
 <span class="m">22043</span>
-python primes.py  <span class="m">233</span>.53s user <span class="m">0</span>.44s system <span class="m">99</span>% cpu <span class="m">3</span>:54.17 total
+python<span class="w"> </span>primes.py<span class="w">  </span><span class="m">233</span>.53s<span class="w"> </span>user<span class="w"> </span><span class="m">0</span>.44s<span class="w"> </span>system<span class="w"> </span><span class="m">99</span>%<span class="w"> </span>cpu<span class="w"> </span><span class="m">3</span>:54.17<span class="w"> </span>total
 </code></pre></div>
 
 
 <p>Wow! 83 times slower. Nothing too suprising, though: just the difference between an interpreted language like Python, and a compiled language like C. </p>
 <p>But wait, I do use another scripting language regularly: JavaScript. Let's see how JavaScript fares.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">isPrime</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">n</span> <span class="o">/</span> <span class="mf">2</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">n</span> <span class="o">%</span> <span class="nx">i</span><span class="p">))</span> <span class="k">return</span> <span class="mf">0</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="mf">1</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">isPrime</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nx">i</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">numPrimes</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mf">250001</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">numPrimes</span> <span class="o">+=</span> <span class="nx">isPrime</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">numPrimes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">250001</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">numPrimes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">isPrime</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">numPrimes</span><span class="p">)</span>
@@ -109,27 +109,27 @@ python primes.py  <span class="m">233</span>.53s user <span class="m">0</span>.4
 
 
 <p>Since JavaScript is another interpreted language, we'd expect its performance to be closer to Python than to compiled C, right?</p>
-<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> node primes.js
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span><span class="nb">time</span><span class="w"> </span>node<span class="w"> </span>primes.js
 <span class="m">22044</span>
-node primes.js  <span class="m">1</span>.49s user <span class="m">0</span>.04s system <span class="m">96</span>% cpu <span class="m">1</span>.574 total
+node<span class="w"> </span>primes.js<span class="w">  </span><span class="m">1</span>.49s<span class="w"> </span>user<span class="w"> </span><span class="m">0</span>.04s<span class="w"> </span>system<span class="w"> </span><span class="m">96</span>%<span class="w"> </span>cpu<span class="w"> </span><span class="m">1</span>.574<span class="w"> </span>total
 </code></pre></div>
 
 
 <p>What?! 87 percent faster than the compiled C program? Is JavaScript really faster than C?</p>
 <p>Well, not quite, we forgot to turn optimization on when we compiled our C code: </p>
-<div class="highlight"><pre><span></span><code>% gcc -O -o primes primes.c
-% <span class="nb">time</span> ./primes
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>gcc<span class="w"> </span>-O<span class="w"> </span>-o<span class="w"> </span>primes<span class="w"> </span>primes.c
+%<span class="w"> </span><span class="nb">time</span><span class="w"> </span>./primes
 <span class="m">22044</span>
-./primes  <span class="m">0</span>.87s user <span class="m">0</span>.01s system <span class="m">84</span>% cpu <span class="m">1</span>.032 total
+./primes<span class="w">  </span><span class="m">0</span>.87s<span class="w"> </span>user<span class="w"> </span><span class="m">0</span>.01s<span class="w"> </span>system<span class="w"> </span><span class="m">84</span>%<span class="w"> </span>cpu<span class="w"> </span><span class="m">1</span>.032<span class="w"> </span>total
 </code></pre></div>
 
 
 <p>We can let out a sigh of relief, C with basic optimizations is still 71% faster than our JavaScript code.<sup id="fnref:footnote"><a class="footnote-ref" href="#fn:footnote">1</a></sup> </p>
 <p>So why is JavaScript so fast? Well, node uses V8, which utilizes a tracing JIT compiler. While code is running, it looks for segments of "hot" code to optimize into machine code. Since our program is two big hot loops, they get optimized and JavaScript runs this simple algorithm on the order of as fast as C.</p>
 <p>But wait, Python also has an implementation with a tracing JIT compiler, called pypy. So can Python achieve the same performance?</p>
-<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> pypy primes.py
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span><span class="nb">time</span><span class="w"> </span>pypy<span class="w"> </span>primes.py
 <span class="m">22044</span>
-pypy test.py  <span class="m">102</span>.81s user <span class="m">0</span>.39s system <span class="m">99</span>% cpu <span class="m">1</span>:43.39 total
+pypy<span class="w"> </span>test.py<span class="w">  </span><span class="m">102</span>.81s<span class="w"> </span>user<span class="w"> </span><span class="m">0</span>.39s<span class="w"> </span>system<span class="w"> </span><span class="m">99</span>%<span class="w"> </span>cpu<span class="w"> </span><span class="m">1</span>:43.39<span class="w"> </span>total
 </code></pre></div>
 
 
@@ -156,9 +156,9 @@ pypy test.py  <span class="m">102</span>.81s user <span class="m">0</span>.39s s
 
 
 <p>And now let's try pypy again:</p>
-<div class="highlight"><pre><span></span><code>% <span class="nb">time</span> pypy primes2.py
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span><span class="nb">time</span><span class="w"> </span>pypy<span class="w"> </span>primes2.py
 <span class="m">22044</span>
-pypy primes2.py  <span class="m">4</span>.18s user <span class="m">0</span>.07s system <span class="m">97</span>% cpu <span class="m">4</span>.364 total
+pypy<span class="w"> </span>primes2.py<span class="w">  </span><span class="m">4</span>.18s<span class="w"> </span>user<span class="w"> </span><span class="m">0</span>.07s<span class="w"> </span>system<span class="w"> </span><span class="m">97</span>%<span class="w"> </span>cpu<span class="w"> </span><span class="m">4</span>.364<span class="w"> </span>total
 </code></pre></div>
 
 
@@ -256,6 +256,6 @@ pypy primes2.py  <span class="m">4</span>.18s user <span class="m">0</span>.07s 
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

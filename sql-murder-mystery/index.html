@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content=" ../sql-murder-mystery ">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
   </head>
   
   <body class="Site">
@@ -47,18 +47,18 @@
 <p>Spoiler alert, here's how my experience went below:</p>
 <hr>
 <p>Alright, I know I want to look at the <code>crime_scene_reports</code>, but looking at the scheme table doesn't tell me what the <code>date</code> format is so I'll check first:</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">crime_scene_report</span> <span class="k">limit</span> <span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">crime_scene_report</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
 
 
-<div class="highlight"><pre><span></span><code>date        type    description                                         city
-20180115    robbery A Man Dressed as Spider-Man Is on a Robbery Spree   NYC
+<div class="highlight"><pre><span></span><code><span class="nx">date</span><span class="w">        </span><span class="k">type</span><span class="w">    </span><span class="nx">description</span><span class="w">                                         </span><span class="nx">city</span>
+<span class="mi">20180115</span><span class="w">    </span><span class="nx">robbery</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="nx">Man</span><span class="w"> </span><span class="nx">Dressed</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">Spider</span><span class="o">-</span><span class="nx">Man</span><span class="w"> </span><span class="nx">Is</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">Robbery</span><span class="w"> </span><span class="nx">Spree</span><span class="w">   </span><span class="nx">NYC</span>
 </code></pre></div>
 
 
 <p>Alright, looks like yyymmdd, so let's grab our crime scene report:</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">description</span> <span class="k">from</span> <span class="n">crime_scene_report</span> <span class="k">where</span> <span class="k">type</span> <span class="k">is</span> <span class="s1">&#39;murder&#39;</span>
-<span class="k">and</span> <span class="n">city</span> <span class="k">is</span> <span class="s1">&#39;SQL City&#39;</span> <span class="k">and</span> <span class="nb">date</span> <span class="k">is</span> <span class="s1">&#39;20180115&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">crime_scene_report</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;murder&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">city</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;SQL City&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;20180115&#39;</span>
 </code></pre></div>
 
 
@@ -70,48 +70,48 @@ somewhere on &quot;Franklin Ave&quot;.
 
 
 <hr>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="err">\</span><span class="o">*</span> <span class="k">from</span> <span class="n">person</span>
-<span class="k">where</span> <span class="n">name</span> <span class="k">like</span> <span class="s1">&#39;Annabel%&#39;</span>
-<span class="k">and</span> <span class="n">address_street_name</span> <span class="k">like</span> <span class="s1">&#39;Franklin%&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">person</span>
+<span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;Annabel%&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">address_street_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;Franklin%&#39;</span>
 </code></pre></div>
 
 
-<div class="highlight"><pre><span></span><code>id    name           license_id address_number address_street_name ssn
-16371 Annabel Miller 490173     103            Franklin Ave        318771143
+<div class="highlight"><pre><span></span><code><span class="nx">id</span><span class="w">    </span><span class="nx">name</span><span class="w">           </span><span class="nx">license_id</span><span class="w"> </span><span class="nx">address_number</span><span class="w"> </span><span class="nx">address_street_name</span><span class="w"> </span><span class="nx">ssn</span>
+<span class="mi">16371</span><span class="w"> </span><span class="nx">Annabel</span><span class="w"> </span><span class="nx">Miller</span><span class="w"> </span><span class="mi">490173</span><span class="w">     </span><span class="mi">103</span><span class="w">            </span><span class="nx">Franklin</span><span class="w"> </span><span class="nx">Ave</span><span class="w">        </span><span class="mi">318771143</span>
 </code></pre></div>
 
 
 <p>If it were real life, I'd probably try both <code>asc</code> and <code>desc</code> for the "last house."</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="err">\</span><span class="o">*</span> <span class="k">from</span> <span class="n">person</span>
-<span class="k">where</span> <span class="n">address_street_name</span> <span class="k">is</span> <span class="s1">&#39;Northwestern Dr&#39;</span>
-<span class="k">order</span> <span class="k">by</span> <span class="n">address_number</span> <span class="k">desc</span>
-<span class="k">limit</span> <span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">person</span>
+<span class="k">where</span><span class="w"> </span><span class="n">address_street_name</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;Northwestern Dr&#39;</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">address_number</span><span class="w"> </span><span class="k">desc</span>
+<span class="k">limit</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
 
 
-<div class="highlight"><pre><span></span><code>id    name           license_id address_number address_street_name ssn
-14887 Morty Schapiro 118009     4919           Northwestern Dr     111564949
+<div class="highlight"><pre><span></span><code><span class="nx">id</span><span class="w">    </span><span class="nx">name</span><span class="w">           </span><span class="nx">license_id</span><span class="w"> </span><span class="nx">address_number</span><span class="w"> </span><span class="nx">address_street_name</span><span class="w"> </span><span class="nx">ssn</span>
+<span class="mi">14887</span><span class="w"> </span><span class="nx">Morty</span><span class="w"> </span><span class="nx">Schapiro</span><span class="w"> </span><span class="mi">118009</span><span class="w">     </span><span class="mi">4919</span><span class="w">           </span><span class="nx">Northwestern</span><span class="w"> </span><span class="nx">Dr</span><span class="w">     </span><span class="mi">111564949</span>
 </code></pre></div>
 
 
 <hr>
 <p>I tried Morty's interview first and never actually went back to Annabel's (turns out she didn't have one).</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">transcript</span> <span class="k">from</span> <span class="n">interview</span> <span class="k">where</span> <span class="n">person_id</span> <span class="k">is</span> <span class="mi">14887</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">transcript</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">interview</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">person_id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mi">14887</span>
 </code></pre></div>
 
 
 <div class="highlight"><pre><span></span><code><span class="nv">transcript</span>
-<span class="nv">I</span> <span class="nv">heard</span> <span class="nv">a</span> <span class="nv">gunshot</span> <span class="nv">and</span> <span class="k">then</span> <span class="nv">saw</span> <span class="nv">a</span> <span class="nv">man</span> <span class="nv">run</span> <span class="nv">out</span>. <span class="nv">He</span> <span class="nv">had</span> <span class="nv">a</span>
-<span class="s2">&quot;</span><span class="s">Get Fit Now Gym</span><span class="s2">&quot;</span> <span class="nv">bag</span>. <span class="nv">The</span> <span class="nv">membership</span> <span class="nv">number</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">bag</span>
-<span class="nv">started</span> <span class="nv">with</span> <span class="s2">&quot;</span><span class="s">48Z</span><span class="s2">&quot;</span>. <span class="nv">Only</span> <span class="nv">gold</span> <span class="nv">members</span> <span class="nv">have</span> <span class="nv">those</span> <span class="nv">bags</span>.
-<span class="nv">The</span> <span class="nv">man</span> <span class="nv">got</span> <span class="nv">into</span> <span class="nv">a</span> <span class="nv">car</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">plate</span> <span class="nv">that</span> <span class="nv">included</span> <span class="s2">&quot;</span><span class="s">H42W</span><span class="s2">&quot;</span>.
+<span class="nv">I</span><span class="w"> </span><span class="nv">heard</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">gunshot</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">saw</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">man</span><span class="w"> </span><span class="nv">run</span><span class="w"> </span><span class="nv">out</span>.<span class="w"> </span><span class="nv">He</span><span class="w"> </span><span class="nv">had</span><span class="w"> </span><span class="nv">a</span>
+<span class="s2">&quot;Get Fit Now Gym&quot;</span><span class="w"> </span><span class="nv">bag</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">membership</span><span class="w"> </span><span class="nv">number</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">bag</span>
+<span class="nv">started</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="s2">&quot;48Z&quot;</span>.<span class="w"> </span><span class="nv">Only</span><span class="w"> </span><span class="nv">gold</span><span class="w"> </span><span class="nv">members</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">those</span><span class="w"> </span><span class="nv">bags</span>.
+<span class="nv">The</span><span class="w"> </span><span class="nv">man</span><span class="w"> </span><span class="nv">got</span><span class="w"> </span><span class="nv">into</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">car</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">plate</span><span class="w"> </span><span class="nv">that</span><span class="w"> </span><span class="nv">included</span><span class="w"> </span><span class="s2">&quot;H42W&quot;</span>.
 </code></pre></div>
 
 
 <p>Alright, another basic command here:</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">name</span> <span class="k">from</span> <span class="n">get_fit_now_member</span>
-<span class="k">where</span> <span class="n">id</span> <span class="k">like</span> <span class="s1">&#39;48Z%&#39;</span>
-<span class="k">and</span> <span class="n">membership_status</span> <span class="k">is</span> <span class="s1">&#39;gold&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">get_fit_now_member</span>
+<span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;48Z%&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">membership_status</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;gold&#39;</span>
 </code></pre></div>
 
 
@@ -122,11 +122,11 @@ Jeremy Bowers
 
 
 <p>Well now, not narrowed down yet. Finally we get to use some <code>join</code>s!</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">name</span> <span class="k">from</span> <span class="n">get_fit_now_member</span>
-<span class="k">join</span> <span class="n">person</span> <span class="k">on</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">person_id</span><span class="o">=</span><span class="n">person</span><span class="p">.</span><span class="n">id</span>
-<span class="k">join</span> <span class="n">drivers_license</span> <span class="k">on</span> <span class="n">person</span><span class="p">.</span><span class="n">license_id</span><span class="o">=</span><span class="n">drivers_license</span><span class="p">.</span><span class="n">id</span>
-<span class="k">where</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">id</span> <span class="k">like</span> <span class="s1">&#39;48Z%&#39;</span> <span class="k">and</span> <span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">membership_status</span> <span class="k">is</span> <span class="s1">&#39;gold&#39;</span>
-<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">plate_number</span> <span class="k">like</span> <span class="s1">&#39;%H42W%&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">get_fit_now_member</span>
+<span class="k">join</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">person_id</span><span class="o">=</span><span class="n">person</span><span class="p">.</span><span class="n">id</span>
+<span class="k">join</span><span class="w"> </span><span class="n">drivers_license</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">license_id</span><span class="o">=</span><span class="n">drivers_license</span><span class="p">.</span><span class="n">id</span>
+<span class="k">where</span><span class="w"> </span><span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;48Z%&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">get_fit_now_member</span><span class="p">.</span><span class="n">membership_status</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;gold&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">drivers_license</span><span class="p">.</span><span class="n">plate_number</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%H42W%&#39;</span>
 </code></pre></div>
 
 
@@ -138,7 +138,7 @@ Jeremy Bowers
 <p>There's our perp!</p>
 <hr>
 <p>The exercise goes on and asks you to find out the mastermind behind it, let's look to see if our perp had an interview:</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">transcript</span> <span class="k">from</span> <span class="n">interview</span> <span class="k">where</span> <span class="n">person_id</span> <span class="k">is</span> <span class="mi">67318</span><span class="err">​</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">transcript</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">interview</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">person_id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mi">67318</span><span class="err">​</span>
 </code></pre></div>
 
 
@@ -151,15 +151,15 @@ attended the SQL Symphony Concert 3 times in December 2017.
 
 
 <p>Alright now, challenge! Let's try to do this in a single shot. We're going to have to <code>join</code> our <code>person</code> and <code>drivers_license</code> tables with the <code>facebook_event_checkin</code> table.</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span> <span class="n">name</span><span class="p">,</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">event_name</span><span class="p">,</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="nb">date</span>
-<span class="k">from</span> <span class="n">person</span>
-<span class="k">join</span> <span class="n">drivers_license</span> <span class="k">on</span> <span class="n">person</span><span class="p">.</span><span class="n">license_id</span><span class="o">=</span><span class="n">drivers_license</span><span class="p">.</span><span class="n">id</span>
-<span class="k">join</span> <span class="n">facebook_event_checkin</span> <span class="k">on</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">person_id</span><span class="o">=</span><span class="n">person</span><span class="p">.</span><span class="n">id</span>
-<span class="k">where</span> <span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">event_name</span> <span class="k">like</span> <span class="s1">&#39;%symphony%&#39;</span>
-<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">car_make</span> <span class="k">is</span> <span class="s1">&#39;Tesla&#39;</span>
-<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">car_model</span> <span class="k">is</span> <span class="s1">&#39;Model S&#39;</span>
-<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">hair_color</span> <span class="k">is</span> <span class="s1">&#39;red&#39;</span>
-<span class="k">and</span> <span class="n">drivers_license</span><span class="p">.</span><span class="n">gender</span> <span class="k">is</span> <span class="s1">&#39;female&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">event_name</span><span class="p">,</span><span class="w"> </span><span class="n">facebook_event_checkin</span><span class="p">.</span><span class="nb">date</span>
+<span class="k">from</span><span class="w"> </span><span class="n">person</span>
+<span class="k">join</span><span class="w"> </span><span class="n">drivers_license</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">license_id</span><span class="o">=</span><span class="n">drivers_license</span><span class="p">.</span><span class="n">id</span>
+<span class="k">join</span><span class="w"> </span><span class="n">facebook_event_checkin</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">person_id</span><span class="o">=</span><span class="n">person</span><span class="p">.</span><span class="n">id</span>
+<span class="k">where</span><span class="w"> </span><span class="n">facebook_event_checkin</span><span class="p">.</span><span class="n">event_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%symphony%&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">drivers_license</span><span class="p">.</span><span class="n">car_make</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;Tesla&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">drivers_license</span><span class="p">.</span><span class="n">car_model</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;Model S&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">drivers_license</span><span class="p">.</span><span class="n">hair_color</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;red&#39;</span>
+<span class="k">and</span><span class="w"> </span><span class="n">drivers_license</span><span class="p">.</span><span class="n">gender</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="s1">&#39;female&#39;</span>
 </code></pre></div>
 
 
@@ -189,6 +189,6 @@ Miranda Priestly SQL Symphony Concert 20171229
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content=" ../javascript-lambda-anonymous ">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
   </head>
   
   <body class="Site">
@@ -56,25 +56,25 @@ itself: <em>the value in memory that the function</em> <strong>is</strong>, itse
 <p>It is worth here keeping a distinction in mind between <em>reference types</em> and 
 <em>value types</em>. Functions are a <em>reference type</em>, whereas types like strings or numbers 
 are <em>value types</em>. For value types, we get the following behavior as one might expect: </p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="mf">2</span> <span class="o">===</span> <span class="mf">2</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">2</span>
 <span class="kc">true</span>
-<span class="o">&gt;</span> <span class="mf">2</span><span class="o">+</span><span class="mf">2</span> <span class="o">===</span> <span class="mf">4</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="mf">2</span><span class="o">+</span><span class="mf">2</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">4</span>
 <span class="kc">true</span>
-<span class="o">&gt;</span> <span class="s1">&#39;four&#39;</span> <span class="o">===</span> <span class="s1">&#39;four&#39;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;four&#39;</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;four&#39;</span>
 <span class="kc">true</span>
-<span class="o">&gt;</span> <span class="s1">&#39;f&#39;</span><span class="o">+</span><span class="s1">&#39;our&#39;</span> <span class="o">===</span> <span class="s1">&#39;four&#39;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;f&#39;</span><span class="o">+</span><span class="s1">&#39;our&#39;</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;four&#39;</span>
 <span class="kc">true</span>
 </code></pre></div>
 
 
 <p>But for functions, we create separate objects each time we evaluate a function literal: </p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="p">((</span><span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">)</span> <span class="o">===</span> <span class="p">((</span><span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="p">((</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="p">((</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">x</span><span class="p">)</span>
 <span class="kc">false</span>
 </code></pre></div>
 
 
 <p>Arrays work similarly:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">]</span> <span class="o">===</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">]</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">]</span>
 <span class="kc">false</span>
 </code></pre></div>
 
@@ -108,12 +108,12 @@ an identifier as we talk about them in general programming. </p>
 <p>For example, let's use a JavaScript <em>function expression</em> to define a function with 
 a <code>name</code> property of <code>foo</code>, and then try to call it as if that name were a valid 
 identifier:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="kd">let</span> <span class="nx">fooVar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="nx">x</span> <span class="p">};</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">fooVar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="o">+</span><span class="nx">x</span><span class="w"> </span><span class="p">};</span>
 <span class="kc">undefined</span>
-<span class="o">&gt;</span> <span class="nx">fooVar</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">fooVar</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
 <span class="s1">&#39;foo&#39;</span>
-<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
-<span class="nx">Uncaught</span> <span class="ne">ReferenceError</span><span class="o">:</span> <span class="nx">foo</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">defined</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">Uncaught</span><span class="w"> </span><span class="ne">ReferenceError</span><span class="o">:</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">defined</span>
 </code></pre></div>
 
 
@@ -128,7 +128,7 @@ the function is being used in:
 Again, the essential point: whether a function is anonymous or not is a property 
 of the environment, not the function: foo above is anonymous in the outside environment, 
 but named in its own environment. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="mf">8</span> <span class="o">+</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mf">2</span><span class="p">)</span> <span class="o">?</span> <span class="mf">1</span> <span class="o">:</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">1</span><span class="p">)}(</span><span class="mf">6</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="mf">8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">foo</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">foo</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mf">1</span><span class="p">)}(</span><span class="mf">6</span><span class="p">);</span>
 <span class="mf">21</span>
 </code></pre></div>
 
@@ -138,23 +138,23 @@ for this function in the variable named <code>fooVar</code>. In fact, if we don'
 explicit name for the name field, ECMAScript's spec requires that an assignment 
 of a variable identifier to also set the internal name field of the function object 
 constructed, even works for arrow functions: </p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">};</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">x</span><span class="p">};</span>
 <span class="kc">undefined</span>
-<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">foo</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
 <span class="s1">&#39;foo&#39;</span>
-<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
 <span class="mf">4</span>
 </code></pre></div>
 
 
 <p>If you don't like the variable assignment example because it still had the identifier 
 <code>fooVar</code>, rest assured we can have genuinely <em>“named anonymous functions”</em> in JavaScript: </p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="mf">0</span> <span class="o">+</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span> <span class="p">}</span> <span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
 <span class="mf">4</span>
-<span class="o">&gt;</span> <span class="s2">&quot;this function is named &quot;</span> <span class="o">+</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">}</span> <span class="p">.</span> <span class="nx">name</span><span class="p">;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="s2">&quot;this function is named &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">x</span><span class="p">}</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="nx">name</span><span class="p">;</span>
 <span class="s2">&quot;this function is named foo&quot;</span>
-<span class="o">&gt;</span> <span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
-<span class="nx">Uncaught</span> <span class="ne">ReferenceError</span><span class="o">:</span> <span class="nx">foo</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">defined</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">foo</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">Uncaught</span><span class="w"> </span><span class="ne">ReferenceError</span><span class="o">:</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">defined</span>
 </code></pre></div>
 
 
@@ -202,6 +202,6 @@ lexical scoping and bound identifiers within an environment.</p>
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

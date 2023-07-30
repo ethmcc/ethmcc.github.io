@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content=" ../a-javascript-quine ">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
   </head>
   
   <body class="Site">
@@ -81,7 +81,7 @@ Return <code>! UTF16Encode(func.[[SourceText]])</code>.</p>
 <p>Now let's suppose we take JavaScript functions as our model of computation (which assumes we've looked after some pesky details, like that we've implemented some suitable class to handle arbitrarily large integer inputs, JavaScript's memory bound of <span class="math">\(2^{32}\)</span> notwithstanding our imagination). </p>
 <p>How is our indexing of partial-computable functions defined? To obtain the <span class="math">\(e'th\)</span> partial-computable function <span class="math">\(\varphi_e\)</span>, render <span class="math">\(e\)</span> in base <span class="math">\(1,112,064\)</span>, interpret it as a UTF-16 string, and run it as JavaScript source through a JavaScript interpreter. (There are a number of reasonable ways to define input and output here, or for a cleaner take, we could abstract away input-ouput and view the <span class="math">\(e'th\)</span> program as representing the <span class="math">\(e'th\)</span> computably-enumerable set.)</p>
 <p>Since JavaScript has a <code>.toString()</code> method built into its functions, finding fixed points is easy: given a total computable function <span class="math">\(f\)</span>, let <code>source</code> be some source code fed into our algorithm (however we've decided to handle input), compute <span class="math">\(f(f.toString())\)</span> and execute it like so: </p>
-<div class="highlight"><pre><span></span><code><span class="nx">source</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">source</span> <span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="nx">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">source</span><span class="w"> </span><span class="p">}</span>
 <span class="nx">f</span><span class="o">=</span><span class="nb">eval</span><span class="p">(</span><span class="nx">$</span><span class="p">{</span><span class="nx">source</span><span class="p">});</span>
 <span class="nx">f</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">toString</span><span class="p">())();</span>
 </code></pre></div>
@@ -170,6 +170,6 @@ Return <code>! UTF16Encode(func.[[SourceText]])</code>.</p>
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content=" ../sudoku ">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
   </head>
   
   <body class="Site">
@@ -132,7 +132,7 @@ and knight "chess sudoku" rules and add a consecutive rule:</p>
 <summary>Output ... </summary>
 
 <div class="highlight"><pre><span></span><code>----
-Solution <span class="c1">#0:</span>
+Solution<span class="w"> </span><span class="c1">#0:</span>
 ----
 <span class="m">147582936</span>
 <span class="m">693147582</span>
@@ -144,7 +144,7 @@ Solution <span class="c1">#0:</span>
 <span class="m">936471825</span>
 <span class="m">582936471</span>
 ----
-Solution <span class="c1">#1:</span>
+Solution<span class="w"> </span><span class="c1">#1:</span>
 ----
 <span class="m">162738495</span>
 <span class="m">495162738</span>
@@ -156,7 +156,7 @@ Solution <span class="c1">#1:</span>
 <span class="m">384951627</span>
 <span class="m">627384951</span>
 ----
-Solution <span class="c1">#2:</span>
+Solution<span class="w"> </span><span class="c1">#2:</span>
 ----
 <span class="m">159483726</span>
 <span class="m">726159483</span>
@@ -168,7 +168,7 @@ Solution <span class="c1">#2:</span>
 <span class="m">837261594</span>
 <span class="m">594837261</span>
 ----
-Solution <span class="c1">#3:</span>
+Solution<span class="w"> </span><span class="c1">#3:</span>
 ----
 <span class="m">174639285</span>
 <span class="m">528174639</span>
@@ -180,7 +180,7 @@ Solution <span class="c1">#3:</span>
 <span class="m">285741396</span>
 <span class="m">639285741</span>
 ----
-Solution <span class="c1">#4:</span>
+Solution<span class="w"> </span><span class="c1">#4:</span>
 ----
 <span class="m">627384951</span>
 <span class="m">384951627</span>
@@ -192,7 +192,7 @@ Solution <span class="c1">#4:</span>
 <span class="m">495162738</span>
 <span class="m">162738495</span>
 ----
-Solution <span class="c1">#5:</span>
+Solution<span class="w"> </span><span class="c1">#5:</span>
 ----
 <span class="m">582936471</span>
 <span class="m">936471825</span>
@@ -204,7 +204,7 @@ Solution <span class="c1">#5:</span>
 <span class="m">693147582</span>
 <span class="m">147582936</span>
 ----
-Solution <span class="c1">#6:</span>
+Solution<span class="w"> </span><span class="c1">#6:</span>
 ----
 <span class="m">639285741</span>
 <span class="m">285741396</span>
@@ -216,7 +216,7 @@ Solution <span class="c1">#6:</span>
 <span class="m">528174639</span>
 <span class="m">174639285</span>
 ----
-Solution <span class="c1">#7:</span>
+Solution<span class="w"> </span><span class="c1">#7:</span>
 ----
 <span class="m">594837261</span>
 <span class="m">837261594</span>
@@ -244,17 +244,17 @@ be converted back into a 2D grid list using <code>.to_grid()</code>: </p>
 <summary>Output ... </summary>
 
 <div class="highlight"><pre><span></span><code>----
-A solution grid:
+A<span class="w"> </span>solution<span class="w"> </span>grid:
 ----
-<span class="o">[[</span><span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span>, <span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span><span class="o">]</span>,
- <span class="o">[</span><span class="m">1</span>, <span class="m">5</span>, <span class="m">9</span>, <span class="m">4</span>, <span class="m">8</span>, <span class="m">3</span>, <span class="m">7</span>, <span class="m">2</span>, <span class="m">6</span><span class="o">]]</span>
+<span class="o">[[</span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span><span class="o">]</span>,
+<span class="w"> </span><span class="o">[</span><span class="m">1</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">6</span><span class="o">]]</span>
 </code></pre></div>
 
 
@@ -280,7 +280,7 @@ it for all kinds of other combinatorial problems:</p>
 
 <span class="n">N</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;----</span><span class="se">\n</span><span class="s2">Found </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">n_queens_problem</span><span class="p">(</span><span class="n">N</span><span class="p">))</span><span class="si">}</span><span class="s2"> solutions to the </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> queens problem&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;----</span><span class="se">\n</span><span class="s2">Found </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">n_queens_problem</span><span class="p">(</span><span class="n">N</span><span class="p">))</span><span class="si">}</span><span class="s2"> solutions to the </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> queens problem&quot;</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -289,7 +289,7 @@ it for all kinds of other combinatorial problems:</p>
 <summary>Output ... </summary>
 
 <div class="highlight"><pre><span></span><code>----
-Found <span class="m">92</span> solutions to the <span class="m">8</span> queens problem
+Found<span class="w"> </span><span class="m">92</span><span class="w"> </span>solutions<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="m">8</span><span class="w"> </span>queens<span class="w"> </span>problem
 </code></pre></div>
 
 
@@ -318,6 +318,6 @@ Found <span class="m">92</span> solutions to the <span class="m">8</span> queens
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

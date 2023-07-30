@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content=" ../pyenv-virtualenv ">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
   </head>
   
   <body class="Site">
@@ -44,28 +44,28 @@
 <hr>
 <h3>Installing <code>pyenv</code> and <code>pyenv-virtualenv</code></h3>
 <p>Here's how I use Homebrew to install <code>pyenv</code> and <code>pyenv-virtualenv</code>:</p>
-<div class="highlight"><pre><span></span><code>% brew install pyenv pyenv-virtualenv
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>pyenv<span class="w"> </span>pyenv-virtualenv
 </code></pre></div>
 
 
 <p>To configure your shell to use <code>pyenv</code> automatically as you navigate directories, you need to initialize both <code>pyenv</code> and <code>pyenv-virtualenv</code> each time you start a shell. Here's how I configured my <code>.zshrc</code> config file:</p>
-<div class="highlight"><pre><span></span><code>% <span class="nb">echo</span> <span class="s1">&#39;eval &quot;$(pyenv init -)&quot;&#39;</span> &gt;&gt; ~/.zshrc
-% <span class="nb">echo</span> <span class="s1">&#39;eval &quot;$(pyenv virtualenv-init -)&quot;&#39;</span> &gt;&gt; ~/.zshrc
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;eval &quot;$(pyenv init -)&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;eval &quot;$(pyenv virtualenv-init -)&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
 </code></pre></div>
 
 
 <hr>
 <h3>Setting the global Python version</h3>
 <p>You'll want to install the latest version of Python and set it as your global Python installation. When I wrote this, the latest Python stable release was 3.8.3:</p>
-<div class="highlight"><pre><span></span><code>pyenv install <span class="s1">&#39;3.8.3&#39;</span>
-pyenv global <span class="s1">&#39;3.8.3&#39;</span>
+<div class="highlight"><pre><span></span><code>pyenv<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;3.8.3&#39;</span>
+pyenv<span class="w"> </span>global<span class="w"> </span><span class="s1">&#39;3.8.3&#39;</span>
 </code></pre></div>
 
 
 <hr>
 <h3>Creating a new <code>pyenv</code> virtual environment</h3>
 <p>To create a new virtual environment, use the following syntax:</p>
-<div class="highlight"><pre><span></span><code>% pyenv virtualenv <span class="k">$(</span>version<span class="k">)</span> <span class="k">$(</span>venv_name<span class="k">)</span>
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>pyenv<span class="w"> </span>virtualenv<span class="w"> </span><span class="k">$(</span>version<span class="k">)</span><span class="w"> </span><span class="k">$(</span>venv_name<span class="k">)</span>
 </code></pre></div>
 
 
@@ -73,7 +73,7 @@ pyenv global <span class="s1">&#39;3.8.3&#39;</span>
 <hr>
 <h3>Setting the virtual environment for a directory</h3>
 <p>To set the virtual environment to be used in a particular directory, simply run:</p>
-<div class="highlight"><pre><span></span><code>% pyenv <span class="nb">local</span> <span class="k">$(</span>venv_name<span class="k">)</span>
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>pyenv<span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="k">$(</span>venv_name<span class="k">)</span>
 </code></pre></div>
 
 
@@ -82,7 +82,7 @@ pyenv global <span class="s1">&#39;3.8.3&#39;</span>
 <hr>
 <h3>Cleaning up a Python installation.</h3>
 <p>Your default Python installation may have gotten ugly if you haven't been using <code>pyenv</code> appropriately. This following shell command can help:</p>
-<div class="highlight"><pre><span></span><code>% pip uninstall -y -r &lt;<span class="o">(</span>pip freeze<span class="o">)</span>
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>pip<span class="w"> </span>uninstall<span class="w"> </span>-y<span class="w"> </span>-r<span class="w"> </span>&lt;<span class="o">(</span>pip<span class="w"> </span>freeze<span class="o">)</span>
 </code></pre></div>
 
 
@@ -91,7 +91,7 @@ pyenv global <span class="s1">&#39;3.8.3&#39;</span>
 <p>What about your global Python? I like to keep my system installation of python clean for macOS to use, and I like to automatically use the latest stable version of Python 3 in all my directories where I haven't set a virtual environment, which I also like to keep clean.</p>
 <p>For my virtual environments, for production I like to use specific projects for specific environments, that way I can dump a <code>pip</code> freeze file with minimal fuss to distribute a Python project. However, when hacking around I keep various toolsets. One for <code>django</code> projects, one for <code>flask</code> projects, one with <code>numpy</code> and <code>pandas</code>, one with <code>Pelican</code> (that I use to develop this website you're on now).</p>
 <p>If you want these various tools to be available to you in your day-to-day work flow outside of project environments, you can set your <code>global</code> environment to <em>multiple</em> <code>pyenv</code> environments like so:</p>
-<div class="highlight"><pre><span></span><code>% pyenv global <span class="m">3</span>.8.3 numpy pandas flask pelican django misc-tools system
+<div class="highlight"><pre><span></span><code>%<span class="w"> </span>pyenv<span class="w"> </span>global<span class="w"> </span><span class="m">3</span>.8.3<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>flask<span class="w"> </span>pelican<span class="w"> </span>django<span class="w"> </span>misc-tools<span class="w"> </span>system
 </code></pre></div>
 
 
@@ -114,6 +114,6 @@ pyenv global <span class="s1">&#39;3.8.3&#39;</span>
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

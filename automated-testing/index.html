@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content=" ../automated-testing ">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?039850d7">
+    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
   </head>
   
   <body class="Site">
@@ -40,60 +40,59 @@
 
     <section class="Article-content">
         <h2>What is automated testing?</h2>
-<p>It's common to hear people who aren't doing automated testing offer apologies: 
-it's "not for them'', it "doesn't fit their business model'', 
-it's not that they just haven't bothered to learn something new, it's that 
-they've really thought about it and believe they are making some sort of 
-productive tradeoff by avoiding it. </p>
-<p>Clearly we're carrying a great deal of baggage to the table 
-when we think of automated testing: impressions and prejudices about what 
-automated testing is, or what it means. </p>
+<p>It has been my experience that a great deal of baggage is frequently 
+brought into discussions of automated testing: impressions and prejudices 
+about what automated testing is, how it should be done, and often an 
+impression of what it is for or where it is applicable (and often, it is 
+claimed within the web development industry, not applicable).</p>
 <p>To cut through this, it helps to get back to basics. There are two obvious
 parts to automated testing: the automation, and the testing. </p>
 <p><strong><em>Testing</em></strong> is simply running your code to see if it does what you expected. </p>
 <p>To <strong><em>automate</em></strong> this process means that you <em>write code to help you</em> run your code, 
 <em>and to help you</em> check if it does what you expected.</p>
-<p>Testing is not just a <em>best practice</em>, it's inevitable. You are doing it whether you are 
-intentional about it or not. Spinning up your WebApp, hacking on some code and then watching 
-your hot-reload server update with your changes, is primarily an activity of testing. In 
-this case, you're testing by running a command and clicking around in the compiled program.</p>
-<p>In this sense, testing is without question what every developer spends the majority of 
-their dev time doing, regardless of whether or not they write automated tests.</p>
-<p>The most common kind of testing I've seen being done in Python web development is
-running a development server with hot reload:</p>
-<div class="highlight"><pre><span></span><code>flask --app myapp --debug run
+<p>It becomes very clear now that the <strong>testing</strong> portion here is not just 
+a <em>best practice</em>, it's an inevitable part of software development. 
+Whether you are intentional about it or not, spinning up your web server, 
+hacking on some code and then reloading to see your changes, is a testing activity. </p>
+<p>We can say more: testing is, with little question, what every developer spends 
+the majority of their dev time doing, regardless of whether or not they write 
+any automated tests.</p>
+<p>When I worked developing web applications in Python, the testing I saw most 
+frequently involved running a development server with hot reload:</p>
+<div class="highlight"><pre><span></span><code>flask<span class="w"> </span>--app<span class="w"> </span>myapp<span class="w"> </span>--debug<span class="w"> </span>run
 </code></pre></div>
 
 
-<div class="highlight"><pre><span></span><code>gunicorn --reload myapp:factory
+<div class="highlight"><pre><span></span><code>gunicorn<span class="w"> </span>--reload<span class="w"> </span>myapp:factory
 </code></pre></div>
 
 
 <p>The developer then clicks on things to see if their code does what they wanted. 
-This process is great, as you get a fast feedback cycle between:</p>
+This process is great, as you get a <strong>fast feedback cycle</strong> between:</p>
 <ul>
 <li>Making changes </li>
 <li>Seeing the results</li>
 </ul>
-<p>To be sure, this kind of manual testing is always necessary. 
-However, the tools available for automating bits of your testing can provide 
-<em>even faster</em> feedback cycles than even a hot-reloading development server.</p>
-<p>There is no doubt that you <em>can</em> devote a lot of time to writing tests in order to 
-obtain more safety or more reliability, and I would even advocate for stronger 
-testing methodologies for most projects. However, even if you are someone worried 
-chiefly about speed of development, the logic is clear:
+<p>This is frequently referred to as the <strong>inner programming loop</strong>, to draw 
+attention to its position as a performance bottleneck for programmer productivity. 
+If we can speed up this tight inner loop, so the story goes, we can speed up our 
+delivery of software. </p>
+<p>That is: while there is no doubt that you <em>can</em> devote a lot of time to writing tests in order to 
+obtain other goals, such as more safety or better reliability; even if 
+your only priority is speed of development, the logic is clear:
 * The faster you can test, the faster you can develop features. </p>
-<p>In fact, automation of testing is one of the easiest and most lucrative 
+<p>And in my experience, automation of testing tasks is one of the easiest and most lucrative 
 places to win back development time. </p>
 <h2>Arange, Act, Assert</h2>
-<p>All testing (<em>included manual testing</em>), can be broken
+<p>Software testing of all kinds (<em>included manual testing</em>) is most commonly broken down 
 into three steps</p>
 <ul>
 <li><strong><em>Arrange</em></strong>: setting up the entities that will be subject to test</li>
 <li><strong><em>Act</em></strong>: Carry out the behavior you want to test </li>
 <li><strong><em>Assert</em></strong>: Check to see if everything did what you wanted it to do</li>
 </ul>
-<p>This falls nicely into a <em>given, when, then</em> format. An example:</p>
+<p>This falls nicely into a <em>given, when, then</em> format. An example of a test written 
+in this style:</p>
 <ul>
 <li><em>Given</em> an agency in the database with id = <code>:id</code></li>
 <li><em>When</em> I hit the <code>delete/:id</code> endpoint</li>
@@ -110,9 +109,9 @@ combination of three obscure properties"</p>
 Indeed, a big part of automated testing frameworks are utilities to help 
 you package up precious canned entities so that they can be reused in tests. 
 These are called <em>test fixtures</em>. </p>
-<p>Automated testing provides a win here because these text fixtures can 
-be reused later, saving you the time of painstakingly reconstructing them, 
-possibly through the frontend.</p>
+<p>Automated testing provides a win here because by writing text fixtures as code, 
+you can easily reproduce them for many testing scenarios, saving you the time of 
+painstakingly reconstructing them by hand.</p>
 <h2>Act 🎬</h2>
 <p>The acting portion of testing usually isn't as hard to automate:</p>
 <ul>
@@ -214,6 +213,6 @@ them to the end.</p>
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>
