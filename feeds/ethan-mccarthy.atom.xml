@@ -155,16 +155,18 @@ This process is great, as you get a &lt;strong&gt;fast feedback cycle&lt;/strong
 &lt;li&gt;Making changes &lt;/li&gt;
 &lt;li&gt;Seeing the results&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;This loop betwee making changes and testing changes is frequently referred 
+&lt;p&gt;This loop between making changes and testing changes is frequently referred 
 to as the &lt;strong&gt;inner programming loop&lt;/strong&gt;, to draw 
 attention to its position as a performance bottleneck for programmer productivity. 
 If we can speed up this tight inner loop, so the story goes, we can speed up our 
 delivery of software.&lt;/p&gt;
-&lt;p&gt;While there is no doubt that you &lt;em&gt;can&lt;/em&gt; devote a lot of time to writing tests in order to 
-obtain other goals, such as more safety or better reliability; even if 
-your only priority is speed of development, the lesson is clear:
-* The faster you can test, the faster you can develop features. &lt;/p&gt;
-&lt;p&gt;In my experience, automation of testing tasks is one of the easiest and most lucrative 
+&lt;p&gt;While there is no doubt that you &lt;em&gt;can&lt;/em&gt; devote a lot of time to writing tests 
+with other goals in mind, even if your only priority were speed of development, 
+the lesson is clear:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The faster you can test, the faster you can develop features. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In my experience, automation of testing tasks is one of the easiest 
 places to win back development time. &lt;/p&gt;
 &lt;h2&gt;Arange, Act, Assert&lt;/h2&gt;
 &lt;p&gt;Software testing of all kinds (&lt;em&gt;included manual testing&lt;/em&gt;) is most commonly broken down 
@@ -261,9 +263,9 @@ with test data you found by hand:&lt;/p&gt;
 
 &lt;p&gt;To run a file, just press the ▶️ button in your code editor or IDE,
 everything in the &lt;code&gt;__name__ == '__main__'&lt;/code&gt; block will be executed.&lt;/p&gt;
-&lt;p&gt;I would never recommend checking a test like this into source code 
-or into a test suite, but as a substitute for the manual process, 
-one click is a lot faster than the steps you'd have to take to 
+&lt;p&gt;I would never recommend checking a test like this into a test suite, 
+but as a substitute for the manual process there is no comparison.
+One click is a lot faster than the steps you'd have to take to 
 test manually: &lt;em&gt;starting your server, 
 opening up your browser, logging in, navigating to orders, finding 
 the right order, selecting the option you want to test from a 
