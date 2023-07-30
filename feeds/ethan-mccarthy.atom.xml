@@ -227,10 +227,13 @@ it as the expected result of an assert. ✂️&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;You will assert too much, leading to fragile tests 
 that break when they don't need to.&lt;/li&gt;
-&lt;li&gt;There are full featured programs for capturing the exact behavior of an 
-old version of a program and alerting you to every observable change in 
-behavior in a new version, don't try to replicate this facility in your 
-    handwritten tests.&lt;/li&gt;
+&lt;li&gt;There are full-featured tools, such as Jest's &lt;em&gt;Snapshot Testing&lt;/em&gt; features, 
+which can capturing the exact behavior of an 
+old version of a program and alert you to any changes of&lt;br&gt;
+behavior in a new version. This strategy of testing is sometimes called 
+&lt;em&gt;approval testing&lt;/em&gt;. This can be a useful strategy, but if you'd like to use 
+this approach I highly recommend adopting a tool for it rather than 
+attempting to manage hand-written snapshots in your ordinary unit tests. &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Automation isn't all-or-nothing&lt;/h2&gt;
 &lt;p&gt;The main point I'd like to get across here is that you, as a developer, 

@@ -146,10 +146,13 @@ it as the expected result of an assert. ✂️</p>
 <ul>
 <li>You will assert too much, leading to fragile tests 
 that break when they don't need to.</li>
-<li>There are full featured programs for capturing the exact behavior of an 
-old version of a program and alerting you to every observable change in 
-behavior in a new version, don't try to replicate this facility in your 
-    handwritten tests.</li>
+<li>There are full-featured tools, such as Jest's <em>Snapshot Testing</em> features, 
+which can capturing the exact behavior of an 
+old version of a program and alert you to any changes of<br>
+behavior in a new version. This strategy of testing is sometimes called 
+<em>approval testing</em>. This can be a useful strategy, but if you'd like to use 
+this approach I highly recommend adopting a tool for it rather than 
+attempting to manage hand-written snapshots in your ordinary unit tests. </li>
 </ul>
 <h2>Automation isn't all-or-nothing</h2>
 <p>The main point I'd like to get across here is that you, as a developer, 
