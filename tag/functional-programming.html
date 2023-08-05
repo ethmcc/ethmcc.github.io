@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content="https://ethmcc.github.io">
 
-    <link rel="stylesheet" href="../theme/css/style.min.css?52b545dd">
+    <link rel="stylesheet" href="../theme/css/style.min.css?fa5e11d2">
   </head>
   
   <body class="Site">
@@ -34,16 +34,38 @@
 <div class="Tag">
   <h1 class="Tag-header">Tagged in <em class="Tag-name">functional programming</em></h1>
   
-    <div class="Entry">
+<script>
+  function onSearch() {
+    var query = document.getElementById('search-box').value;
+    var entries = document.getElementsByClassName('Entry');
+    for (var i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+      var title = entry.getElementsByClassName('Entry-title')[0].innerText;
+      var description = entry.getElementsByClassName('Entry-description')[0].innerText;
+      if (title.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
+          description.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+        entry.style.display = 'block';
+      } else {
+        entry.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+<div class="Search">
+  <input type="text" id="search-box" placeholder="Search" onkeyup="onSearch()">
+</div>
+
+    <div class="Entry" id="flip-words-kata-haskell">
       <time datetime="2020-07-30" class="Entry-date">Jul 30, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="../flip-words-kata-haskell">Flipping words in Haskell</a>
-          <div class="Entry-description">A Code Kata involving a couple of Monads.</div>
-          <small>
-            <span class="WordCount">(1355 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="../flip-words-kata-haskell">Flipping words in Haskell</a>
+        </div>
+        <div class="Entry-description">A Code Kata involving a couple of Monads.</div>
+        <small>
+          <span class="WordCount">(1355 words)</span>
+        </small>
       </div>
     </div>
 

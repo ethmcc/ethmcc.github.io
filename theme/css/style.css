@@ -725,3 +725,30 @@ figcaption {
   background-color: var(--primaryColor);
   max-width: 100%;
 }
+
+/* Search bar */
+.Search {
+  margin: 0 auto;
+  padding: 0 1.8em;
+  max-width: var(--maxWidth);
+  text-align: center;
+  color: var(--mutedColor);
+}
+/* Rounded Search input */
+.Search input[type="text"] {
+  border-radius: 20px;
+  border: 1px solid var(--mutedColor);
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-family: var(--fontSerif);
+  width: 100%;
+  max-width: 400px;
+  margin: 1em auto auto auto;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primaryColor);
+  }
+}

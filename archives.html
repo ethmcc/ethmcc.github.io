@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
     <meta property="og:url" content="https://ethmcc.github.io">
 
-    <link rel="stylesheet" href="./theme/css/style.min.css?52b545dd">
+    <link rel="stylesheet" href="./theme/css/style.min.css?fa5e11d2">
   </head>
   
   <body class="Site">
@@ -32,184 +32,206 @@
     <div class="Site-content">
       <div class="u-container">
 
-    <div class="Entry">
+<script>
+  function onSearch() {
+    var query = document.getElementById('search-box').value;
+    var entries = document.getElementsByClassName('Entry');
+    for (var i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+      var title = entry.getElementsByClassName('Entry-title')[0].innerText;
+      var description = entry.getElementsByClassName('Entry-description')[0].innerText;
+      if (title.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
+          description.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+        entry.style.display = 'block';
+      } else {
+        entry.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+<div class="Search">
+  <input type="text" id="search-box" placeholder="Search" onkeyup="onSearch()">
+</div>
+
+    <div class="Entry" id="homoiconicity">
       <time datetime="2022-09-27" class="Entry-date">Sep 27, 2022</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./homoiconicity">On Homoiconicity</a>
-          <div class="Entry-description">Homoiconicity as a design concept</div>
-          <small>
-            <span class="WordCount">(907 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./homoiconicity">On Homoiconicity</a>
+        </div>
+        <div class="Entry-description">Homoiconicity as a design concept</div>
+        <small>
+          <span class="WordCount">(907 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="automated-testing">
       <time datetime="2022-08-01" class="Entry-date">Aug 01, 2022</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./automated-testing">On Automated Testing</a>
-          <div class="Entry-description">Thoughts on why automated testing is for you, even if you think it isn't; with examples relevant to Python web development</div>
-          <small>
-            <span class="WordCount">(1356 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./automated-testing">On Automated Testing</a>
+        </div>
+        <div class="Entry-description">Thoughts on why automated testing is for you, even if you think it isn't; with examples relevant to Python web development</div>
+        <small>
+          <span class="WordCount">(1356 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="brooks-architecture">
       <time datetime="2022-07-16" class="Entry-date">Jul 16, 2022</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./brooks-architecture">A Definition of Architecture</a>
-          <div class="Entry-description">A definition of software architecture from Frederick P. Brooks, Jr.</div>
-          <small>
-            <span class="WordCount">(214 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./brooks-architecture">A Definition of Architecture</a>
+        </div>
+        <div class="Entry-description">A definition of software architecture from Frederick P. Brooks, Jr.</div>
+        <small>
+          <span class="WordCount">(214 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="python-js-tracing-jit">
       <time datetime="2021-12-15" class="Entry-date">Dec 15, 2021</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./python-js-tracing-jit">Python and JavaScript performance</a>
-          <div class="Entry-description">Tracing JIT compilers, and an anecdotal view of Python and JavaScript performance.</div>
-          <small>
-            <span class="WordCount">(674 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./python-js-tracing-jit">Python and JavaScript performance</a>
+        </div>
+        <div class="Entry-description">Tracing JIT compilers, and an anecdotal view of Python and JavaScript performance.</div>
+        <small>
+          <span class="WordCount">(674 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="pomoduino">
       <time datetime="2021-03-28" class="Entry-date">Mar 28, 2021</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./pomoduino">Pomoduino time-management clock</a>
-          <div class="Entry-description">A pomodoro timer for Arduino-compatible microcontrollers.</div>
-          <small>
-            <span class="WordCount">(166 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./pomoduino">Pomoduino time-management clock</a>
+        </div>
+        <div class="Entry-description">A pomodoro timer for Arduino-compatible microcontrollers.</div>
+        <small>
+          <span class="WordCount">(166 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="weather">
       <time datetime="2020-12-20" class="Entry-date">Dec 20, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./weather">Weather Journal</a>
-          <div class="Entry-description">An Android application for keeping a journal of local weather conditions.</div>
-          <small>
-            <span class="WordCount">(135 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./weather">Weather Journal</a>
+        </div>
+        <div class="Entry-description">An Android application for keeping a journal of local weather conditions.</div>
+        <small>
+          <span class="WordCount">(135 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="a-javascript-quine">
       <time datetime="2020-08-20" class="Entry-date">Aug 20, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./a-javascript-quine">A JavaScript Quine, and the recursion theorem</a>
-          <div class="Entry-description">A very aesthetically pleasing ECMAScript 6 Quine, and an upsetting proof of Kleene's fixed-point theorem.</div>
-          <small>
-            <span class="WordCount">(694 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./a-javascript-quine">A JavaScript Quine, and the recursion theorem</a>
+        </div>
+        <div class="Entry-description">A very aesthetically pleasing ECMAScript 6 Quine, and an upsetting proof of Kleene's fixed-point theorem.</div>
+        <small>
+          <span class="WordCount">(694 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="sql-murder-mystery">
       <time datetime="2020-08-01" class="Entry-date">Aug 01, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./sql-murder-mystery">SQL Murder Mystery</a>
-          <div class="Entry-description">Practice your SQL commands with a fun diversion from Northwestern's Knight Labs.</div>
-          <small>
-            <span class="WordCount">(580 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./sql-murder-mystery">SQL Murder Mystery</a>
+        </div>
+        <div class="Entry-description">Practice your SQL commands with a fun diversion from Northwestern's Knight Labs.</div>
+        <small>
+          <span class="WordCount">(580 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="flip-words-kata-haskell">
       <time datetime="2020-07-30" class="Entry-date">Jul 30, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./flip-words-kata-haskell">Flipping words in Haskell</a>
-          <div class="Entry-description">A Code Kata involving a couple of Monads.</div>
-          <small>
-            <span class="WordCount">(1355 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./flip-words-kata-haskell">Flipping words in Haskell</a>
+        </div>
+        <div class="Entry-description">A Code Kata involving a couple of Monads.</div>
+        <small>
+          <span class="WordCount">(1355 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="javascript-lambda-anonymous">
       <time datetime="2020-07-08" class="Entry-date">Jul 08, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./javascript-lambda-anonymous">Lambdas and anonymous functions in JavaScript</a>
-          <div class="Entry-description">Lambda expressions, anonymous functions and JavaScript.</div>
-          <small>
-            <span class="WordCount">(1165 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./javascript-lambda-anonymous">Lambdas and anonymous functions in JavaScript</a>
+        </div>
+        <div class="Entry-description">Lambda expressions, anonymous functions and JavaScript.</div>
+        <small>
+          <span class="WordCount">(1165 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="sudoku-multicover">
       <time datetime="2020-05-23" class="Entry-date">May 23, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./sudoku-multicover">Representing Sudoku variants as set multicover problems</a>
-          <div class="Entry-description">How to represent variant sudoku puzzles as exact cover problems.</div>
-          <small>
-            <span class="WordCount">(1244 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./sudoku-multicover">Representing Sudoku variants as set multicover problems</a>
+        </div>
+        <div class="Entry-description">How to represent variant sudoku puzzles as exact cover problems.</div>
+        <small>
+          <span class="WordCount">(1244 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="dancing-links">
       <time datetime="2020-05-20" class="Entry-date">May 20, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./dancing-links">A Dancing Links implementation for set multicover</a>
-          <div class="Entry-description">An implementation of Knuth's Dancing Links for my sudoku solver.</div>
-          <small>
-            <span class="WordCount">(1264 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./dancing-links">A Dancing Links implementation for set multicover</a>
+        </div>
+        <div class="Entry-description">An implementation of Knuth's Dancing Links for my sudoku solver.</div>
+        <small>
+          <span class="WordCount">(1264 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="sudoku">
       <time datetime="2020-05-18" class="Entry-date">May 18, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./sudoku">A variant sudoku solver</a>
-          <div class="Entry-description">A Python module for solving variant sudoku.</div>
-          <small>
-            <span class="WordCount">(801 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./sudoku">A variant sudoku solver</a>
+        </div>
+        <div class="Entry-description">A Python module for solving variant sudoku.</div>
+        <small>
+          <span class="WordCount">(801 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="pyenv-virtualenv">
       <time datetime="2020-05-13" class="Entry-date">May 13, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./pyenv-virtualenv">Starting with pyenv-virtualenv in macOS</a>
-          <div class="Entry-description">A note-to-self about virtual environments and development in Python.</div>
-          <small>
-            <span class="WordCount">(536 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./pyenv-virtualenv">Starting with pyenv-virtualenv in macOS</a>
+        </div>
+        <div class="Entry-description">A note-to-self about virtual environments and development in Python.</div>
+        <small>
+          <span class="WordCount">(536 words)</span>
+        </small>
       </div>
     </div>
-    <div class="Entry">
+    <div class="Entry" id="miracle-sudoku">
       <time datetime="2020-05-11" class="Entry-date">May 11, 2020</time>
       <div class="Entry-detail">
-          <div class="Entry-title"><a href="./miracle-sudoku">On Miracle Sudoku</a>
-          <div class="Entry-description">An exploration of a pleasing variant sudoku with Knuth’s "Dancing Links".</div>
-          <small>
-            <span class="WordCount">(594 words)</span>
-          </small>
-
-          </div>
+        <div class="Entry-title">
+          <a href="./miracle-sudoku">On Miracle Sudoku</a>
+        </div>
+        <div class="Entry-description">An exploration of a pleasing variant sudoku with Knuth’s "Dancing Links".</div>
+        <small>
+          <span class="WordCount">(594 words)</span>
+        </small>
       </div>
     </div>
 
