@@ -309,7 +309,7 @@ and by &lt;em&gt;a detailed specification&lt;/em&gt; of as user interface: &lt;/
 &lt;/blockquote&gt;
 &lt;p&gt;We've largely given up on writing user manuals for software interfaces. 
 User interfaces are supposed to be "intuitive" and "self-explanatory", 
-using techniques like "progressive disclosure". 
+using techniques like &lt;em&gt;progressive disclosure&lt;/em&gt;. 
 User interfaces don't come with documents. 
 The modern equivalent of what Brooks is refering to is API documentation. &lt;/p&gt;
 &lt;p&gt;Then the modern interpretation of Brooks' definition of &lt;em&gt;architecture&lt;/em&gt; 
