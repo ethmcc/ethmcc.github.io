@@ -53,8 +53,9 @@ a random walk generated according to that distribution.</p>
 <p>I wrote a small program in Go to generate baby names using Markov chains.
 I grabbed a corpus of the top 1000 baby names (boys and girls) from 2023. Using
 the distribution of 4-grams produced good results.</p>
-<p>Go is enjoyable to use for this kind of work because of <code>go generate</code>, <code>go:embed</code>
-the wonderful <code>tinygo</code> compiler that targets WebAssembly.</p>
+<p>Go is enjoyable to use for this kind of work because of <code>go generate</code>, <code>go:embed</code>,
+and <code>tinygo</code>, a wonderful compiler that produces very small outputs for the
+WebAssembly target.</p>
 <p>Go <a href="../markov-baby">generate some baby names here</a>. The program runs
 entirely in your browser and generates names in chunks of 100 as you scroll.
 The algorithm constructs many familiar names, like <em>Maddison</em> and <em>Sawyer</em>,
