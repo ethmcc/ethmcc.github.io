@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> Baby Names and Markov Chains >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Generating baby names with Markov chains">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content=" Baby Names and Markov Chains ">
+    <meta property="og:description" content=" Generating baby names with Markov chains ">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content=" ../andreyevich-baby ">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?fa5e11d2">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> Baby Names and Markov Chains</h1>
+    <div class="Article-meta">
+      <time datetime="2024-09-23" class="Article-date">Sep 23, 2024</time>
+    </div>
+
+    <section class="Article-content">
+        <p>Recently I had the pleasure of reading <em>Shape</em> by Prof. Jordan Ellenberg.
+In Chapter 4, he describes Markov's use of his <em>chains</em>
+to model alliteration in Russian poetry.</p>
+<p>Markov is one of the seminal contributors to early constructive mathematics
+and recursion theory, the topics of my own research.
+The subject is very topical given today's excitement for "generative AI"
+and chatbots.</p>
+<p>Ellenberg describes an amusing use of Markov chains to generate baby names
+by computing the distribution of ngrams in a corpus of names, and then taking
+a random walk generated according to that distribution.</p>
+<p>I couldn't help but try this out for myself.</p>
+<p>I wrote a small program in Go to generate baby names using Markov chains.
+I grabbed a corpus of the top 1000 baby names (boys and girls) from 2023. Using
+the distribution of 4-grams produced good results.</p>
+<p>Go is enjoyable to use for this kind of work because of <code>go generate</code>, <code>go:embed</code>
+the wonderful <code>tinygo</code> compiler that targets WebAssembly.</p>
+<p>Go <a href="../markov-baby">generate some baby names here</a>. The program runs
+entirely in your browser and generates names in chunks of 100 as you scroll.
+The algorithm constructs many familiar names, like <em>Maddison</em> and <em>Sawyer</em>,
+and some original ones, like <em>Skylerine</em> and <em>Deanora</em>.</p>
+<p>I was lucky to have Jordan as a professor at Wisconsin, and he was gracious enough
+to serve on my thesis committee.</p>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="../tag/mathematics.html">mathematics</a>
+      <a href="../tag/programming.html">programming</a>
+      <a href="../tag/books.html">books</a>
+      <a href="../tag/go.html">go</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  </body>
+</html>

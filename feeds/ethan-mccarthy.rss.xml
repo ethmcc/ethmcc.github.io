@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>&gt;ethmcc - Ethan McCarthy</title><link>https://ethmcc.github.io/</link><description></description><lastBuildDate>Tue, 27 Sep 2022 00:00:00 -0400</lastBuildDate><item><title>On Homoiconicity</title><link>https://ethmcc.github.io/homoiconicity</link><description>&lt;p&gt;Recently I wanted to use the word &lt;em&gt;homoiconic&lt;/em&gt; to describe 
+<rss version="2.0"><channel><title>&gt;ethmcc - Ethan McCarthy</title><link>https://ethmcc.github.io/</link><description></description><lastBuildDate>Mon, 23 Sep 2024 00:00:00 -0400</lastBuildDate><item><title>Baby Names and Markov Chains</title><link>https://ethmcc.github.io/andreyevich-baby</link><description>&lt;p&gt;Recently I had the pleasure of reading &lt;em&gt;Shape&lt;/em&gt; by Prof. Jordan Ellenberg.
+In Chapter 4, he describes Markov's use of his &lt;em&gt;chains&lt;/em&gt;
+to model alliteration in Russian poetry.&lt;/p&gt;
+&lt;p&gt;Markov is one of the seminal contributors to early constructive mathematics
+and recursion theory, the topics of my own research.
+The subject …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Ethan McCarthy</dc:creator><pubDate>Mon, 23 Sep 2024 00:00:00 -0400</pubDate><guid isPermaLink="false">tag:ethmcc.github.io,2024-09-23:/andreyevich-baby</guid><category>mathematics</category><category>mathematics</category><category>programming</category><category>books</category><category>go</category></item><item><title>On Homoiconicity</title><link>https://ethmcc.github.io/homoiconicity</link><description>&lt;p&gt;Recently I wanted to use the word &lt;em&gt;homoiconic&lt;/em&gt; to describe 
 a design feature. I have my own idea of what meaning is 
 conveyed by the word, but decided I should probably look up 
 modern usage to see what meaning others might take from it. &lt;/p&gt;

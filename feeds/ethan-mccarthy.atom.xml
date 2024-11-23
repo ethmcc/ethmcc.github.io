@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"></link><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"></link><id>https://ethmcc.github.io/</id><updated>2022-09-27T00:00:00-04:00</updated><entry><title>On Homoiconicity</title><link href="https://ethmcc.github.io/homoiconicity" rel="alternate"></link><published>2022-09-27T00:00:00-04:00</published><updated>2022-09-27T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2022-09-27:/homoiconicity</id><summary type="html">&lt;p&gt;Recently I wanted to use the word &lt;em&gt;homoiconic&lt;/em&gt; to describe 
+<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"></link><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"></link><id>https://ethmcc.github.io/</id><updated>2024-09-23T00:00:00-04:00</updated><entry><title>Baby Names and Markov Chains</title><link href="https://ethmcc.github.io/andreyevich-baby" rel="alternate"></link><published>2024-09-23T00:00:00-04:00</published><updated>2024-09-23T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2024-09-23:/andreyevich-baby</id><summary type="html">&lt;p&gt;Recently I had the pleasure of reading &lt;em&gt;Shape&lt;/em&gt; by Prof. Jordan Ellenberg.
+In Chapter 4, he describes Markov's use of his &lt;em&gt;chains&lt;/em&gt;
+to model alliteration in Russian poetry.&lt;/p&gt;
+&lt;p&gt;Markov is one of the seminal contributors to early constructive mathematics
+and recursion theory, the topics of my own research.
+The subject …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently I had the pleasure of reading &lt;em&gt;Shape&lt;/em&gt; by Prof. Jordan Ellenberg.
+In Chapter 4, he describes Markov's use of his &lt;em&gt;chains&lt;/em&gt;
+to model alliteration in Russian poetry.&lt;/p&gt;
+&lt;p&gt;Markov is one of the seminal contributors to early constructive mathematics
+and recursion theory, the topics of my own research.
+The subject is very topical given today's excitement for "generative AI"
+and chatbots.&lt;/p&gt;
+&lt;p&gt;Ellenberg describes an amusing use of Markov chains to generate baby names
+by computing the distribution of ngrams in a corpus of names, and then taking
+a random walk generated according to that distribution.&lt;/p&gt;
+&lt;p&gt;I couldn't help but try this out for myself.&lt;/p&gt;
+&lt;p&gt;I wrote a small program in Go to generate baby names using Markov chains.
+I grabbed a corpus of the top 1000 baby names (boys and girls) from 2023. Using
+the distribution of 4-grams produced good results.&lt;/p&gt;
+&lt;p&gt;Go is enjoyable to use for this kind of work because of &lt;code&gt;go generate&lt;/code&gt;, &lt;code&gt;go:embed&lt;/code&gt;
+the wonderful &lt;code&gt;tinygo&lt;/code&gt; compiler that targets WebAssembly.&lt;/p&gt;
+&lt;p&gt;Go &lt;a href="../markov-baby"&gt;generate some baby names here&lt;/a&gt;. The program runs
+entirely in your browser and generates names in chunks of 100 as you scroll.
+The algorithm constructs many familiar names, like &lt;em&gt;Maddison&lt;/em&gt; and &lt;em&gt;Sawyer&lt;/em&gt;,
+and some original ones, like &lt;em&gt;Skylerine&lt;/em&gt; and &lt;em&gt;Deanora&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;I was lucky to have Jordan as a professor at Wisconsin, and he was gracious enough
+to serve on my thesis committee.&lt;/p&gt;</content><category term="mathematics"></category><category term="mathematics"></category><category term="programming"></category><category term="books"></category><category term="go"></category></entry><entry><title>On Homoiconicity</title><link href="https://ethmcc.github.io/homoiconicity" rel="alternate"></link><published>2022-09-27T00:00:00-04:00</published><updated>2022-09-27T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2022-09-27:/homoiconicity</id><summary type="html">&lt;p&gt;Recently I wanted to use the word &lt;em&gt;homoiconic&lt;/em&gt; to describe 
 a design feature. I have my own idea of what meaning is 
 conveyed by the word, but decided I should probably look up 
 modern usage to see what meaning others might take from it. &lt;/p&gt;
