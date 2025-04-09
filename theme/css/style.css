@@ -57,6 +57,23 @@
   --mutedPrimary: hsla(207, 48%, 26%, 0.8);
   --gray: #ccc;
   --grayHighlight: #f9f9f9;
+  
+  /* Color scheme */
+  color-scheme: light dark;
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fontColor: #e0e0e0;
+    --backgroundColor: #121212;
+    --primaryColor: hsl(207, 70%, 60%);
+    --secondaryColor: #5cb652;
+    --mutedColor: #aaa;
+    --mutedPrimary: hsla(207, 70%, 60%, 0.8);
+    --gray: #444;
+    --grayHighlight: #222;
+  }
 }
 
 /* Custom media queries */
