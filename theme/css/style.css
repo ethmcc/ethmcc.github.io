@@ -751,13 +751,15 @@ figcaption {
   text-align: center;
   color: var(--mutedColor);
 }
-/* Rounded Search input */
+/* Search input */
 .Search input[type="text"] {
-  border-radius: 20px;
-  border: 1px solid var(--mutedColor);
-  padding: 0.5em 1em;
+  border: none;
+  border-bottom: 1px solid var(--gray);
+  padding: 0.5em 0.2em;
   font-size: 1em;
   font-family: var(--fontSerif);
+  font-style: italic;
+  background-color: transparent;
   width: 100%;
   max-width: 400px;
   margin: 1em auto auto auto;
@@ -766,6 +768,12 @@ figcaption {
 
   &:focus {
     outline: none;
-    border-color: var(--primaryColor);
+    border-bottom: 1px solid var(--primaryColor);
+  }
+  
+  &::placeholder {
+    color: var(--mutedColor);
+    opacity: 0.7;
+    font-style: italic;
   }
 }
