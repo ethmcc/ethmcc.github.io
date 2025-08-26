@@ -52,11 +52,15 @@ I hope to write up my implementation in a future programming post.</p>
 <h2>Rules of the game:</h2>
 <p>A Miracle Sudoku is a variant Sudoku with the following additional constraints:</p>
 <ul>
-<li>Two “Chess Sudoku” constraints:</li>
+<li>Two “Chess Sudoku” constraints:<ul>
 <li>Cells which are separated by a Chess King’s move cannot contain the same digit.</li>
 <li>Cells which are separated by a Chess Knight’s move cannot contain the same digit.</li>
-<li>A consecutive constraint:</li>
+</ul>
+</li>
+<li>A consecutive constraint:<ul>
 <li>No two orthogonally adjacent cells may contain consecutive digits.</li>
+</ul>
+</li>
 </ul>
 <p>Any fully-filled Sudoku board can be rotated or reflected to obtain another fully-filled Sudoku board, 
 logically equivalent to the original. 
@@ -69,15 +73,21 @@ will preserves the adjacency constraint: inverting the labels of the
 digits 1 through 9 (relabelling each 9 as a 1, 8 as a 2, etc).</p>
 <h2>Theorems:</h2>
 <ul>
-<li>There are exactly 72 fully-filled Miracle Sudoku boards.</li>
+<li>There are exactly 72 fully-filled Miracle Sudoku boards.<ul>
 <li>There are a total of 72/8 = 9 essentially unique fully-filled Miracle Sudoku boards up to rotations and mirroring, one for each choice of the center digit as 1 through 9.</li>
 <li>Including both mirroring and inverting the labels 1 through 9, there are only 5 essentially unique fully-filled Miracle Sudoku boards, one for each choice of the center digit as 1 through 5.</li>
-<li>Any fully-filled Miracle Sudoku board can be obtained as the unique solution to a Miracle Sudoku puzzle with only two givens.</li>
+</ul>
+</li>
+<li>Any fully-filled Miracle Sudoku board can be obtained as the unique solution to a Miracle Sudoku puzzle with only two givens.<ul>
 <li>There is no uniquely-solvable Miracle Sudoku puzzle with only one given.</li>
 <li>In fact, the givens in any uniquely solvable Miracle Sudoku puzzle must bear at least two distinct numerals (in distinct rows and columns).</li>
-<li>There are 174,816 ways to set two givens such that the resulting Miracle Sudoku puzzle is uniquely solvable.</li>
+</ul>
+</li>
+<li>There are 174,816 ways to set two givens such that the resulting Miracle Sudoku puzzle is uniquely solvable.<ul>
 <li>This gives 174,816/8 = 21,852 essentially unique Miracle Sudoku puzzles bearing two givens (although many of these will quickly converge on each other when solving).</li>
 <li>A random choice of two distinct givens will result in a valid, uniquely solvable Miracle Sudoku puzzle just under 75% of the time.</li>
+</ul>
+</li>
 <li>A table of the 5 essentially unique Miracle Sudoku solutions is presented below, along with a table of all the full 72.</li>
 </ul>
 <h2>Table of Miracle Sudoku boards</h2>
@@ -190,6 +200,6 @@ You can spot some remarkable symetries in the layout of digits.</p>
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

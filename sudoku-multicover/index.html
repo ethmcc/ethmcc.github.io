@@ -56,9 +56,9 @@
 <p>It's easier to start with a simpler combinatorial example: the <em><span class="math">\(n\)</span> queens problem</em>. For <span class="math">\(n=8\)</span>, the problem asks to find a way to place <span class="math">\(8\)</span> queens on a standard chessboard so that no queen attacks any other queen.</p>
 <p>The problem can be represented as an exact cover problem with some optional constraints. The constraints can be identified with the rows (ranks) and columns (files) of the board, along with optional constraints for each diagonal. Each square on the board is a choice, satisfying the row, column, and two diagonals the square belongs to.</p>
 <p>In our <code>Sudoku.multicover</code> module, we can represent the <span class="math">\(8\)</span>-queens problem as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sudoku.multicover</span> <span class="kn">import</span> <span class="n">SetMultiCover</span> <span class="k">as</span> <span class="n">SMC</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sudoku.multicover</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetMultiCover</span> <span class="k">as</span> <span class="n">SMC</span>
 
-<span class="k">def</span> <span class="nf">n_queens_problem</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">n_queens_problem</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
     <span class="n">constraints</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">(</span><span class="s2">&quot;queen_on_position&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span> <span class="p">(</span>
             <span class="p">(</span><span class="s2">&quot;queen_on_rank&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
@@ -261,6 +261,6 @@ Found<span class="w"> </span><span class="m">92</span><span class="w"> </span>so
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

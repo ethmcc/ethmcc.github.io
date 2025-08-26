@@ -62,7 +62,7 @@
 
 
 <p>... with the naive equivalent in Python:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">isPrime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">isPrime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="p">)):</span>
       <span class="k">return</span> <span class="mi">0</span>
@@ -136,7 +136,7 @@ pypy<span class="w"> </span>test.py<span class="w">  </span><span class="m">102<
 <p>Over twice as fast as the CPython running time, but still orders of magnitude slower than JavaScript. What's going on? If both pypy and the V8 engine use the same basic techniques, shouldn't the performance be similar?</p>
 <p>Let's look at the code: they all have pretty much the same structure. What stands out in the Python version and not in the C and JavaScript versions is the use of Python's <code>range</code> iterator.</p>
 <p>Python doesn't have C-style loops, but we can emulate it with a while loop and post-increment:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">isPrime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">isPrime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
   <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
   <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
     <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="p">)):</span>
@@ -256,6 +256,6 @@ pypy<span class="w"> </span>primes2.py<span class="w">  </span><span class="m">4
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

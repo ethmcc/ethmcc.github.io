@@ -54,9 +54,9 @@
 <p>Including just the first generalization gives a <em>set multicover</em> problem, including the second gives a <em>multiset multicover</em> problem. </p>
 <p>A third generalization, which isn't required for traditional Sudoku but which is required for combinatorial puzzles like the <em><span class="math">\(n\)</span> queens problem</em> and which we'll require for our variant Sudoku module, is to allow for some constraints to be <em>optional</em>: meaning that they can fail to be satisfied, but must not be satisfied more than the specified limit of times.</p>
 <p>Our <code>SetMultiCover</code> class will take as its argument a dictionary of <code>choices</code>, where the keys are the choices and the corresponding values are sets of constraints satisfied by the choice.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SetMultiCover</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SetMultiCover</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">choices</span><span class="p">,</span> <span class="n">initial_choices</span><span class="o">=</span><span class="p">(),</span> <span class="n">multiplicities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">must_satisfy</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
 </code></pre></div>
@@ -120,10 +120,10 @@
             <span class="c1"># If we can&#39;t make all the initial choices, puzzle is unsolveable.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(())</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">it</span><span class="p">)</span>
 </code></pre></div>
 
@@ -157,7 +157,7 @@ find all the solutions.</p>
 
 <p>Once we've selected a column, we consider each choice of row in order and recurse down each of those branches of the search tree.</p>
 <p>Because we are considering a multicover problem with multiplicity, this column may remain selected, meaning we'd have to make multiple choices of rows from this column. To eliminate branching over different orders of those choices we enforce an order on rows by Python's built in <code>id()</code> serialization.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_dancing_links</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">last_choice</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_dancing_links</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">last_choice</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_constraints</span><span class="p">:</span>
             <span class="c1"># Matrix A has no columns, can yield the current partial</span>
@@ -193,7 +193,7 @@ find all the solutions.</p>
 
 
 <p>The <code>_make_choice</code> method needs to do a lot of book-keeping: once we've decided to choose a column <span class="math">\(j\)</span>, we need to go through the column and look at every corresponding row <span class="math">\(i\)</span> where <span class="math">\(A(i,j)=1\)</span>. For each such row <span class="math">\(i\)</span>, if that constraint has now been already satisfied its limited number of times, we need to go through it and remove every other column (<code>other_choice</code>) satisfying that constraint. </p>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">_make_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">_make_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">[</span><span class="n">choice</span><span class="p">]:</span>
             <span class="n">counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">which_counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span>
@@ -214,7 +214,7 @@ find all the solutions.</p>
 
 <p>One perhaps ugly feature we've commented on above is that as we apply this algorithm, we're only actually mutating the <code>constraint_to_choices</code> dictionaries, so if you want to modify this algorithm yourself, keep in mind that these dictionaries don't remain symmetric once the algorithm starts running. </p>
 <p>However, this symmetry is essential to make it easy to backtrack during our depth-first-search, since we have all the information we need to recover in the <code>choice_to_constraints</code> dictionary we haven't mutated:</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">_backtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">_backtrack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">choice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice_to_constraints</span><span class="p">[</span><span class="n">choice</span><span class="p">]:</span>
             <span class="n">counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">which_counter</span><span class="p">[</span><span class="n">constraint</span><span class="p">]</span>
@@ -312,6 +312,6 @@ find all the solutions.</p>
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

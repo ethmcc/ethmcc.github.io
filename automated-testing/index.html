@@ -167,12 +167,12 @@ will pay dividends.</p>
 checking of the results, you can start automating parts of the process today.</p>
 <p>Consider the following short test script, mixing automation to drive the test 
 with test data you found by hand:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function_you_want_to_test</span><span class="p">(</span><span class="n">order_id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">function_you_want_to_test</span><span class="p">(</span><span class="n">order_id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="c1"># your business logic functions up here</span>
     <span class="k">return</span> <span class="mi">1</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">my_app.config</span> <span class="kn">import</span> <span class="n">config</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">my_app.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span>
     <span class="n">config</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 
     <span class="n">order_id</span> <span class="o">=</span> <span class="mi">27</span> <span class="c1"># order_id you found in mysql workbench</span>
@@ -229,6 +229,6 @@ them to the end.</p>
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>

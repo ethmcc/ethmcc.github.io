@@ -42,12 +42,12 @@
         <p>In <a href="../miracle-sudoku">a previous post</a>, I enumerated the solutions to a recently-introduced variant sudoku called <em>Miracle Sudoku</em>, which combines several chess-sudoku constraints together with an adjacency constraint. </p>
 <p>In this post, I'll demonstrate the variant sudoku library I wrote to produce those counts.</p>
 <p>The set <code>multicover</code> module, with the dancing links implementation, and the <code>variant_sudoku</code> module are all combined into a single Python package that I've called <code>sudoku</code>. We can import the Sudoku class like this:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sudoku</span> <span class="kn">import</span> <span class="n">Sudoku</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sudoku</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sudoku</span>
 </code></pre></div>
 
 
 <p>You can also go ahead and import the <code>SetMultiCover</code> class using relative imports, if you want to apply it to other combinatorial problems:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sudoku.multicover</span> <span class="kn">import</span> <span class="n">SetMultiCover</span> <span class="k">as</span> <span class="n">SMC</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sudoku.multicover</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetMultiCover</span> <span class="k">as</span> <span class="n">SMC</span>
 </code></pre></div>
 
 
@@ -263,7 +263,7 @@ A<span class="w"> </span>solution<span class="w"> </span>grid:
 <p>The sudoku package is built on a powerful set-multicover module
 which uses Knuth's efficient algorithm X behind the scenes, you can use
 it for all kinds of other combinatorial problems:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">n_queens_problem</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">n_queens_problem</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
     <span class="n">constraints</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">(</span><span class="s2">&quot;queen_on_position&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span> <span class="p">(</span>
             <span class="p">(</span><span class="s2">&quot;queen_on_rank&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
@@ -318,6 +318,6 @@ Found<span class="w"> </span><span class="m">92</span><span class="w"> </span>so
 <footer class="Site-footer">
   <div class="u-separator"></div>
 </footer>
-  <script src="../theme/webassets-external/d25734465c6073ad0c9cfd9a468e4ca9_progress.js"></script>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
   </body>
 </html>
