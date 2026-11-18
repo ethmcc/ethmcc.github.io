@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"/><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"/><id>https://ethmcc.github.io/</id><updated>2024-09-23T00:00:00-04:00</updated><entry><title>Baby Names and Markov Chains</title><link href="https://ethmcc.github.io/andreyevich-baby" rel="alternate"/><published>2024-09-23T00:00:00-04:00</published><updated>2024-09-23T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2024-09-23:/andreyevich-baby</id><summary type="html">&lt;p&gt;Recently I had the pleasure of reading &lt;em&gt;Shape&lt;/em&gt; by Prof. Jordan Ellenberg.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>&gt;ethmcc - Ethan McCarthy</title><link href="https://ethmcc.github.io/" rel="alternate"/><link href="https://ethmcc.github.io/feeds/ethan-mccarthy.atom.xml" rel="self"/><id>https://ethmcc.github.io/</id><updated>2026-11-17T00:00:00-05:00</updated><entry><title>Self-driving cars and narrative debugging</title><link href="https://ethmcc.github.io/tesla-camera-only" rel="alternate"/><published>2026-11-17T00:00:00-05:00</published><updated>2026-11-17T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2026-11-17:/tesla-camera-only</id><summary type="html">&lt;p&gt;This clip is a great example of what working as a software engineer feels like: &lt;em&gt;&lt;a href="https://youtu.be/-5rtUVyxH5w?t=610&amp;amp;si=qZFses_MjbdR4I4Z"&gt;Tesla “Hater” Uses Full Self-Driving for a Month&lt;/a&gt;&lt;/em&gt;. In it, a Tesla refuses to engage self-driving, apparently because the front-facing camera is blinded by the sun. The tech reviewer concludes that camera-only systems are bad …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This clip is a great example of what working as a software engineer feels like: &lt;em&gt;&lt;a href="https://youtu.be/-5rtUVyxH5w?t=610&amp;amp;si=qZFses_MjbdR4I4Z"&gt;Tesla “Hater” Uses Full Self-Driving for a Month&lt;/a&gt;&lt;/em&gt;. In it, a Tesla refuses to engage self-driving, apparently because the front-facing camera is blinded by the sun. The tech reviewer concludes that camera-only systems are bad and the Tesla needs LiDAR.&lt;/p&gt;
+&lt;p&gt;The reality is that even if the car had LiDAR, it still wouldn't have been able to drive in this situation. A multi-sensor system may have its advantages, but it doesn't let you bypass the need for vision. You can't read road signs or traffic lights with lasers, so working cameras are a hard requirement either way.&lt;/p&gt;
+&lt;p&gt;So much of software engineering comes down to bridging gaps in logical thinking, often this exact distinction between necessary and sufficient conditions, in rooms where most stakeholders are operating on sentiment ("camera problem = camera-only bad").&lt;/p&gt;
+&lt;p&gt;It's the classic trap of reactive debugging. The sun blinded the optical sensor, the system safely refused to engage without necessary inputs, and the emotional temptation is to fall back on an ideological rejection of the sensor modality itself.&lt;/p&gt;
+&lt;p&gt;This same pattern shows up all over software:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The Database is Slow:&lt;/strong&gt; A query takes five seconds to return, and the immediate reaction is that the relational database engine is inadequate and we need to migrate to a distributed NoSQL store. The actual bottleneck? An unindexed table executing full table scans across millions of rows.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;The Microservices Pivot:&lt;/strong&gt; A monolithic service goes down because of an unhandled null pointer exception in a peripheral utility module. The resulting post-mortem turns into a mandate to immediately decompose the entire monolith into microservices, only quietly multiplying operational overhead and network failure modes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Software engineering is as much an exercise in human communication as it is in writing code. We spend a significant portion of our time building bridges between two very different worlds: the strict, logical invariants of a system, and the human tendency to experience, interpret, and react to friction through emotion and narrative.&lt;/p&gt;
+&lt;p&gt;Much of senior engineering leadership involves hearing and compassionately validating that frustration, but ultimately guiding the conversation back to dispassionate first-principles logic: what are the actual invariant requirements of the system, where can those invariants break down, and what are our planned failure modes when they do?&lt;/p&gt;</content><category term="programming"/><category term="leadership"/><category term="engineering"/><category term="debugging"/><category term="reliability"/></entry><entry><title>WebSocket Server with API Gateway</title><link href="https://ethmcc.github.io/api-gateway-ws" rel="alternate"/><published>2024-11-22T00:00:00-05:00</published><updated>2024-11-22T00:00:00-05:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2024-11-22:/api-gateway-ws</id><summary type="html">&lt;p&gt;Recently I wanted to evaluate the experience of writing infrastructure
+code with AWS CDK using C#.&lt;/p&gt;
+&lt;p&gt;I decided to write a simple WebSocket server using API Gateway and Lambda.
+The server uses API Gateway's built-in API key authentication. It persists
+connections in a DynamoDB table, allows users to connect, subscribe …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently I wanted to evaluate the experience of writing infrastructure
+code with AWS CDK using C#.&lt;/p&gt;
+&lt;p&gt;I decided to write a simple WebSocket server using API Gateway and Lambda.
+The server uses API Gateway's built-in API key authentication. It persists
+connections in a DynamoDB table, allows users to connect, subscribe to topics,
+and broadcast messages to all other subscribers of a topic.&lt;/p&gt;
+&lt;p&gt;The infrastructure and source code is all written in C# with CDK. The server
+is implemented in C# as a Lambda function targeting the .NET 8.0 runtime.&lt;/p&gt;
+&lt;p&gt;I have extensive experience writing terraform in &lt;code&gt;HCL&lt;/code&gt;, writing AWS &lt;code&gt;cdk&lt;/code&gt; in typescript, and
+using terraform's &lt;code&gt;cdktf&lt;/code&gt; tool (also in typescript) for writing IaC.
+C# is quite popular in my industry
+(fintech), and is not without its advantages over node runtimes. However, sourcing&lt;br&gt;
+developers comfortable contributing across multiple languages and ecosystems can be
+somewhat challenging.
+I wanted to see what the experience is like to write everything--lambda code and infrastructure--
+exclusively in C# with CDK and the Lambda .NET runtime.&lt;/p&gt;
+&lt;p&gt;The source code is available upon request.&lt;/p&gt;
+&lt;p&gt;Some highlights: AWS Lambda .NET Blueprints and .NET Core Global Tools for AWS.&lt;/p&gt;
+&lt;p&gt;Some downsides:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cross-platform compilation: the official documentation still warns about cross-compilation issues for
+  native AoT compilation. The .NET Lambda CLI will spin up a whole Docker container&lt;br&gt;
+  to compile your image in. These are the kind of cloud-computing issues Go set out to solve at the outset, and the story in .NET world is still not nearly as nice.&lt;/li&gt;
+&lt;li&gt;Again on native AoT: Serialization is a mixed bag. You will have to dig into nitty-gritty
+  details of what serialization options are supported for source generated serialization.&lt;/li&gt;
+&lt;li&gt;CDK constructs: some AWS features are still in Alpha CDK packages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Overall, it's an experience still filled with the sorts of pitfalls and gotchas that, in my
+experience, will trip up developers. These kinds of issues lead to "golden config" pressures that CDK
+otherwise helps to alleviate. At this stage, C# is not going to replace Node as a go-to for fast
+prototyping, and as a second-language to turn to for performance, it's not as stable an experience
+on CDK and Lambda as Go.&lt;/p&gt;
+&lt;p&gt;Where does this all seem to be going?
+Perhaps C# on CDK will mature into a more stable experience. However, with other trends in the
+industry, that may not matter as much:
+projects like &lt;code&gt;cdktf&lt;/code&gt; are leaning heavily toward construct library design. Terraform has its
+&lt;code&gt;cdktf constructs&lt;/code&gt; library, and an architecture for publishing and distributing constructs,
+but only for TypeScript. All of this suggests serverless tooling will continue to favor a
+TypeScript-everywhere world.&lt;/p&gt;</content><category term="programming"/><category term="csharp"/><category term="dotnet"/><category term="programming"/><category term="aws"/><category term="cdk"/><category term="serverless"/></entry><entry><title>Baby Names and Markov Chains</title><link href="https://ethmcc.github.io/andreyevich-baby" rel="alternate"/><published>2024-09-23T00:00:00-04:00</published><updated>2024-09-23T00:00:00-04:00</updated><author><name>Ethan McCarthy</name></author><id>tag:ethmcc.github.io,2024-09-23:/andreyevich-baby</id><summary type="html">&lt;p&gt;Recently I had the pleasure of reading &lt;em&gt;Shape&lt;/em&gt; by Prof. Jordan Ellenberg.
 In Chapter 4, he describes Markov's use of his &lt;em&gt;chains&lt;/em&gt;
 to model alliteration in Russian poetry.&lt;/p&gt;
 &lt;p&gt;Markov is one of the seminal contributors to early constructive mathematics

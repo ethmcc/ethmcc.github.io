@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Posts >ethmcc</title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Mathematician and computer scientist Ethan McCarthy. My personal website, containing my curriculum vitae, research and projects.">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content="Posts >ethmcc">
+    <meta property="og:description" content="Mathematician and computer scientist Ethan McCarthy. My personal website, containing my curriculum vitae, research and projects.">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content="https://ethmcc.github.io">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?f4f41412">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Tag">
+  <h1 class="Tag-header">Tagged in <em class="Tag-name">debugging</em></h1>
+  
+<script>
+  function onSearch() {
+    var query = document.getElementById('search-box').value;
+    var entries = document.getElementsByClassName('Entry');
+    for (var i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+      var title = entry.getElementsByClassName('Entry-title')[0].innerText;
+      var description = entry.getElementsByClassName('Entry-description')[0].innerText;
+      if (title.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
+          description.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+        entry.style.display = 'block';
+      } else {
+        entry.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+<div class="Search">
+  <input type="text" id="search-box" placeholder="Search" onkeyup="onSearch()">
+</div>
+
+    <div class="Entry" id="tesla-camera-only">
+      <time datetime="2026-11-17" class="Entry-date">Nov 17, 2026</time>
+      <div class="Entry-detail">
+        <div class="Entry-title">
+          <a href="../tesla-camera-only">Self-driving cars and narrative debugging</a>
+        </div>
+        <div class="Entry-description">Bridging the gap between gut-reaction narratives and first-principles engineering</div>
+        <small>
+          <span class="WordCount">(385 words)</span>
+        </small>
+      </div>
+    </div>
+
+
+
+</div>
+
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> Self-driving cars and narrative debugging >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Bridging the gap between gut-reaction narratives and first-principles engineering">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content=" Self-driving cars and narrative debugging ">
+    <meta property="og:description" content=" Bridging the gap between gut-reaction narratives and first-principles engineering ">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content=" ../tesla-camera-only ">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?f4f41412">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> Self-driving cars and narrative debugging</h1>
+    <div class="Article-meta">
+      <time datetime="2026-11-17" class="Article-date">Nov 17, 2026</time>
+    </div>
+
+    <section class="Article-content">
+        <p>This clip is a great example of what working as a software engineer feels like: <em><a href="https://youtu.be/-5rtUVyxH5w?t=610&amp;si=qZFses_MjbdR4I4Z">Tesla “Hater” Uses Full Self-Driving for a Month</a></em>. In it, a Tesla refuses to engage self-driving, apparently because the front-facing camera is blinded by the sun. The tech reviewer concludes that camera-only systems are bad and the Tesla needs LiDAR.</p>
+<p>The reality is that even if the car had LiDAR, it still wouldn't have been able to drive in this situation. A multi-sensor system may have its advantages, but it doesn't let you bypass the need for vision. You can't read road signs or traffic lights with lasers, so working cameras are a hard requirement either way.</p>
+<p>So much of software engineering comes down to bridging gaps in logical thinking, often this exact distinction between necessary and sufficient conditions, in rooms where most stakeholders are operating on sentiment ("camera problem = camera-only bad").</p>
+<p>It's the classic trap of reactive debugging. The sun blinded the optical sensor, the system safely refused to engage without necessary inputs, and the emotional temptation is to fall back on an ideological rejection of the sensor modality itself.</p>
+<p>This same pattern shows up all over software:</p>
+<ul>
+<li>
+<p><strong>The Database is Slow:</strong> A query takes five seconds to return, and the immediate reaction is that the relational database engine is inadequate and we need to migrate to a distributed NoSQL store. The actual bottleneck? An unindexed table executing full table scans across millions of rows.</p>
+</li>
+<li>
+<p><strong>The Microservices Pivot:</strong> A monolithic service goes down because of an unhandled null pointer exception in a peripheral utility module. The resulting post-mortem turns into a mandate to immediately decompose the entire monolith into microservices, only quietly multiplying operational overhead and network failure modes.</p>
+</li>
+</ul>
+<p>Software engineering is as much an exercise in human communication as it is in writing code. We spend a significant portion of our time building bridges between two very different worlds: the strict, logical invariants of a system, and the human tendency to experience, interpret, and react to friction through emotion and narrative.</p>
+<p>Much of senior engineering leadership involves hearing and compassionately validating that frustration, but ultimately guiding the conversation back to dispassionate first-principles logic: what are the actual invariant requirements of the system, where can those invariants break down, and what are our planned failure modes when they do?</p>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="../tag/leadership.html">leadership</a>
+      <a href="../tag/engineering.html">engineering</a>
+      <a href="../tag/debugging.html">debugging</a>
+      <a href="../tag/reliability.html">reliability</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
+  </body>
+</html>

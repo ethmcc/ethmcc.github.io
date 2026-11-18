@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> WebSocket Server with API Gateway >ethmcc </title>
+    <meta name="author" content="Ethan McCarthy">
+    <meta property="description" content="Writing a WebSocket server with API Gateway and Lambda">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <meta property="og:title" content=" WebSocket Server with API Gateway ">
+    <meta property="og:description" content=" Writing a WebSocket server with API Gateway and Lambda ">
+    <meta property="og:image" content="https://ethmcc.github.io/images/vert10.jpg"/>
+    <meta property="og:url" content=" ../api-gateway-ws ">
+
+    <link rel="stylesheet" href="../theme/css/style.min.css?f4f41412">
+  </head>
+  
+  <body class="Site">
+<header class="Site-header">
+  <nav class="Nav">
+    <div class="Nav-home">
+      <a href="..">>ethmcc</a>
+    </div>
+    <div class="Nav-sections">
+      <a class="Nav-section Nav-section--active" href="../archives">/posts</a>
+      <a class="Nav-section " href="../projects">/projects</a>
+      <a class="Nav-section " href="../resume">/resume</a>
+    </div>
+  </nav>
+  <div class="u-separator"></div>
+</header>
+    <div class="Site-content">
+      <div class="u-container">
+<div class="Page">
+  <article role="main" class="Article">
+    <h1 class="Article-title"> WebSocket Server with API Gateway</h1>
+    <div class="Article-meta">
+      <time datetime="2024-11-22" class="Article-date">Nov 22, 2024</time>
+    </div>
+
+    <section class="Article-content">
+        <p>Recently I wanted to evaluate the experience of writing infrastructure
+code with AWS CDK using C#.</p>
+<p>I decided to write a simple WebSocket server using API Gateway and Lambda.
+The server uses API Gateway's built-in API key authentication. It persists
+connections in a DynamoDB table, allows users to connect, subscribe to topics,
+and broadcast messages to all other subscribers of a topic.</p>
+<p>The infrastructure and source code is all written in C# with CDK. The server
+is implemented in C# as a Lambda function targeting the .NET 8.0 runtime.</p>
+<p>I have extensive experience writing terraform in <code>HCL</code>, writing AWS <code>cdk</code> in typescript, and
+using terraform's <code>cdktf</code> tool (also in typescript) for writing IaC.
+C# is quite popular in my industry
+(fintech), and is not without its advantages over node runtimes. However, sourcing<br>
+developers comfortable contributing across multiple languages and ecosystems can be
+somewhat challenging.
+I wanted to see what the experience is like to write everything--lambda code and infrastructure--
+exclusively in C# with CDK and the Lambda .NET runtime.</p>
+<p>The source code is available upon request.</p>
+<p>Some highlights: AWS Lambda .NET Blueprints and .NET Core Global Tools for AWS.</p>
+<p>Some downsides:</p>
+<ul>
+<li>Cross-platform compilation: the official documentation still warns about cross-compilation issues for
+  native AoT compilation. The .NET Lambda CLI will spin up a whole Docker container<br>
+  to compile your image in. These are the kind of cloud-computing issues Go set out to solve at the outset, and the story in .NET world is still not nearly as nice.</li>
+<li>Again on native AoT: Serialization is a mixed bag. You will have to dig into nitty-gritty
+  details of what serialization options are supported for source generated serialization.</li>
+<li>CDK constructs: some AWS features are still in Alpha CDK packages.</li>
+</ul>
+<p>Overall, it's an experience still filled with the sorts of pitfalls and gotchas that, in my
+experience, will trip up developers. These kinds of issues lead to "golden config" pressures that CDK
+otherwise helps to alleviate. At this stage, C# is not going to replace Node as a go-to for fast
+prototyping, and as a second-language to turn to for performance, it's not as stable an experience
+on CDK and Lambda as Go.</p>
+<p>Where does this all seem to be going?
+Perhaps C# on CDK will mature into a more stable experience. However, with other trends in the
+industry, that may not matter as much:
+projects like <code>cdktf</code> are leaning heavily toward construct library design. Terraform has its
+<code>cdktf constructs</code> library, and an architecture for publishing and distributing constructs,
+but only for TypeScript. All of this suggests serverless tooling will continue to favor a
+TypeScript-everywhere world.</p>
+    </section>
+
+
+    <p class="Article-tags">tagged in
+      <a href="../tag/csharp.html">csharp</a>
+      <a href="../tag/dotnet.html">dotnet</a>
+      <a href="../tag/programming.html">programming</a>
+      <a href="../tag/aws.html">aws</a>
+      <a href="../tag/cdk.html">cdk</a>
+      <a href="../tag/serverless.html">serverless</a>
+    </p>
+
+  </article>
+</div>
+<div id="progress" class="Progress"></div>
+      </div>
+    </div>
+
+<footer class="Site-footer">
+  <div class="u-separator"></div>
+</footer>
+  <script src="../theme/js/progress.min.js?bddfa680"></script>
+  </body>
+</html>
